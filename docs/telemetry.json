@@ -1,0 +1,54 @@
+{
+  "system_status": "HEALTHY",
+  "last_updated": "2026-09-07T16:32:54.624775+00:00",
+  "channels_count": 1,
+  "channels": [
+    {
+      "id": "db1b9cea-362f-4ded-819f-8d924b0881c0",
+      "name": "FutureStack AI Tech",
+      "niche": "AI Tools & Productivity Automation",
+      "mode": "APPROVAL_FIRST"
+    }
+  ],
+  "productions_count": 4,
+  "productions": [
+    {
+      "id": "feb7f434-6379-44bd-8dea-5527756477df",
+      "title": "Autonomous Video Production",
+      "status": "REVIEW_PENDING",
+      "format": "shorts",
+      "created_at": "2026-09-07T16:30:00.049168"
+    },
+    {
+      "id": "833c1c23-fe6b-44fd-917c-6cff427685a3",
+      "title": "Autonomous Video Production",
+      "status": "REVIEW_PENDING",
+      "format": "shorts",
+      "created_at": "2026-09-07T16:18:33.131611"
+    },
+    {
+      "id": "00f2cb67-991f-44c4-bfc1-ba90f90e1d6c",
+      "title": "Autonomous Video Production",
+      "status": "REVIEW_PENDING",
+      "format": "shorts",
+      "created_at": "2026-09-07T16:04:41.589592"
+    },
+    {
+      "id": "5bfe3a11-ba4c-4227-a639-608f7ffb23ac",
+      "title": "Autonomous Video Production",
+      "status": "REVIEW_PENDING",
+      "format": "shorts",
+      "created_at": "2026-09-07T15:49:18.835675"
+    }
+  ],
+  "quota": {
+    "used": 6400,
+    "limit": 10000,
+    "remaining": 3600
+  },
+  "budget": {
+    "daily_spent": 0.0,
+    "daily_limit": 25.0
+  },
+  "quality_gates_passed": true
+}

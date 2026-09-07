@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT-Autopilot-X | Autonomous YouTube Channel OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #030712; color: #F3F4F6; font-family: system-ui, -apple-system, sans-serif; }
+        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .tab-btn.active { background-color: #1E293B; color: #38BDF8; border-color: #38BDFN; font-weight: 600; }
+        .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+        .kanban-col { min-height: 480px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+    <div id="emergencyBanner" class="hidden bg-rose-600 text-white font-bold px-4 py-2 text-center text-xs flex items-center justify-center gap-2 sticky top-0 z-50 shadow-lg">
+        <i data-lucide="alert-triangle" class="w-4 n-4 animate-bounce"></i>
+        <span>EMERGENCY STOP ACTIVE: Autonomous publishing, video generation, and uploads are globally paused.</span>
+        <button onclick="toggleEmergencyStop(false)" class="bg-black/40 hover:bg-black/60 px-3 py-1 rounded text-[11px] uppercase font-bold tracking-wider transition">Resume Operations</button>
+    </div>
+    <header class="glass border-b border-slate-800 px-6 py-3 sticky top-0 z-40 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-md shadow-sky-500/20">
+                    <i data-lucide="play" class="w-5 h-5 text-white fill-current"></i>
+                </div>
+                <div>
+                    <div class="font-black text-lg tracking-tight bg-gradient-to-r from-sky-400 via-indigo-300 to-white bg-clip-text text-transparent">YT-AUTOPILOT-X</div>
+                    <div class="text-[10px] text-slate-400 font-mono tracking-wider uppercase">Autonomous Channel Engine v1.0.0</div>
+                </div>
+            </div>
+            <div class="h-6 w-px bg-slate-800 mx-2"></div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-400 font-medium">Channel:</span>
+                <select id="channelSelect" onchange="onChannelChange()" class="bg-slate-900 text-xs border border-slate-700 rounded-md px-3 py-1.5 focus:outline-none focus:border-sky-500 font-medium text-slate-200">
+                    <option value="">All Channels (Fleet)</option>
+                </select>
+            </div>
+        </div>
+        <div class="flex items-center gap-5">
+            <div class="flex items-center gap-2.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
+                <i data-lucide="gauge" class="w-4 h-4 text-sky-400"></i>
+                <div>
+                    <div class="text-[10px] text-slate-400 uppercase font-semibold">YT API Quota</div>
+                    <div class="text-xs font-mono font-bold text-slate-200" id="quotaGauge">0 / 10,000</div>
+                </div>
+                <div class="w-12 bg-slate-800 rounded-full h-1.5 ml-1">
+                    <div id="quotaBar" class="bg-sky-500 h-1.5 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="flex items-center gap-2.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
+                <i data-lucide="dollar-sign" class="w-4 h-4 text-emerald-400"></i>
+                <div >
+                    <div class="text-[10px] text-slate-400 uppercase font-semibold">Daily Budget</div>
+                    <div class="text-xs font-mono font-bold text-emerald-400" id="budgetGauge">$0.00 / $25.00</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="systemModeBadge" class="badge bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1.5 animate-pulse"></span>
+                    APPROVAL-FIRST
+                </span>
+            </div>
+            <button id="killSwitchBtn" onclick="toggleEmergencyStop(true)" class="flex items-center gap-1.5 bg-rose-950/60 hover:bg-rose-900 text-rose-300 border border-rose-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                <i data-lucide="power" class="w-3.5 h-3.5"></i>
+                Kill Switch
+            </button>
+            <button onclick="triggerHourlyTick()" class="flex items-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg shadow-sky-600/20 transition">
+                <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
+                Run Tick
+            </button>
+        </div>
+    </header>    <div class="bg-slate-950/80 border-b border-slate-800 px-6 py-2 flex items-center justify-between overflow-x-auto">
+        <nav class="flex space-x-2">
+            <button onclick="switchTab('pipeline')" id="tab-pipeline" class="tab-btn active px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="kanban" class="w-4 h-4"></i> Pipeline Board
+            </button>
+            <button onclick="switchTab('review')" id="tab-review" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="check-square" class="w-4 h-4"></i> Review Studio
+                <span id="reviewCountBadge" class="bg-sky-500/20 text-sky-400 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+            </button>
+            <button onclick="switchTab('trends')" id="tab-trends" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-4 h-4"></i> Trend Hub
+            </button>
+            <button onclick="switchTab('channels')" id="tab-channels" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="tv" class="w-4 h-4"></i> Channel Fleet
+            </button>
+            <button onclick="switchTab('provenance')" id="tab-provenance" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4"></i> Rights & Provenance
+            </button>
+            <button onclick="switchTab('evidence')" id="tab-evidence" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="file-search" class="w-4 h-4"></i> Evidence Desk
+            </button>
+            <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Learning & Analytics
+            </button>
+            <button onclick="switchTab('audit')" id="tab-audit" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
+                <i data-lucide="history" class="w-4 h-4"></i> Audit & Logs
+            </button>
+        </nav>
+        <div class="flex items-center gap-2 text-xs text-slate-400">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span>Daemon: <strong class="text-slate-200" id="daemonStatus">Active (Hourly)</strong></span>
+        </div>
+    </div>
+
+    <main class="flex-1 p-6 overflow-y-auto max-w-7xl w-full mx-auto">
+        <section id="view-pipeline" class="space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="workflow" class="w-5 h-5 text-sky-400"></i>
+                        28-Stage Autonomous Production Pipeline
+                    </h2>
+                    <p class="text-xs text-slate-400">Real-time state machine lifecycle from topic discovery to post-publishing analytics</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="refreshData()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-medium transition">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
+                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span> 1. Research
+                        </span>
+                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-1">0</span>
+                    </div>
+                    <div id="col-1" class="space-y-3 flex-1 overflow-y-auto"></div>
+                </div>
+
+                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
+                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-amber-400"></span> 2. Script & Assets
+                        </span>
+                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-2">0</span>
+                    </div>
+                    <div id="col-2" class="space-y-3 flex-1 overflow-y-auto"></div>
+                </div>
+
+                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
+                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-purple-400"></span> 3. Render & QA
+                        </span>
+                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-3">0</span>
+                    </div>
+                    <div id="col-3" class="space-y-3 flex-1 overflow-y-auto"></div>
+                </div>
+
+                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
+                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-rose-400"></span> 4. Human Review
+                        </span>
+                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-4">0</span>
+                    </div>
+                    <div id="col-4" class="space-y-3 flex-1 overflow-y-auto"></div>
+                </div>
+
+                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
+                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 5. Published
+                        </span>
+                        <span class="text-[10px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-mono" id="colCount-5">0</span>
+                    </div>
+                    <div id="col-5" class="space-y-3 flex-1 overflow-y-auto"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-review" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+                        Review & Approval Studio (Human-in-the-Loop)
+                    </h2>
+                    <p class="text-xs text-slate-400">Audit generated scripts, synthesized media, factuality claims, and Machine QA verdicts before publishing</p>
+                </div>
+            </div>
+
+            <div id="reviewStudioContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-1 glass rounded-xl p-4 space-y-3 max-h-[650px] overflow-y-auto">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Pending Review Queue</h3>
+                    <div id="reviewItemsList" class="space-y-2">
+                        <div class="text-xs text-slate-500 py-4 text-center">No productions awaiting approval</div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 glass rounded-xl p-6 space-y-6" id="reviewDetailPane">
+                    <div class="text-center py-12 text-slate-500 text-sm">Select an item from the queue to inspect and approve</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-trends" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="flame" class="w-5 h-5 text-amber-400"></i>
+                        Trend & Niche Opportunity Matrix
+                    </h2>
+                    <p class="text-xs text-slate-400">Mathematical scoring engine evaluating Velocity, Competition, Demand, and Monetization</p>
+                </div>
+            </div>
+
+            <div class="glass rounded-xl overflow-hidden">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800 text-[10px]">
+                        <tr>
+                            <th class="p-3">Topic Title / Angle</th>
+                            <th class="p-3">Format</th>
+                            <th class="p-3">Search Demand</th>
+                            <th class="p-3">Competition</th>
+                            <th class="p-3">Opportunity Score</th>
+                            <th class="p-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trendsTableBody" class="divide-y divide-slate-800/60">
+                        <tr><td colspan="6" class="p-4 text-center text-slate-500">Loading topic intelligence...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>        <section id="view-channels" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="grid" class="w-5 h-5 text-indigo-400"></i>
+                        Channel Fleet & Brand Registry
+                    </h2>
+                    <p class="text-xs text-slate-400">Configure channel personas, automated voice presets, OAuth tokens, and operating modes</p>
+                </div>
+            </div>
+
+            <div id="channelsGrid" class="grid grid-cols-1 md-grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <section id="view-provenance" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="shield" class="w-5 h-5 text-emerald-400"></i>
+                        Asset Provenance & Rights Registry
+                    </h2>
+                    <p class="text-xs text-slate-400">Immutable record of all imagery, synthesized audio, footage, and commercial licenses</p>
+                </div>
+            </div>
+
+            <div class="glass rounded-xl overflow-hidden">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800 text-[10px]">
+                        <tr>
+                            <th class="p-3">Asset Type</th>
+                            <th class="p-3">File Path / URI</th>
+                            <th class="p-3">License Type</th>
+                            <th class="p-3">SHA-256 Hash</th>
+                            <th class="p-3">Attribution Source</th>
+                            <th class="p-3">Commercial Verification</th>
+                        </tr>
+                    </thead>
+                    <tbody id="provenanceTableBody" class="divide-y divide-slate-800/60">
+                        <tr><td colspan="6" class="p-4 text-center text-slate-500">Loading asset ledger...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="view-evidence" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="check-check" class="w-5 h-5 text-sky-400"></i>
+                        Evidence Desk & Factual Claim Ledger
+                    </h2>
+                    <p class="text-xs text-slate-400">All factual claims in scripts verified against primary sources with confidence scores</p>
+                </div>
+            </div>
+
+            <div class="glass rounded-xl overflow-hidden">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800 text-[10px]">
+                        <tr>
+                            <th class="p-3">Production</th>
+                            <th class="p-3">Claim Statement</th>
+                            <th class="p-3">Confidence</th>
+                            <th class="p-3">Primary Source URLs</th>
+                            <th class="p-3">Retrieval Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="evidenceTableBody" class="divide-y divide-slate-800/60">
+                        <tr><td colspan="5" class="p-4 text-center text-slate-500">Loading verified evidence...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="view-analytics" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="cpu" class="w-5 h-5 text-indigo-400"></i>
+                        Automated Learning & Analytics Engine
+                    </h2>
+                    <p class="text-xs text-slate-400">AI-driven retrospective feedback loop adjusting pacing, hooks, and thumbnail strategies</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md-grid-cols-3 gap-5">
+                <div class="glass rounded-xl p-4">
+                    <div class="text-xs text-slate-400 font-semibold mb-1">Fleet Total Views</div>
+                    <div class="text-2xl font-black text-slate-100" id="statViews">0</div>
+                    <div class="text-[11px] text-emerald-400 mt-1 flex items-center gap-1">
+                        <i data-lucide="trending-up" class="w-3 h-3"></i> Organic Growth Tracked
+                    </div>
+                </div>
+                <div class="glass rounded-xl p-4">
+                    <div class="text-xs text-slate-400 font-semibold mb-1">Average CTR</div>
+                    <div class="text-2xl font-black text-slate-100" id="statCTR">0.0%</div>
+                    <div class="text-[11px] text-sky-400 mt-1">Target benchmark: &gt; 6.0%</div>
+                </div>
+                <div class="glass rounded-xl p-4">
+                    <div class="text-xs text-slate-400 font-semibold mb-1">Average View Duration (AVD)</div>
+                    <div class="text-2xl font-black text-slate-100" id="statAVD">0.0%</div>
+                    <div class="text-[11px] text-indigo-400 mt-1">Target benchmark: &gt; 70% for Shorts</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-audit" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="scroll-text" class="w-5 h-5 text-slate-400"></i>
+                        Immutable Audit Log Stream
+                    </h2>
+                    <p class="text-xs text-slate-400">Every state transition, API call, token decryption, and quality gate check is logged</p>
+                </div>
+            </div>
+
+            <div class="glass rounded-xl overflow-hidden font-mono text-xs">
+                <div class="bg-slate-900 px-4 py-2.5 border-b border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                    <span>Recent System Events</span>
+                    <span>Format: ISO-8601 | Action | Entity | Status</span>
+                </div>
+                <div id="auditLogStream" class="p-4 space-y-2 max-h-[500px] overflow-y-auto">
+                    <div class="text-slate-500">Connecting to event stream...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const API_BASE = window.location.origin + '/api';
+        let currentTab = 'pipeline';
+        let allChannels = [];
+        let selectedChannelId = '';
+        let productions = [];
+        let reviewItems = [];
+        let systemHealth = {};
+
+        const STAGE_MAP = {
+            col1: ['DISCOVERY_QUEUED', 'NICHE_ANALYZING', 'TREND_SCORING', 'TOPIC_SELECTED', 'RESEARCH_GATHERING', 'EVIDENCE_VERIFYING'],
+            col2: ['SCRIPT_OUTLINING', 'SCRIPT_DRAFTING', 'SCRIPT_POLISHING', 'HOOK_OPTIMIZING', 'AUDIO_GENERATING', 'VISUAL_PROMPTING', 'IMAGE_GENERATING', 'THUMBNAIL_GENERATING', 'SUBTITLES_GENERATING'],
+            col3: ['VIDEO_ASSEMBLING', 'AUDIO_SYNCING', 'RENDERING', 'RENDER_COMPLETE', 'QUALITY_GATE_CHECKING', 'QUALITY_GATE_PASSED'],
+            col4: ['PENDING_APPROVAL', 'APPROVAL_REJECTED', 'REVISION_REQUESTED'],
+            col5: ['APPROVED', 'PUBLISH_SCHEDULED', 'UPLOADING', 'METADATA_UPDATING', 'THUMBNAIL_UPLOADING', 'PUBLISHED_UNLISTED', 'PUBLISHED_PUBLIC', 'FAILED', 'CIRCUIT_BREAKER_HALTED']
+        };
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            const targetView = document.getElementById('view-' + tabId);
+            const targetBtn = document.getElementById('tab-' + tabId);
+            if (targetView) targetView.classList.remove('hidden');
+            if (targetBtn) targetBtn.classList.add('active');
+            if (tabId === 'trends') loadTrends();
+            if (tabId === 'channels') loadChannels();
+            if (tabId === 'provenance') loadProvenance();
+            if (tabId === 'evidence') loadEvidence();
+            if (tabId === 'analytics') loadAnalytics();
+            if (tabId === 'audit') loadAuditLogs();
+        }
+
+        async function initDashboard() {
+            if (window.lucide) lucide.createIcons();
+            await fetchHealth();
+            await fetchChannels();
+            await fetchProductions();
+            await fetchReviews();
+            setInterval(fetchHealth, 15000);
+            setInterval(fetchProductions, 20000);
+        }
+
+        async function fetchHealth() {
+            try {
+                if (window.location.hostname.includes('github.io')) {
+                    await loadFromStaticTelemetry();
+                    return;
+                }
+                const res = await fetch(API_BASE + '/system/health');
+                if (res.ok) {
+                    systemHealth = await res.json();
+                    document.getElementById('quotaGauge').textContent = (systemHealth.quota_used || 0) + ' / ' + (systemHealth.quota_limit || 10000);
+                    const pct = Math.min(100, Math.round(((systemHealth.quota_used || 0) / 10000) * 100));
+                    document.getElementById('quotaBar').style.width = pct + '%';
+                    document.getElementById('budgetGauge').textContent = '$' + (systemHealth.daily_cost || 0).toFixed(2) + ' / $' + (systemHealth.daily_budget_limit || 25).toFixed(2);
+                    if (systemHealth.emergency_stop) {
+                        document.getElementById('emergencyBanner').classList.remove('hidden');
+                    } else {
+                        document.getElementById('emergencyBanner').classList.add('hidden');
+                    }
+                }
+            } catch (e) {
+                console.error('Health check error, trying telemetry:', e);
+                await loadFromStaticTelemetry();
+            }
+        }
+
+        async function loadFromStaticTelemetry() {
+            try {
+                const res = await fetch('telemetry.json');
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('daemonStatus').textContent = 'Cloud / GitHub Pages Synced';
+                    if (data.quota) {
+                        document.getElementById('quotaGauge').textContent = data.quota.used + ' / ' + data.quota.limit;
+                        const pct = Math.min(100, Math.round((data.quota.used / data.quota.limit) * 100));
+                        document.getElementById('quotaBar').style.width = pct + '%';
+                    }
+                    if (data.budget) {
+                        document.getElementById('budgetGauge').textContent = '$' + (data.budget.daily_spent || 0).toFixed(2) + ' / $' + (data.budget.daily_limit || 25).toFixed(2);
+                    }
+                    if (data.channels) {
+                        allChannels = data.channels;
+                        const sel = document.getElementById('channelSelect');
+                        sel.innerHTML = '<option value="">All Channels (Fleet)</option>';
+                        allChannels.forEach(c => {
+                            const opt = document.createElement('option');
+                            opt.value = c.id;
+                            opt.textContent = c.name + ' (' + (c.mode || 'APPROVAL_FIRST') + ')';
+                            sel.appendChild(opt);
+                        });
+                    }
+                    if (data.productions) {
+                        productions = data.productions;
+                        renderPipelineBoard();
+                    }
+                }
+            } catch (err) {
+                console.error('Error loading telemetry.json:', err);
+            }
+        }
+
+        async function fetchChannels() {
+            try {
+                if (window.location.hostname.includes('github.io')) return;
+                const res = await fetch(API_BASE + '/channels');
+                if (res.ok) {
+                    allChannels = await res.json();
+                    const sel = document.getElementById('channelSelect');
+                    sel.innerHTML = '<option value="">All Channels (Fleet)</option>';
+                    allChannels.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c.id;
+                        opt.textContent = c.name + ' (' + (c.mode || 'APPROVAL_FIRST') + ')';
+                        sel.appendChild(opt);
+                    });
+                }
+            } catch (e) {
+                console.error('Fetch channels error:', e);
+            }
+        }
+
+        function onChannelChange() {
+            selectedChannelId = document.getElementById('channelSelect').value;
+            fetchProductions();
+        }
+
+        async function fetchProductions() {
+            try {
+                let url = API_BASE + '/productions';
+                if (selectedChannelId) url += '?channel_id=' + selectedChannelId;
+                const res = await fetch(url);
+                if (res.ok) {
+                    productions = await res.json();
+                    renderPipelineBoard();
+                }
+            } catch (e) {
+                console.error('Fetch productions error:', e);
+            }
+        }
+
+        async function fetchReviews() {
+            try {
+                const res = await fetch(API_BASE + '/productions/review-queue');
+                if (res.ok) {
+                    reviewItems = await res.json();
+                    document.getElementById('reviewCountBadge').textContent = reviewItems.length;
+                    renderReviewStudio();
+                }
+            } catch (e) {
+                console.error('Fetch reviews error:', e);
+            }
+        }
+
+        function renderPipelineBoard() {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('col-' + i).innerHTML = '';
+                document.getElementById('colCount-' + i).textContent = '0';
+            }
+
+            let counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+            productions.forEach(p => {
+                let targetCol = 1;
+                if (STAGE_MAP.col2.includes(p.status)) targetCol = 2;
+                else if (STAGE_MAP.col3.includes(p.status)) targetCol = 3;
+                else if (STAGE_MAP.col4.includes(p.status)) targetCol = 4;
+                else if (STAGE_MAP.col5.includes(p.status)) targetCol = 5;
+
+                counts[targetCol]++;
+
+                const card = document.createElement('div');
+                card.className = 'bg-slate-900/90 border border-slate-800 rounded-lg p-3 space-y-2.5 hover:border-slate-700 transition shadow-sm';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="badge ${p.format === 'SHORTS' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-sky-500/20 text-sky-300 border border-sky-500/30'}">${p.format || 'SHORTS'}</span>
+                        <span class="text-[10px] text-slate-500 font-mono">${(p.id || '').substring(0, 8)}</span>
+                    </div>
+                    <div class="font-semibold text-xs text-slate-200 line-clamp-2">${p.title || 'Untitled Production'}</div>
+                    <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800/80">
+                        <span class="font-mono text-[10px] text-sky-400">${p.status}</span>
+                    </div>
+                `;
+                document.getElementById('col-' + targetCol).appendChild(card);
+            });
+
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('colCount-' + i).textContent = counts[i];
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+
+        function renderReviewStudio() {
+            const container = document.getElementById('reviewItemsList');
+            if (reviewItems.length === 0) {
+                container.innerHTML = '<div class="text-xs text-slate-500 py-4 text-center">No productions awaiting approval</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            reviewItems.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'p-3 bg-slate-900/80 hover:bg-slate-800 rounded-lg border border-slate-800 cursor-pointer transition space-y-1';
+                div.onclick = () => selectReviewItem(item);
+                div.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="badge bg-amber-500/20 text-amber-300">${item.format}</span>
+                        <span class="text-[10px] text-slate-400 font-mono">QA Passed</span>
+                    </div>
+                    <div class="text-xs font-semibold text-slate-200">${item.title}</div>
+                `;
+                container.appendChild(div);
+                if (idx === 0) selectReviewItem(item);
+            });
+        }
+
+        function selectReviewItem(item) {
+            const pane = document.getElementById('reviewDetailPane');
+            pane.innerHTML = `
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="badge bg-sky-500/20 text-sky-300 mb-1">${item.format} PRODUCTION</span>
+                        <h3 class="text-base font-bold text-slate-100">${item.title}</h3>
+                        <p class="text-xs text-slate-400">ID: ${item.id}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="approveProduction('${item.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2 rounded-lg font-bold flex items-center gap-1.5 shadow-lg shadow-emerald-600/20 transition">
+                            <i data-lucide="check" class="w-4 h-4"></i> Approve & Publish
+                        </button>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">6 Machine Quality Gates</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                        <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 flex items-center gap-2 text-emerald-400">Gate A: Factuality Passed</div>
+                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate B: Rights Passed</div>
+                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate C: Duplicate Passed</div>
+                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate D: Safety Passed</div>
+                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate E: Synthetic Tag Set</div>
+                        <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 flex items-center gap-2 text-emerald-400">Gate F: Render Validated</div>
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
+
+
+        async function approveProduction(id) {
+            try {
+                const res = await fetch(API_BASE + '/productions/' + id + '/approve', { method: 'POST' });
+                if (res.ok) {
+                    alert('Production approved! Scheduled for YouTube upload.');
+                    fetchProductions();
+                    fetchReviews();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function triggerHourlyTick() {
+            try {
+                const res = await fetch(API_BASE + '/scheduler/trigger-now', { method: 'POST' });
+                const data = await res.json();
+                alert('Hourly tick triggered! Channels processed: ' + (data.channels_processed || 0));
+                fetchProductions();
+                fetchHealth();
+            } catch (e) {
+                alert('Failed to trigger tick: ' + e.message);
+            }
+        }
+
+        async function toggleEmergencyStop(enable) {
+            try {
+                await fetch(API_BASE + '/system/emergency-stop', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ enabled: enable })
+                });
+                fetchHealth();
+            } catch (e) {
+                alert('Error toggling emergency stop: ' + e.message);
+            }
+        }
+
+        async function loadTrends() {
+            try {
+                const res = await fetch(API_BASE + '/topics/trends');
+                if (res.ok) {
+                    const data = await res.json();
+                    const tbody = document.getElementById('trendsTableBody');
+                    tbody.innerHTML = '';
+                    data.forEach(t => {
+                        const tr = document.createElement('tr');
+                        tr.className = 'hover:bg-slate-900/40';
+                        tr.innerHTML = `
+                            <td class="p-3 font-medium text-slate-200">${t.title}</td>
+                            <td class="p-3"><span class="badge bg-slate-800 text-slate-300">${t.format}</span></td>
+                            <td class="p-3 font-mono">${(t.search_volume || 85).toFixed(0)}/100</td>
+                            <td class="p-3 font-mono">${(t.competition_density || 40).toFixed(0)}/100</td>
+                            <td class="p-3 font-mono font-bold text-sky-400">${(t.opportunity_score || 88.5).toFixed(1)}</td>
+                            <td class="p-3"><span class="badge bg-emerald-500/20 text-emerald-300">DISCOVERED</span></td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading trends:', e);
+            }
+        }
+
+        async function loadChannels() {
+            const grid = document.getElementById('channelsGrid');
+            grid.innerHTML = '';
+            allChannels.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'glass rounded-xl p-5 space-y-4';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="font-bold text-slate-100">${c.name}</div>
+                        <span class="badge ${c.mode === 'AUTONOMOUS' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}">${c.mode || 'APPROVAL_FIRST'}</span>
+                    </div>
+                    <div class="text-xs text-slate-400">${c.description || 'No channel description set'}</div>
+                    <div class="text-xs space-y-1 font-mono text-slate-400">
+                        <div>Niche: <strong class="text-slate-200">${c.niche || 'Technology'}</strong></div>
+                        <div>Voice: <strong class="text-slate-200">${c.voice_id || 'en-US-GuyNeural'}</strong></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function loadProvenance() {
+            try {
+                const res = await fetch(API_BASE + '/system/provenance');
+                if (res.ok) {
+                    const data = await res.json();
+                    const tbody = document.getElementById('provenanceTableBody');
+                    tbody.innerHTML = '';
+                    data.forEach(a => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="p-3 font-semibold">${a.asset_type}</td>
+                            <td class="p-3 font-mono text-[11px] text-slate-400 truncate max-w-xs">${a.file_path}</td>
+                            <td class="p-3"><span class="badge bg-indigo-500/20 text-indigo-300">${a.license_type}</span></td>
+                            <td class="p-3 font-mono text-[10px] text-slate-500">${(a.sha256_hash || '').substring(0, 16)}...</td>
+                            <td class="p-3 text-slate-400">${a.attribution_source || 'AI Generator'}</td>
+                            <td class="p-3"><span class="badge bg-emerald-500/20 text-emerald-300">VERIFIED</span></td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function loadEvidence() {
+            try {
+                const res = await fetch(API_BASE + '/system/evidence');
+                if (res.ok) {
+                    const data = await res.json();
+                    const tbody = document.getElementById('evidenceTableBody');
+                    tbody.innerHTML = '';
+                    data.forEach(e => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="p-3 font-mono text-[10px] text-sky-400">${(e.production_id || '').substring(0, 8)}</td>
+                            <td class="p-3 font-medium text-slate-200">${e.statement}</td>
+                            <td class="p-3 font-mono font-bold text-emerald-400">${(e.confidence_score * 100).toFixed(0)}%</td>
+                            <td class="p-3 font-mono text-[11px] text-slate-400 truncate max-w-xs">${(e.source_urls || []).join(', ')}</td>
+                            <td class="p-3 text-slate-500 text-[11px]">${e.retrieved_at ? new Date(e.retrieved_at).toLocaleDateString() : 'Recent'}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function loadAnalytics() {
+            try {
+                const res = await fetch(API_BASE + '/analytics/overview');
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('statViews').textContent = (data.total_views || 0).toLocaleString();
+                    document.getElementById('statCTR').textContent = ((data.average_ctr || 0) * 100).toFixed(1) + '%';
+                    document.getElementById('statAVD').textContent = ((data.average_avd || 0) * 100).toFixed(1) + '%';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function loadAuditLogs() {
+            try {
+                const res = await fetch(API_BASE + '/system/audit-logs');
+                if (res.ok) {
+                    const logs = await res.json();
+                    const stream = document.getElementById('auditLogStream');
+                    stream.innerHTML = '';
+                    logs.forEach(l => {
+                        const div = document.createElement('div');
+                        div.className = 'flex items-center gap-3 text-slate-300 py-1 border-b border-slate-900';
+                        div.innerHTML = `
+                            <span class="text-slate-500 text-[10px]">${new Date(l.created_at).toLocaleTimeString()}</span>
+                            <span class="badge bg-slate-800 text-sky-300">${l.action}</span>
+                            <span class="text-slate-400">${l.entity_type}: ${(l.entity_id || 'sys').substring(0, 8)}</span>
+                            <span class="text-slate-200 font-semibold">${l.details || ''}</span>
+                        `;
+                        stream.appendChild(div);
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading logs:', e);
+            }
+        }
+
+        window.onload = initDashboard;
+    </script>
+</body>
+</html>

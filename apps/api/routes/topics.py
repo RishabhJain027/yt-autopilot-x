@@ -6,7 +6,7 @@ from database.schema import Channel, Topic
 from python.agents.trend_agent import trend_agent
 from python.schemas.api_response import ApiResponse
 
-router = ApiRouter(tags=["Topics"])
+router = APIRouter(tags=["Topics"])
 
 @router.get("/channels/{channel_id}/topics", response_model=ApiResponse[list])
 async def list_topics(channel_id: str, db: AsyncSession = Depends(get_db)):
@@ -30,7 +30,7 @@ async def discover_topics(channel_id: str, db: AsyncSession = Depends(get_db)):
     if not ch:
         raise HTTPException(status_code=404, detail="Channel not found")
 
-Candidates = await trend_agent.discover_trends(ch.niche or "Tech Automation", ["AI Tools", "Productivity"])
+    candidates = await trend_agent.discover_trends(ch.niche or "Tech Automation", ["AI Tools", "Productivity"])
     saved = []
     for c in candidates:
         top = Topic(

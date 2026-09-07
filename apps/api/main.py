@@ -37,14 +37,14 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-api_v1_prefix = '/api/v1'
-app.include_router(channels.router, prefix=api_v1_prefix)
-app.include_router(oauth.router, prefix=api_v1_prefix)
-app.include_router(topics.router, prefix=api_v1_prefix)
-app.include_router(productions.router, prefix=api_v1_prefix)
-app.include_router(analytics.router, prefix=api_v1_prefix)
-app.include_router(scheduler.router, prefix=api_v1_prefix)
-app.include_router(system.router, prefix=api_v1_prefix)
+for prefix in ['/api', '/api/v1']:
+    app.include_router(channels.router, prefix=prefix)
+    app.include_router(oauth.router, prefix=prefix)
+    app.include_router(topics.router, prefix=prefix)
+    app.include_router(productions.router, prefix=prefix)
+    app.include_router(analytics.router, prefix=prefix)
+    app.include_router(scheduler.router, prefix=prefix)
+    app.include_router(system.router, prefix=prefix)
 
 if os.path.exists(settings.STORAGE_ROOT):
     app.mount('/storage', StaticFiles(directory=settings.STORAGE_ROOT), name='storage')

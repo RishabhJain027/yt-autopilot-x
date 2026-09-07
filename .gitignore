@@ -15,14 +15,19 @@ token_*.json
 storage/*.db
 storage/*.sqlite
 storage/*.sqlite3
+storage/*.json
 storage/credentials/
 storage/audio/*
 storage/thumbnails/*
 storage/renders/*
+storage/captions/*
+storage/scenes/*
 !storage/.gitkeep
 !storage/audio/.gitkeep
 !storage/thumbnails/.gitkeep
 !storage/renders/.gitkeep
+!storage/captions/.gitkeep
+!storage/scenes/.gitkeep
 
 # Python & Environment
 __pycache__/
