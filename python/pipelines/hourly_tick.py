@@ -102,6 +102,13 @@ class HourlyTickOrchestrator:
                     except Exception as e:
                         logger.error(f"[HOURLY_TICK] Pipeline failed for production {prod.id}: {e}")
 
+        # Export updated telemetry for GitHub Pages dashboard
+        try:
+            from scripts.export_telemetry import export_telemetry
+            await export_telemetry()
+        except Exception as te:
+            logger.warning(f"[HOURLY_TICK] Telemetry export note: {te}")
+
         logger.info("[HOURLY_TICK] === Hourly cycle complete ===")
 
 hourly_tick = HourlyTickOrchestrator()
