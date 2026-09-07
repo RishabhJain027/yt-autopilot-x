@@ -32,17 +32,15 @@ class YouTubeService:
         )
 
     async def exchange_code_for_tokens(self, auth_code: str) -> Dict[str, Any]:
-        # Exchange authorization code for refresh token
         audit_log("OAUTH_TOKEN_EXCHANGE_ATTEMPT", {"code_length": len(auth_code)})
         
-        # If client credentials not configured, return mock connection profile for development
         if not settings.GOOGLE_CLIENT_ID or not settings.GOOGLE_CLIENT_SECRET:
-            logger.info("[OAUTH] Google Client Secret not configured. Returning development sandbox credentials.")
+            logger.info("[OAUTH] Returning sandbox credentials.")
             return {
-                "channel_id": "UC_DEMO_CHANNEL_001",
-                "channel_title": "AI Automation Studio",
-                "email": "channel.operator@gmail.com",
-                "refresh_token": vault.encrypt_token("mock_refresh_token_xyz123"),
+                "channel_id": "@RishabhAIStudio-27",
+                "channel_title": "Rishabh AI Studio",
+                "email": "27rk04@gmail.com",
+                "refresh_token": vault.encrypt_token("mock_refresh_token_27rk04"),
                 "scopes": self.scopes,
                 "token_status": "VALID"
             }
@@ -59,14 +57,35 @@ class YouTubeService:
             resp = await client.post("https://oauth2.googleapis.com/token", data=data)
             if resp.status_code != 200:
                 logger.error(f"[OAUTH] Failed token exchange: {resp.text}")
-                raise ValueError("Google OAuth token exchange failed")
+                raise ValueError(f"Google OAuth token exchange failed: {resp.text}")
+            
             tokens = resp.json()
             refresh_token = tokens.get("refresh_token", "")
+            access_token = tokens.get("access_token", "")
+
+            # Fetch channel info from YouTube API
+            ch_id = "@RishabhAIStudio-27"
+            ch_title = "Rishabh AI Studio"
+            if access_token:
+                try:
+                    ch_resp = await client.get(
+                        "https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true",
+                        headers={"Authorization": f"Bearer {access_token}"}
+                    )
+                    if ch_resp.status_code == 200:
+                        ch_data = ch_resp.json()
+                        items = ch_data.get("items", [])
+                        if items:
+                            ch_id = items[0].get("id", ch_id)
+                            ch_title = items[0].get("snippet", {}).get("title", ch_title)
+                except Exception as e:
+                    logger.warning(f"Could not fetch channel details: {e}")
+
             return {
-                "channel_id": "UC_GOOGLE_OAUTH_CONNECTED",
-                "channel_title": "Connected YouTube Channel",
-                "email": "connected_user@gmail.com",
-                "refresh_token": vault.encrypt_token(refresh_token),
+                "channel_id": ch_id,
+                "channel_title": ch_title,
+                "email": "27rk04@gmail.com",
+                "refresh_token": vault.encrypt_token(refresh_token) if refresh_token else "",
                 "scopes": self.scopes,
                 "token_status": "VALID"
             }
@@ -75,7 +94,6 @@ class YouTubeService:
         if not quota_manager.can_afford("videos.insert"):
             raise ValueError("YouTube API quota exceeded for today. Upload deferred.")
 
-        # Reconcile idempotency key
         audit_log("UPLOAD_ATTEMPT", {
             "channel_id": channel_id,
             "title": title,
@@ -86,7 +104,6 @@ class YouTubeService:
 
         quota_manager.consume("videos.insert", details=f"Upload video: {title}")
 
-        # In local/sandbox development or without live OAuth credentials, return validated upload response
         mock_video_id = f"yt_{int(datetime.now(timezone.utc).timestamp())}"
         result = {
             "youtube_video_id": mock_video_id,
@@ -107,7 +124,6 @@ class YouTubeService:
         return result
 
     async def reconcile_video(self, youtube_video_id: str) -> Dict[str, Any]:
-        # Remote reconciliation query
         quota_manager.consume("videos.list", details=f"Reconcile video: {youtube_video_id}")
         return {
             "youtube_video_id": youtube_video_id,
