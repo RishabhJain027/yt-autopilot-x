@@ -36,9 +36,18 @@ class Settings(BaseSettings):
 
     # Media / Image Providers (mock, openai, stability, procedural)
     IMAGE_PROVIDER: str = 'mock'
-    VIDEO_PROVIDER: str = 'mock'
+    VIDEO_PROVIDER: str = 'remote_t2v_router'
     STABILITY_API_KEY: Optional[str] = None
     RUNWAY_API_KEY: Optional[str] = None
+    HF_TOKEN: Optional[str] = None
+    HUGGINGFACE_API_KEY: Optional[str] = None
+
+    # Open-Source <5B Remote T2V Cloud Models
+    T2V_PRIMARY_MODEL: str = 'Wan-AI/Wan2.1-T2V-1.3B'
+    T2V_FALLBACK_MODEL: str = 'zai-org/CogVideoX-2b'
+    T2V_FAST_MODEL: str = 'Lightricks/LTX-Video'
+    T2V_LEGACY_MODEL: str = 'ali-vilab/text-to-video-ms-1.7b'
+    T2V_EXECUTION_MODE: str = 'remote_serverless'  # Strictly 0 local compute / 0 GPU VRAM
 
     # Budgets & Limits
     DAILY_BUDGET_USD: float = 25.0

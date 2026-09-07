@@ -16,6 +16,7 @@ from python.services.image_service import image_service
 from video.ffmpeg.renderer import video_renderer
 from video.validation.media_validator import media_validator
 from python.services.youtube_service import youtube_service
+from python.services.remote_video_router import remote_t2v_router
 from python.schemas.rights import AssetProvenance
 from packages.config.settings import settings
 from packages.logger.logger import logger
@@ -97,13 +98,17 @@ class PipelineOrchestrator:
             thumb_path = image_service.generate_thumbnail(script.title_candidate, subtitle="Complete Blueprint", aspect_ratio=aspect_ratio, filename_prefix=f"prod_{prod.id}")
             prod.thumbnail_path = thumb_path
 
-            # Render video
+            # Generate remote serverless T2V clips across <5B model fleet (Wan2.1 / CogVideoX / LTX)
+            t2v_clips = await remote_t2v_router.generate_storyboard_clips([s.model_dump() for s in visuals.scenes], aspect_ratio=aspect_ratio)
+
+            # Render multi-clip video
             video_path, render_dur = video_renderer.render_production(
                 production_id=prod.id,
                 scenes=[s.model_dump() for s in visuals.scenes],
                 audio_path=audio_path,
                 total_duration=duration,
-                aspect_ratio=aspect_ratio
+                aspect_ratio=aspect_ratio,
+                clips=t2v_clips
             )
             prod.final_video_path = video_path
 
