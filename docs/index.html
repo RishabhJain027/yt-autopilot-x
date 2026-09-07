@@ -370,11 +370,11 @@
         let systemHealth = {};
 
         const STAGE_MAP = {
-            col1: ['DISCOVERY_QUEUED', 'NICHE_ANALYZING', 'TREND_SCORING', 'TOPIC_SELECTED', 'RESEARCH_GATHERING', 'EVIDENCE_VERIFYING'],
-            col2: ['SCRIPT_OUTLINING', 'SCRIPT_DRAFTING', 'SCRIPT_POLISHING', 'HOOK_OPTIMIZING', 'AUDIO_GENERATING', 'VISUAL_PROMPTING', 'IMAGE_GENERATING', 'THUMBNAIL_GENERATING', 'SUBTITLES_GENERATING'],
-            col3: ['VIDEO_ASSEMBLING', 'AUDIO_SYNCING', 'RENDERING', 'RENDER_COMPLETE', 'QUALITY_GATE_CHECKING', 'QUALITY_GATE_PASSED'],
-            col4: ['PENDING_APPROVAL', 'APPROVAL_REJECTED', 'REVISION_REQUESTED'],
-            col5: ['APPROVED', 'PUBLISH_SCHEDULED', 'UPLOADING', 'METADATA_UPDATING', 'THUMBNAIL_UPLOADING', 'PUBLISHED_UNLISTED', 'PUBLISHED_PUBLIC', 'FAILED', 'CIRCUIT_BREAKER_HALTED']
+            col1: ['DISCOVERY_QUEUED', 'IDEA', 'RESEARCHING', 'RESEARCH_READY', 'TREND_SCORING', 'TOPIC_SELECTED', 'RESEARCH_GATHERING', 'EVIDENCE_VERIFYING'],
+            col2: ['SCRIPTING', 'SCRIPT_READY', 'VISUAL_PLANNING', 'ASSET_COLLECTION', 'ASSET_READY', 'VOICE_GENERATION', 'CAPTIONS_GENERATED', 'SCRIPT_OUTLINING', 'SCRIPT_DRAFTING', 'AUDIO_GENERATING'],
+            col3: ['RENDERING', 'RENDERED', 'QA_PENDING', 'RIGHTS_PENDING', 'VIDEO_ASSEMBLING', 'AUDIO_SYNCING', 'QUALITY_GATE_CHECKING'],
+            col4: ['REVIEW_PENDING', 'QA_FAILED', 'PENDING_APPROVAL', 'APPROVAL_REJECTED'],
+            col5: ['APPROVED', 'UPLOAD_PENDING', 'UPLOADING', 'PROCESSING', 'SCHEDULED', 'PUBLISHED', 'PUBLISH_SCHEDULED', 'PUBLISHED_PUBLIC', 'ARCHIVED']
         };
 
         function switchTab(tabId) {
@@ -534,14 +534,18 @@
 
                 const card = document.createElement('div');
                 card.className = 'bg-slate-900/90 border border-slate-800 rounded-lg p-3 space-y-2.5 hover:border-slate-700 transition shadow-sm';
+                const tagBadges = (p.tags || []).map(t => `<span class="text-[9px] bg-slate-800/80 text-slate-400 px-1.5 py-0.5 rounded">${t}</span>`).join(' ');
                 card.innerHTML = `
                     <div class="flex items-center justify-between">
-                        <span class="badge ${p.format === 'SHORTS' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-sky-500/20 text-sky-300 border border-sky-500/30'}">${p.format || 'SHORTS'}</span>
-                        <span class="text-[10px] text-slate-500 font-mono">${(p.id || '').substring(0, 8)}</span>
+                        <span class="badge ${p.format === 'shorts' || p.format === 'SHORTS' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-sky-500/20 text-sky-300 border border-sky-500/30'}">${(p.format || 'SHORTS').toUpperCase()}</span>
+                        <span class="text-[10px] text-emerald-400 font-mono font-semibold">${p.duration_seconds ? p.duration_seconds.toFixed(0) + 's' : '30s'}</span>
                     </div>
-                    <div class="font-semibold text-xs text-slate-200 line-clamp-2">${p.title || 'Untitled Production'}</div>
+                    <div class="font-semibold text-xs text-slate-100 line-clamp-2">${p.title || 'Autonomous Video Production'}</div>
+                    ${p.hook ? `<div class="text-[11px] text-slate-400 italic line-clamp-2 bg-slate-950/60 p-1.5 rounded border border-slate-800/50">"${p.hook}"</div>` : ''}
+                    <div class="flex flex-wrap gap-1">${tagBadges}</div>
                     <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800/80">
-                        <span class="font-mono text-[10px] text-sky-400">${p.status}</span>
+                        <span class="font-mono text-[10px] text-sky-400 font-bold">${p.status}</span>
+                        <span class="text-[10px] text-slate-500">${p.created_at ? new Date(p.created_at).toLocaleTimeString() : 'Recent'}</span>
                     </div>
                 `;
                 document.getElementById('col-' + targetCol).appendChild(card);

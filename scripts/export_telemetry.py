@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import json
 import os
 import sys
@@ -15,7 +15,15 @@ async def export_telemetry():
     async with AsyncSessionLocal() as session:
         chs_res = await session.execute(select(Channel))
         channels = [
-            {'id': c.id, 'name': c.title, 'niche': c.niche, 'mode': c.operating_mode}
+            {
+                'id': c.id,
+                'name': c.title,
+                'niche': c.niche,
+                'youtube_channel_id': c.youtube_channel_id,
+                'mode': c.operating_mode,
+                'status': c.status,
+                'account_email': '27rk04@gmail.com'
+            }
             for c in chs_res.scalars().all()
         ]
 
@@ -23,21 +31,39 @@ async def export_telemetry():
         productions = []
         for p in prods_res.scalars().all():
             title = 'Autonomous Video Production'
-            if p.publishing_json and isinstance(p.publishing_json, dict):
-                title = p.publishing_json.get('title', title)
-            elif p.script_json and isinstance(p.script_json, dict):
-                title = p.script_json.get('title_candidate', title)
+            desc = ''
+            tags = []
+            hook = ''
             
+            if p.publishing_json and isinstance(p.publishing_json, dict):
+                title = p.publishing_json.get('primary_title') or p.publishing_json.get('title') or title
+                desc = p.publishing_json.get('description', '')
+                tags = p.publishing_json.get('hashtags', []) or p.publishing_json.get('tags', [])
+            
+            if p.script_json and isinstance(p.script_json, dict):
+                if title == 'Autonomous Video Production':
+                    title = p.script_json.get('title_candidate', title)
+                hook = p.script_json.get('hook', '')
+            
+            dur = 30.0
+            if p.render_duration_seconds is not None:
+                dur = float(p.render_duration_seconds)
+
             productions.append({
                 'id': p.id,
                 'title': title,
+                'hook': hook,
                 'status': p.status,
                 'format': p.format or 'shorts',
+                'tags': tags[:5],
+                'duration_seconds': dur,
                 'created_at': p.created_at.isoformat() if p.created_at else None
             })
 
         payload = {
             'system_status': 'HEALTHY',
+            'channel_name': 'Rishabh AI Studio',
+            'account_email': '27rk04@gmail.com',
             'last_updated': datetime.now(timezone.utc).isoformat(),
             'channels_count': len(channels),
             'channels': channels,
@@ -49,7 +75,7 @@ async def export_telemetry():
                 'remaining': quota_manager.get_remaining_quota()
             },
             'budget': {
-                'daily_spent': budget_guard.data.get('daily_spent', 0.0),
+                'daily_spent': float(budget_guard.data.get('daily_spent', 0.0) or 0.0),
                 'daily_limit': 25.0
             },
             'quality_gates_passed': True
@@ -57,7 +83,7 @@ async def export_telemetry():
 
         with open('docs/telemetry.json', 'w', encoding='utf-8') as f:
             json.dump(payload, f, indent=2)
-        print('Exported live telemetry to docs/telemetry.json')
+        print('Exported live rich telemetry to docs/telemetry.json')
 
 if __name__ == '__main__':
     asyncio.run(export_telemetry())
