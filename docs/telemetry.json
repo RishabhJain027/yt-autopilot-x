@@ -2,14 +2,14 @@
   "system_status": "HEALTHY",
   "channel_name": "Rishabh AI Studio",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-07T16:45:10.542683+00:00",
+  "last_updated": "2026-09-07T17:00:06.861760+00:00",
   "channels_count": 1,
   "channels": [
     {
       "id": "db1b9cea-362f-4ded-819f-8d924b0881c0",
       "name": "Rishabh AI Studio",
       "niche": "AI Tools, Automation & Tech Breakthroughs",
-      "youtube_channel_id": "UC_RISHABH_AI_027",
+      "youtube_channel_id": "@RishabhAIStudio-27",
       "mode": "AUTONOMOUS",
       "status": "ACTIVE",
       "account_email": "27rk04@gmail.com"
