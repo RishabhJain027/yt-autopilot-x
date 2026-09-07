@@ -2,7 +2,7 @@
   "system_status": "HEALTHY",
   "channel_name": "Rishabh AI Studio",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-07T17:27:48.486360+00:00",
+  "last_updated": "2026-09-07T17:47:29.242255+00:00",
   "channels_count": 2,
   "channels": [
     {
@@ -24,8 +24,72 @@
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 11,
+  "productions_count": 15,
   "productions": [
+    {
+      "id": "f4539e7f-15c2-4a2f-8b43-72d6981d1977",
+      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
+      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
+      "status": "QA_PENDING",
+      "format": "shorts",
+      "tags": [
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
+      ],
+      "duration_seconds": 26.0,
+      "created_at": "2026-09-07T17:46:54.767710"
+    },
+    {
+      "id": "d18d3620-31e1-4d0b-9358-47c3fbb86336",
+      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
+      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
+      "status": "QA_PENDING",
+      "format": "shorts",
+      "tags": [
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
+      ],
+      "duration_seconds": 26.0,
+      "created_at": "2026-09-07T17:46:17.687490"
+    },
+    {
+      "id": "257abd14-ca4e-4f28-b2aa-8efba48f2a82",
+      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
+      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
+      ],
+      "duration_seconds": 26.0,
+      "created_at": "2026-09-07T17:30:09.885398"
+    },
+    {
+      "id": "8dfcea5d-707d-4303-9260-658cc11a5c26",
+      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
+      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
+      ],
+      "duration_seconds": 26.0,
+      "created_at": "2026-09-07T17:30:00.047127"
+    },
     {
       "id": "9a59a7f2-1bda-4a2d-8e6d-4af08b2c598d",
       "title": "The Open Source AI Revolution Nobody is Talking About (Step-by-Step)",
@@ -204,9 +268,9 @@
     }
   ],
   "quota": {
-    "used": 6400,
+    "used": 9600,
     "limit": 10000,
-    "remaining": 3600
+    "remaining": 400
   },
   "budget": {
     "daily_spent": 0.0,

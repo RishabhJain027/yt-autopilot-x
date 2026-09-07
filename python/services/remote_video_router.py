@@ -74,7 +74,7 @@ class RemoteT2VRouter:
         if token:
             for model_key in ["wan2.1", "cogvideox", "ltx_video", "modelscope"]:
                 model_meta = self.models[model_key]
-                hf_url = f"https://api-inference.huggingface.co/models/{model_meta['hf_id']}"
+                hf_url = f"https://router.huggingface.co/hf-inference/models/{model_meta['hf_id']}"
                 headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
                 payload = {
                     "inputs": prompt,

@@ -22,12 +22,14 @@ storage/thumbnails/*
 storage/renders/*
 storage/captions/*
 storage/scenes/*
+storage/clips/*
 !storage/.gitkeep
 !storage/audio/.gitkeep
 !storage/thumbnails/.gitkeep
 !storage/renders/.gitkeep
 !storage/captions/.gitkeep
 !storage/scenes/.gitkeep
+!storage/clips/.gitkeep
 
 # Python & Environment
 __pycache__/
