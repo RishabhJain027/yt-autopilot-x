@@ -42,12 +42,32 @@ class Settings(BaseSettings):
     HF_TOKEN: Optional[str] = None
     HUGGINGFACE_API_KEY: Optional[str] = None
 
-    # Open-Source <5B Remote T2V Cloud Models
+    # Remote Open-Source T2V & Video Cloud Models (0 Local GPU / 100% Serverless)
+    T2V_WAN22_MODEL: str = 'Wan-AI/Wan2.2-T2V-A14B'
+    T2V_WAN22_TI2V_MODEL: str = 'Wan-AI/Wan2.2-TI2V-5B'
+    T2V_WAN22_LIGHTNING_MODEL: str = 'lightx2v/Wan2.2-Lightning'
     T2V_PRIMARY_MODEL: str = 'Wan-AI/Wan2.1-T2V-1.3B'
-    T2V_FALLBACK_MODEL: str = 'zai-org/CogVideoX-2b'
+    T2V_WAN21_14B_MODEL: str = 'Wan-AI/Wan2.1-T2V-14B'
+    T2V_HUNYUAN_MODEL: str = 'tencent/HunyuanVideo-1.5'
+    T2V_FAST_HUNYUAN_MODEL: str = 'FastVideo/FastHunyuan'
+    T2V_LTX_25_MODEL: str = 'Lightricks/LTX-2.5-Diffusers'
     T2V_FAST_MODEL: str = 'Lightricks/LTX-Video'
+    T2V_MINIMAX_MODEL: str = 'MiniMaxAI/MiniMax-H3'
+    T2V_COSMOS_MODEL: str = 'nvidia/Cosmos-1.0-Diffusion-7B-Text2World'
+    T2V_ANIMATEDIFF_MODEL: str = 'ByteDance/AnimateDiff-Lightning'
+    T2V_FALLBACK_MODEL: str = 'zai-org/CogVideoX-2b'
+    T2V_COGVIDEOX_5B_MODEL: str = 'zai-org/CogVideoX-5b'
+    T2V_OPENSORA_MODEL: str = 'hpcai-tech/Open-Sora-v2'
+    T2V_MOCHI_MODEL: str = 'genmo/mochi-1-preview'
     T2V_LEGACY_MODEL: str = 'ali-vilab/text-to-video-ms-1.7b'
     T2V_EXECUTION_MODE: str = 'remote_serverless'  # Strictly 0 local compute / 0 GPU VRAM
+
+    # Niche & Persona Configuration
+    DEFAULT_NICHE: str = 'AI Tools, Automation & Tech Breakthroughs'
+    SECONDARY_NICHE: str = 'Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle'
+    DEFAULT_VOICE_GENDER: str = 'female'  # 'female' for GenZ/Aesthetic, 'male' for Tech
+    DEFAULT_FEMALE_VOICE: str = 'en-US-AvaNeural'
+    DEFAULT_MALE_VOICE: str = 'en-US-GuyNeural'
 
     # Budgets & Limits
     DAILY_BUDGET_USD: float = 25.0
@@ -61,3 +81,4 @@ class Settings(BaseSettings):
     HOURLY_TICK_CRON: str = '0 * * * *'
 
 settings = Settings()
+

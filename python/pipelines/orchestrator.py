@@ -38,9 +38,10 @@ class PipelineOrchestrator:
                 if topic_obj:
                     topic_title = topic_obj.topic
 
-            # Fetch channel
+            # Fetch channel & niche
             ch_res = await session.execute(select(Channel).where(Channel.id == prod.channel_id))
             channel_obj = ch_res.scalar_one_or_none()
+            channel_niche = channel_obj.niche if (channel_obj and channel_obj.niche) else settings.DEFAULT_NICHE
 
             # Step 1: Researching
             prod.status = state_machine.transition(prod.status, 'RESEARCHING', prod.id, prod.channel_id)
@@ -64,28 +65,28 @@ class PipelineOrchestrator:
             prod.status = state_machine.transition(prod.status, 'RESEARCH_READY', prod.id, prod.channel_id)
             await session.commit()
 
-            # Step 2: Scripting
+            # Step 2: Scripting (Niche-Aware Viral Storyboard)
             prod.status = state_machine.transition(prod.status, 'SCRIPTING', prod.id, prod.channel_id)
             await session.commit()
-            script = await script_agent.generate_script(topic_title, research, format=prod.format)
+            script = await script_agent.generate_script(topic_title, research, format=prod.format, niche=channel_niche)
             prod.script_json = script.model_dump()
             prod.status = state_machine.transition(prod.status, 'SCRIPT_READY', prod.id, prod.channel_id)
             await session.commit()
 
-            # Step 3: Visual Planning
+            # Step 3: Visual Planning (Character Consistency & Clean Rendering)
             prod.status = state_machine.transition(prod.status, 'VISUAL_PLANNING', prod.id, prod.channel_id)
             await session.commit()
             aspect_ratio = "9:16" if prod.format == "shorts" else "16:9"
-            visuals = visual_planner.plan_visuals(script, aspect_ratio=aspect_ratio)
+            visuals = visual_planner.plan_visuals(script, aspect_ratio=aspect_ratio, niche=channel_niche)
             prod.visual_json = visuals.model_dump()
             prod.status = state_machine.transition(prod.status, 'ASSET_READY', prod.id, prod.channel_id)
             await session.commit()
 
-            # Step 4: Voice & Audio Generation (Edge-TTS voiceover)
+            # Step 4: Voice & Audio Generation (Multi-Persona TTS voiceover)
             prod.status = state_machine.transition(prod.status, 'VOICE_GENERATION', prod.id, prod.channel_id)
             await session.commit()
             narration_full = " ".join([seg.voiceover for seg in script.segments])
-            audio_path, duration = await tts_service.synthesize(narration_full, filename_prefix=f"prod_{prod.id}")
+            audio_path, duration = await tts_service.synthesize(narration_full, niche=channel_niche, filename_prefix=f"prod_{prod.id}")
             prod.audio_path = audio_path
             prod.render_duration_seconds = duration
 
@@ -112,8 +113,8 @@ class PipelineOrchestrator:
                 license_json={"type": "Apache-2.0", "generator": "ImageService"}
             ))
 
-            # Generate remote serverless T2V clips across <5B model fleet (Wan2.1 / CogVideoX / LTX)
-            t2v_clips = await remote_t2v_router.generate_storyboard_clips([s.model_dump() for s in visuals.scenes], aspect_ratio=aspect_ratio)
+            # Generate remote serverless T2V clips across foundation model fleet (Wan 2.2 / HunyuanVideo 1.5 / LTX-2.5 / Flux)
+            t2v_clips = await remote_t2v_router.generate_storyboard_clips([s.model_dump() for s in visuals.scenes], aspect_ratio=aspect_ratio, niche=channel_niche)
 
             # Asset ledger: Add clip assets
             for clip in t2v_clips:
@@ -145,7 +146,7 @@ class PipelineOrchestrator:
 
             # Step 7: SEO & Viral Boost Packaging
             seo_pkg = await seo_agent.generate_metadata(topic_title, narration_full)
-            boost_pkg = boost_agent.generate_boost_package(topic_title, script.hook)
+            boost_pkg = boost_agent.generate_boost_package(topic_title, script.hook, category=channel_niche)
             
             # Merge boost attributes into publishing JSON
             pub_dict = seo_pkg.model_dump()

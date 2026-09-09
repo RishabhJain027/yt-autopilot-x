@@ -1,6 +1,6 @@
 # YouTube Autopilot X - Master System Verification Report
 
-Generated on: 2026-09-09 11:13:19 UTC  
+Generated on: 2026-09-09 11:54:52 UTC  
 Overall Status: **100% OPERATIONAL & VERIFIED** (12/12 Subsystems Passed)
 
 ---
@@ -10,17 +10,17 @@ Overall Status: **100% OPERATIONAL & VERIFIED** (12/12 Subsystems Passed)
 | # | Subsystem Component | Status | Technical Details & Verification Notes |
 |---|---|---|---|
 | 1 | **Security and Git Shield Isolation** | PASS | .env, credentials, SQLite DBs, and media strictly isolated. |
-| 2 | **SQLite Database and Schema Engine** | PASS | Database active. 1 channels registered, 4 productions indexed. |
+| 2 | **SQLite Database and Schema Engine** | PASS | Database active. 1 channels registered, 6 productions indexed. |
 | 3 | **AES-256 GCM Credential Vault** | PASS | Hardware AES-GCM 256-bit encryption and decryption verified. |
 | 4 | **28-Stage Lifecycle State Machine** | PASS | Deterministic state machine verified with 28 valid states. |
 | 5 | **AI Script and Storyboard Generator** | PASS | Generated Short storyboard: 5 Top AI Automation Tools 2026... |
-| 6 | **Voiceover Audio Synthesis Engine** | PASS | Synthesized audio: verify_audio_6933567929891061760.mp3 (3.0s). |
-| 7 | **High-CTR Visual and Thumbnail Generator** | PASS | Rendered thumbnail: verify_thumb_1752_6834229300003323599.png (1080x1920). |
+| 6 | **Voiceover Audio Synthesis Engine** | PASS | Synthesized audio: verify_audio_4753718485535567872.mp3 (3.0s). |
+| 7 | **High-CTR Visual and Thumbnail Generator** | PASS | Rendered thumbnail: verify_thumb_20776_6368813259792607347.png (1080x1920). |
 | 8 | **6 Machine Quality Gates Engine** | PASS | All 6 gates passed (Factuality, Rights, Duplicate, Safety, Disclosure, Render). |
-| 9 | **YouTube API Quota Manager** | PASS | Daily budget: 9600/10000 units used. Safe circuit-breaker active. |
+| 9 | **YouTube API Quota Manager** | PASS | Daily budget: 8000/10000 units used. Safe circuit-breaker active. |
 | 10 | **Budget Guard and Cost Governor** | PASS | Daily spent: $0.00 (Permit status: True). |
 | 11 | **FastAPI Live Server and SPA Dashboard** | PASS | FastAPI app routes and schemas valid. |
-| 12 | **GitHub Pages Live Telemetry Pipeline** | PASS | Telemetry bundle synced. Total productions tracked: 4. |
+| 12 | **GitHub Pages Live Telemetry Pipeline** | PASS | Telemetry bundle synced. Total productions tracked: 6. |
 
 ---
 

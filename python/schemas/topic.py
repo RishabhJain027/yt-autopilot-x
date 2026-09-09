@@ -10,6 +10,8 @@ class NicheScoreInput(BaseModel):
     long_form: bool = True
     budget: str = 'medium'
     risk_tolerance: str = 'low'
+    niche_preference: Optional[str] = None
+    category: Optional[str] = None
 
 class NicheProposal(BaseModel):
     niche: str

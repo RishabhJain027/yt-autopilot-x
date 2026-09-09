@@ -83,6 +83,7 @@ async def export_telemetry():
         ]
 
         goal_data = await goal_agent.get_channel_goal_status()
+        from python.services.remote_video_router import remote_t2v_router
 
         payload = {
             'system_status': 'HEALTHY',
@@ -106,11 +107,26 @@ async def export_telemetry():
                 'daily_limit': 25.0
             },
             'model_fleet': {
-                't2v_primary': 'Wan-AI/Wan2.1-T2V-1.3B',
-                't2v_fallback': 'zai-org/CogVideoX-2b',
-                'cloud_diffusion': 'Pollinations Flux Serverless',
-                'compute_mode': 'remote_serverless_zero_local_vram'
+                't2v_wan22_moe': 'Wan-AI/Wan2.2-T2V-A14B',
+                't2v_wan22_ti2v': 'Wan-AI/Wan2.2-TI2V-5B',
+                't2v_wan22_lightning': 'lightx2v/Wan2.2-Lightning',
+                't2v_wan21': 'Wan-AI/Wan2.1-T2V-1.3B',
+                't2v_hunyuan_15': 'tencent/HunyuanVideo-1.5',
+                't2v_fasthunyuan': 'FastVideo/FastHunyuan',
+                't2v_ltx_25': 'Lightricks/LTX-2.5-Diffusers',
+                't2v_minimax_h3': 'MiniMaxAI/MiniMax-H3',
+                't2v_cosmos_7b': 'nvidia/Cosmos-1.0-Diffusion-7B-Text2World',
+                't2v_animatediff': 'ByteDance/AnimateDiff-Lightning',
+                't2v_cogvideox': 'zai-org/CogVideoX-2b',
+                'cloud_diffusion': 'Remote Serverless Flux & Turbo AI Engine',
+                'compute_mode': 'remote_serverless_zero_local_vram',
+                'total_models_registered': remote_t2v_router.get_model_count()
             },
+            'supported_niches': [
+                'AI Tools, Automation & Tech Breakthroughs',
+                'Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle',
+                'Productivity Automation'
+            ],
             'quality_gates_passed': True
         }
 

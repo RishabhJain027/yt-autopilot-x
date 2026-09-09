@@ -3,7 +3,7 @@
   "channel_name": "Rishabh AI Studio",
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T06:00:13.515968+00:00",
+  "last_updated": "2026-09-09T06:24:52.263096+00:00",
   "channels_count": 1,
   "channels": [
     {
@@ -16,8 +16,26 @@
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 5,
+  "productions_count": 6,
   "productions": [
+    {
+      "id": "ffe34202-6c93-4969-be39-812f006ee250",
+      "title": "Wan 2.2 & 14B MoE Video AI: The Open-Source Model Beating Sora with 0 Local GPU (Step-by-Step)",
+      "hook": "Hugging Face and open source AI just changed everything with Wan 2.2 & 14B MoE Video AI!",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
+      ],
+      "duration_seconds": 56.8,
+      "youtube_video_id": "3-atoHk61Tw",
+      "youtube_url": "https://youtube.com/shorts/3-atoHk61Tw",
+      "created_at": "2026-09-09T06:22:25.310630"
+    },
     {
       "id": "6107f8e6-90a7-4138-aca8-6f158bc464bb",
       "title": "The Open Source AI Revolution Nobody is Talking About (Step-by-Step)",
@@ -106,7 +124,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Rishabh AI Studio",
-    "timestamp": "2026-09-09T06:00:13.514859+00:00",
+    "timestamp": "2026-09-09T06:24:52.250374+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -116,9 +134,9 @@
       "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 5,
-      "completed_productions": 4,
-      "daily_publishing_rate": "4/3 Shorts today",
+      "total_productions_created": 6,
+      "completed_productions": 5,
+      "daily_publishing_rate": "5/3 Shorts today",
       "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
     },
@@ -175,19 +193,34 @@
     }
   ],
   "quota": {
-    "used": 1600,
+    "used": 8000,
     "limit": 10000,
-    "remaining": 8400
+    "remaining": 2000
   },
   "budget": {
     "daily_spent": 0.0,
     "daily_limit": 25.0
   },
   "model_fleet": {
-    "t2v_primary": "Wan-AI/Wan2.1-T2V-1.3B",
-    "t2v_fallback": "zai-org/CogVideoX-2b",
-    "cloud_diffusion": "Pollinations Flux Serverless",
-    "compute_mode": "remote_serverless_zero_local_vram"
+    "t2v_wan22_moe": "Wan-AI/Wan2.2-T2V-A14B",
+    "t2v_wan22_ti2v": "Wan-AI/Wan2.2-TI2V-5B",
+    "t2v_wan22_lightning": "lightx2v/Wan2.2-Lightning",
+    "t2v_wan21": "Wan-AI/Wan2.1-T2V-1.3B",
+    "t2v_hunyuan_15": "tencent/HunyuanVideo-1.5",
+    "t2v_fasthunyuan": "FastVideo/FastHunyuan",
+    "t2v_ltx_25": "Lightricks/LTX-2.5-Diffusers",
+    "t2v_minimax_h3": "MiniMaxAI/MiniMax-H3",
+    "t2v_cosmos_7b": "nvidia/Cosmos-1.0-Diffusion-7B-Text2World",
+    "t2v_animatediff": "ByteDance/AnimateDiff-Lightning",
+    "t2v_cogvideox": "zai-org/CogVideoX-2b",
+    "cloud_diffusion": "Remote Serverless Flux & Turbo AI Engine",
+    "compute_mode": "remote_serverless_zero_local_vram",
+    "total_models_registered": 28
   },
+  "supported_niches": [
+    "AI Tools, Automation & Tech Breakthroughs",
+    "Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
+    "Productivity Automation"
+  ],
   "quality_gates_passed": true
 }

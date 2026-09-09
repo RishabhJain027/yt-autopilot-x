@@ -140,6 +140,109 @@ async def test_dynamic_trend_discovery():
     assert trends[0].score > 0.80
     print("[-] Test Dynamic Trend Discovery & Anti-Repetition: PASSED")
 
+async def test_remote_video_router():
+    from python.services.remote_video_router import remote_t2v_router
+
+    # 1. Model Registry Coverage
+    catalog = remote_t2v_router.get_model_catalog()
+    assert len(catalog) >= 25, f"Expected at least 25 models, found {len(catalog)}"
+
+    required_models = [
+        "wan2.2_t2v_14b", "wan2.2_ti2v_5b", "wan2.2_lightning", "wan2.1",
+        "hunyuan_video_1.5", "fasthunyuan", "ltx_2.5", "ltx_video",
+        "minimax_h3", "cosmos_7b", "animatediff_lightning", "cogvideox_5b"
+    ]
+    for m in required_models:
+        assert m in catalog, f"Missing model in registry: {m}"
+        assert "hf_id" in catalog[m], f"Missing hf_id for {m}"
+        assert "license" in catalog[m], f"Missing license for {m}"
+
+    # 2. Intelligent Model Selector
+    aesthetic_model = remote_t2v_router.select_best_model(
+        "Sophia the aesthetic clumsy girl spilling iced matcha in sunlit loft",
+        niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
+    )
+    assert aesthetic_model["name"] in ["Wan2.2-T2V-A14B", "HunyuanVideo 1.5", "LTX-2.5", "MiniMax-H3", "AnimateDiff-Lightning"]
+
+    tech_model = remote_t2v_router.select_best_model(
+        "HunyuanVideo 1.5 4-step fast generation benchmark",
+        niche="AI Tools & Tech Breakthroughs"
+    )
+    assert tech_model["name"] in ["Wan2.2-Lightning (LightX2V)", "FastHunyuan (FastVideo)", "Wan2.1-T2V-1.3B", "LTX-Video 0.9.5", "Cosmos-1.0-Diffusion-7B-Text2World", "CogVideoX-5B"]
+
+    print(f"[-] Test Remote T2V Multi-Model Registry ({len(catalog)} models) & Intelligent Selector: PASSED")
+
+async def test_pinterest_genz_niche_pipeline():
+    from python.agents.niche_discovery import niche_agent
+    from python.schemas.topic import NicheScoreInput
+    from python.agents.script_agent import script_agent
+    from python.agents.visual_planner import visual_planner
+    from python.services.tts_service import tts_service
+    from python.schemas.research import ResearchPacket, ClaimItem
+
+    # 1. Niche Discovery
+    niche_prop = await niche_agent.discover_niche(NicheScoreInput(
+        niche_preference="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
+        shorts=True
+    ))
+    assert "Pinterest Aesthetic" in niche_prop.niche
+    assert niche_prop.score >= 0.85
+    assert len(niche_prop.content_pillars) >= 3
+
+    # 2. Script Generation
+    research = ResearchPacket(
+        topic="POV: You Try Being That Aesthetic Pinterest Girl but You're Too Clumsy",
+        facts=[
+            "Relatable clumsy moments create an instant 91% 3-second hold rate.",
+            "35mm film photography aesthetic gives authentic editorial look."
+        ],
+        claims=[ClaimItem(claim_id="c1", claim_text="Relatable clumsy hold rate", confidence=0.96, requires_human_review=False)]
+    )
+    script = await script_agent.generate_script(
+        topic="POV: You Try Being That Aesthetic Pinterest Girl but You're Too Clumsy",
+        research=research,
+        format="shorts",
+        niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
+    )
+    assert "besties" in script.hook.lower() or "clumsy" in script.hook.lower() or "aesthetic" in script.hook.lower()
+    assert len(script.segments) == 5
+
+    # 3. Visual Planning (Character Consistency & Clean Rendering with NO text boxes)
+    storyboard = visual_planner.plan_visuals(
+        script,
+        aspect_ratio="9:16",
+        niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
+    )
+    assert len(storyboard.scenes) == 5
+    for scene in storyboard.scenes:
+        assert "NO text boxes" in scene.prompt
+        assert "Sophia" in scene.prompt or "aesthetic" in scene.prompt.lower()
+
+    # 4. Multi-Persona Voice Selection
+    genz_voice = tts_service.select_voice_for_niche("Pinterest Aesthetic / Clumsy GenZ Hot Baddie Lifestyle")
+    assert "Ava" in genz_voice or "Emma" in genz_voice or "Jenny" in genz_voice or "Ana" in genz_voice
+
+    tech_voice = tts_service.select_voice_for_niche("AI Tools and Tech Breakthroughs")
+    assert "Guy" in tech_voice or "Christopher" in tech_voice or "Brian" in tech_voice
+
+    print("[-] Test Pinterest Aesthetic / Clumsy GenZ Hot Baddie Pipeline & Voice Persona: PASSED")
+
+async def test_zero_local_gpu_scene_generation():
+    from python.services.remote_video_router import remote_t2v_router
+
+    # Synthesize a test scene clip via serverless remote path (0 local GPU)
+    res = await remote_t2v_router.generate_scene_clip(
+        scene_id="test_scene_001",
+        prompt="Sophia aesthetic clumsy girl in sunlit Parisian cafe holding iced matcha",
+        duration=2.5,
+        aspect_ratio="9:16",
+        niche="Pinterest Aesthetic"
+    )
+    assert res["status"] in ["READY", "REMOTE_SUCCESS"]
+    assert os.path.exists(res["clip_path"])
+    assert res["duration"] >= 2.5
+    print("[-] Test Zero Local GPU Remote Scene Generation: PASSED")
+
 async def main():
     print("=" * 60)
     print("YT-AUTOPILOT-X | AUTONOMOUS TEST SUITE RUNNER")
@@ -154,9 +257,13 @@ async def main():
     await test_learning_engine()
     await test_boost_agent()
     await test_dynamic_trend_discovery()
+    await test_remote_video_router()
+    await test_pinterest_genz_niche_pipeline()
+    await test_zero_local_gpu_scene_generation()
     print("=" * 60)
     print("ALL TESTS SUCCESSFULLY PASSED (100%)")
     print("=" * 60)
 
 if __name__ == '__main__':
     asyncio.run(main())
+
