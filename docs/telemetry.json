@@ -4,7 +4,7 @@
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "persona": "Maya (21yo Cute Aesthetic Baddie)",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T06:44:39.597729+00:00",
+  "last_updated": "2026-09-09T07:07:39.030578+00:00",
   "channels_count": 1,
   "channels": [
     {
@@ -17,8 +17,29 @@
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 7,
+  "productions_count": 8,
   "productions": [
+    {
+      "id": "c8e6ceda-f98f-42bf-9dd7-d33ac38bb4dd",
+      "title": "The 3 \u2728 (The Seductive Baddie Secret)",
+      "hook": "Okay babes, come closer... tell me why nobody warned us about this secret of The 3! \u2728",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#mayabaddie",
+        "#baddievibes",
+        "#pinterestgirl",
+        "#datingsecrets",
+        "#psychologyhacks",
+        "#darkfeminine",
+        "#magnetic"
+      ],
+      "duration_seconds": 70.39,
+      "youtube_video_id": "j79QZ17iNw8",
+      "youtube_url": "https://youtube.com/shorts/j79QZ17iNw8",
+      "created_at": "2026-09-09T07:06:42.124191"
+    },
     {
       "id": "20fee304-4c6a-4354-bc41-f24206306b97",
       "title": "The Pratfall Effect - Why Clumsy Girls Are Scientifically 10x More Magnetic \u2728 (Wikipedia Rabbit Hole)",
@@ -146,7 +167,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Maya \u2728 Cutie Baddie",
-    "timestamp": "2026-09-09T06:44:39.596051+00:00",
+    "timestamp": "2026-09-09T07:07:39.028880+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -156,9 +177,9 @@
       "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 7,
-      "completed_productions": 6,
-      "daily_publishing_rate": "6/3 Shorts today",
+      "total_productions_created": 8,
+      "completed_productions": 7,
+      "daily_publishing_rate": "7/3 Shorts today",
       "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
     },
@@ -215,9 +236,9 @@
     }
   ],
   "quota": {
-    "used": 1600,
+    "used": 6400,
     "limit": 10000,
-    "remaining": 8400
+    "remaining": 3600
   },
   "budget": {
     "daily_spent": 0.0,
@@ -260,9 +281,9 @@
     "total_models_registered": 34
   },
   "supported_niches": [
-    "AI Tools, Automation & Tech Breakthroughs",
-    "Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
-    "Productivity Automation"
+    "Pinterest Aesthetic & Girly Clumsy Baddie / Maya \u2728",
+    "Seductive Psychology & Dating Secrets",
+    "Luxury Lore & Aesthetic Magnetism"
   ],
   "quality_gates_passed": true
 }

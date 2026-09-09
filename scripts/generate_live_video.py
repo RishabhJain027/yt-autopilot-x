@@ -36,7 +36,7 @@ from sqlalchemy.future import select
 async def main():
     print("=" * 70)
     print("YT-AUTOPILOT-X | LIVE AUTONOMOUS VIDEO PRODUCTION & UPLOAD")
-    print("Channel: @BaddieAIStudio (UCOzdVylRBgYrewZ1Q3giwww)")
+    print("Channel: @MayaCutieBaddie - Maya ✨ Cutie Baddie (UCOzdVylRBgYrewZ1Q3giwww)")
     print("=" * 70)
 
     await init_db()
@@ -50,8 +50,8 @@ async def main():
         if not ch:
             ch = Channel(
                 youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                title="Baddie AI Studio",
-                niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
+                title="Maya ✨ Cutie Baddie",
+                niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE",
                 google_account_email="27rk04@gmail.com"
@@ -60,6 +60,8 @@ async def main():
             await session.commit()
             await session.refresh(ch)
         else:
+            ch.title = "Maya ✨ Cutie Baddie"
+            ch.niche = "Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
             ch.operating_mode = "AUTONOMOUS"
             ch.status = "ACTIVE"
             await session.commit()
@@ -75,8 +77,8 @@ async def main():
 
         # 3. Discover fresh trending research topics
         candidates = await trend_agent.discover_trends(
-            niche="AI Breakthroughs & Foundation Models",
-            pillars=["AI Video", "MoE LLMs", "Autonomous Agents", "Hugging Face Models"],
+            niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
+            pillars=["Baddie Psychology", "Dating Secrets", "Aesthetic Magnetism", "Luxury Lore"],
             exclude_topics=past_topics
         )
 

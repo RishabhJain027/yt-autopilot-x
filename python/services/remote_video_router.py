@@ -515,6 +515,13 @@ class RemoteT2VRouter:
         prompt_lower = prompt.lower()
         niche_lower = niche.lower()
 
+        # If fast / turbo / lightning mode is explicitly requested
+        if task == "lightning" or any(k in prompt_lower for k in ["fast", "turbo", "lightning", "4-step", "speed"]):
+            fast_candidates = ["wan2.2_lightning", "fasthunyuan", "wan2.1", "ltx_video", "cosmos_7b", "cogvideox_5b"]
+            for m_key in fast_candidates:
+                if m_key in self.models:
+                    return self.models[m_key]
+
         # Flagship 14B/13B parameter model prioritization order
         flagship_14b_candidates = [
             "wan2.2_t2v_14b",
@@ -534,7 +541,7 @@ class RemoteT2VRouter:
 
         return self.models.get("wan2.2_t2v_14b", list(self.models.values())[0])
 
-    async def _fetch_cloud_ai_image(self, prompt: str, aspect_ratio: str = "9:16", niche: str = "tech") -> Optional[str]:
+    async def _fetch_cloud_ai_image(self, prompt: str, aspect_ratio: str = "9:16", niche: str = "aesthetic") -> Optional[str]:
         """
         Fetches photorealistic cloud-generated AI scene visual via remote serverless inference endpoints.
         Strictly consumes 0 MB of local GPU / VRAM.
@@ -542,20 +549,21 @@ class RemoteT2VRouter:
         """
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
         niche_lower = niche.lower()
-        is_genz_aesthetic = any(k in niche_lower or k in prompt.lower() for k in ["pinterest", "aesthetic", "girl", "baddie", "character", "lifestyle", "clumsy"])
+        is_genz_aesthetic = any(k in niche_lower or k in prompt.lower() for k in ["pinterest", "aesthetic", "girl", "baddie", "character", "lifestyle", "clumsy", "maya", "psychology", "dating"])
 
         if is_genz_aesthetic:
-            # Aesthetic Pinterest / GenZ Baddie Lifestyle Prompt Styling (candid 35mm film, photorealistic character)
+            # Seductive Aesthetic Pinterest / GenZ Baddie Lifestyle Prompt Styling (Kodak Portra 400 35mm film still, photorealistic 8k)
             clean_prompt = (
-                f"{prompt}, aesthetic Pinterest film photography, 35mm Kodak Portra 400 shot, "
-                f"authentic candid vibe, soft natural sunlight, shallow depth of field, "
-                f"photorealistic skin texture, ultra-high resolution, beautiful color grading, clean cinematic shot, no text boxes, no subtitles"
+                f"{prompt}, 21yo stunning gorgeous aesthetic baddie Maya, captivating hazel eyes, dreamy lips, "
+                f"messy bun, sunlit golden hour, Kodak Portra 400 35mm film still, soft natural lighting, "
+                f"shallow depth of field, photorealistic skin texture, ultra-high resolution 8k, beautiful cinematic color grading, "
+                f"clean frame, strictly no text boxes, no subtitles, no watermark, no captions"
             )
         else:
-            # High-Tech / AI Breakthroughs Prompt Styling (futuristic cinematic octane render)
+            # Cinematic High-Fidelity Render Styling
             clean_prompt = (
-                f"{prompt}, hyperrealistic 8k octane render, volumetric futuristic studio lighting, "
-                f"clean modern aesthetic, photorealistic detail, cinematic depth of field, sharp focus, no printed text boxes"
+                f"{prompt}, hyperrealistic 8k cinematic render, volumetric studio lighting, "
+                f"clean modern aesthetic, photorealistic detail, cinematic depth of field, sharp focus, strictly no text boxes, no subtitles"
             )
 
         encoded_prompt = urllib.parse.quote(clean_prompt)
@@ -575,7 +583,7 @@ class RemoteT2VRouter:
                         img_path = os.path.join(self.clips_dir, f"ai_frame_{int(time.time() * 1000)}_{seed}.png")
                         with open(img_path, "wb") as f:
                             f.write(resp.content)
-                        logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual ({'Aesthetic GenZ' if is_genz_aesthetic else 'Tech AI'}): {img_path}")
+                        logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual ({'Seductive Aesthetic Baddie' if is_genz_aesthetic else 'Cinematic'}): {img_path}")
                         return img_path
             except Exception as e:
                 logger.warning(f"[REMOTE_T2V] Remote Cloud AI endpoint note ({url[:45]}...): {e}")

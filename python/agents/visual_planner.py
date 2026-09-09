@@ -1,9 +1,10 @@
 """
 Visual Planner Agent for Maya ✨ Cutie Baddie.
-Plans photorealistic, high-aesthetic visual storyboards for Text-to-Video synthesis across
-remote cloud models (Wan 2.2, HunyuanVideo 1.5, LTX-2.5, MiniMax-H3, AnimateDiff-Lightning).
-Embodies Maya ✨ (21yo gorgeous, cute, clumsy aesthetic girl, Portra 400 35mm film still,
-warm golden hour Parisian/NYC cafe, soft lighting, depth of field, clean frames with strictly NO text boxes).
+Plans hyper-gorgeous, photorealistic, high-aesthetic visual storyboards for Text-to-Video synthesis across
+remote flagship open-source models (Wan 2.2 14B MoE, HunyuanVideo 1.5 13B, MiniMax-H3 14B MoE).
+Embodies Maya ✨ (21yo stunning gorgeous aesthetic baddie, captivating hazel eyes, dreamy lips,
+messy bun, golden hour loft, chic Parisian cafe, luxury silk robe, Portra 400 35mm film still,
+strictly clean frames with NO on-screen text or subtitles).
 """
 
 from typing import Optional
@@ -13,15 +14,15 @@ from packages.logger.logger import logger
 
 class VisualPlanner:
     def plan_visuals(self, script: ScriptPlan, aspect_ratio: str = '9:16', niche: Optional[str] = None) -> VisualStoryboard:
-        logger.info(f"[VISUAL_PLANNER] Planning {len(script.segments)} visual scenes for Maya ✨ in {aspect_ratio} format...")
+        logger.info(f"[VISUAL_PLANNER] Planning {len(script.segments)} hyper-gorgeous visual scenes for Maya ✨ in {aspect_ratio} format...")
 
-        # Consistent AI Character Prompts: Maya (21yo gorgeous, cute, clumsy aesthetic girl)
+        # Consistent Flagship AI Character Prompts: Maya (21yo stunning gorgeous aesthetic baddie)
         aesthetic_enhancers = [
-            "Maya 21yo stylish cute clumsy aesthetic girl with messy brunette hair bun and curtain bangs, oversized cream knit sweater, sunlit minimalist aesthetic loft, holding iced latte, candid Kodak Portra 400 35mm film photography, soft natural golden hour glow, shallow depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text boxes",
-            "Maya sitting at cozy Parisian café terrace outdoor table, chic vintage sunglasses pushed on head, cute oversized beige trench coat, laughing candidly, authentic film grain, soft cinematic lighting, 8k photorealistic portrait, clean composition, NO text boxes",
-            "Maya in a dreamy aesthetic room with soft ambient pastel lighting, floating fairy lights, looking into camera with alluring warm smile, cinematic 35mm film still, high fashion editorial vibe, photorealistic, NO text boxes",
-            "Maya walking gracefully down modern aesthetic city street during sunset, warm ambient bokeh, stylish baggy streetwear, candid lifestyle photograph, smooth tracking camera glide, photorealistic, NO text boxes",
-            "Maya in a cozy aesthetic vinyl record shop, soft warm indoor lighting, playful expressive wink at camera, holding retro pastel headphones, cinematic 35mm film still, depth of field, 8k resolution, NO text boxes"
+            "Maya 21yo stunning gorgeous aesthetic baddie, captivating hazel eyes, dreamy lips, messy brunette bun with face-framing strands, luxury cream silk slip dress, sunlit golden hour loft, soft natural glow, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles",
+            "Maya sitting at chic Parisian cafe terrace outdoor table, chic vintage sunglasses pushed on head, oversized beige trench coat, sipping iced matcha latte, glancing seductively into camera with playful smile, warm ambient lighting, 35mm film grain, 8k cinematic portrait, clean frame, NO text boxes",
+            "Maya in a dreamy aesthetic boudoir room with soft velvet cushions and floating fairy lights, looking intimately into camera with alluring warm gaze, high-fashion editorial aesthetic, 8k photorealistic, clean frame, NO text, NO subtitles",
+            "Maya walking gracefully down glowing city avenue during sunset in stylish chic streetwear, warm golden hour bokeh, candid high-fashion lifestyle, cinematic tracking camera glide, clean frame, NO text, NO subtitles",
+            "Maya applying luxury botanical perfume with alluring playful expression, playful expressive wink at camera in sunlit bedroom, cinematic 35mm film still, depth of field, 8k resolution, clean frame, NO text, NO subtitles"
         ]
 
         scenes = []

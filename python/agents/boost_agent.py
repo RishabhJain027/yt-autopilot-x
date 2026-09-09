@@ -1,7 +1,7 @@
 """
-Viral Boost & Retention Optimization Engine for Maya ✨ (/boost).
-Optimizes video hook tension, aesthetic pattern interrupts, algorithm hashtags,
-CTR thumbnail concepts, and YouTube SEO ranking factors for Wikipedia aesthetic rabbit holes.
+Viral Boost & Retention Optimization Engine for Maya ✨ Cutie Baddie (/boost).
+Optimizes video hook tension, seductive pattern interrupts, algorithm hashtags,
+CTR thumbnail concepts, and YouTube SEO ranking factors for baddie psychology & dating secrets.
 """
 
 from typing import Dict, Any, List, Optional
@@ -15,11 +15,12 @@ class BoostAgent:
         words = hook_text.strip().split()
         word_count = len(words)
 
-        # Power words that drive Shorts retention for Maya ✨
+        # Power words that drive viral Shorts retention for Maya ✨
         power_words = [
-            "new", "secret", "stop", "never", "everyone", "shocking", "breakthrough",
-            "insane", "clumsy", "baddie", "aesthetic", "pinterest", "besties", "tell me why",
-            "pov", "relatable", "wikipedia", "psychology", "mindblown", "nobody"
+            "secret", "obsessed", "never", "everyone", "shocking", "trick",
+            "insane", "clumsy", "baddie", "aesthetic", "pinterest", "babes", "tell me why",
+            "pov", "relatable", "psychology", "mindblown", "nobody", "magnetic", "seductive",
+            "alluring", "crush", "gossip", "tea", "unbothered", "glow", "glowup", "warned"
         ]
         matches = [w for w in words if w.lower().strip(".,!?:✨😭💖") in power_words]
 
@@ -38,52 +39,54 @@ class BoostAgent:
             "verdict": "VIRAL_READY" if composite_score >= 80 else "ACCEPTABLE"
         }
 
-    def generate_boost_package(self, topic: str, hook: str, category: str = "Aesthetic Psychology") -> Dict[str, Any]:
+    def generate_boost_package(self, topic: str, hook: str, category: str = "Baddie Psychology & Magnetism") -> Dict[str, Any]:
         """
         Generates algorithm-optimized title candidates, hashtag matrix, and retention boost directives for Maya ✨.
         """
         logger.info(f"[BOOST] Generating algorithmic viral boost package for Maya ✨ topic: '{topic}'...")
 
         clean_topic = topic.replace(":", " -")
+        core_topic = clean_topic.split('-')[0].strip()
 
         titles = [
-            f"{clean_topic} ✨ (Why Nobody Talks About This)",
-            f"POV: You Find This Psychological Secret on Wikipedia 😭✨",
-            f"The Clumsy Baddie Guide to {clean_topic.split('-')[0].strip()} 💖"
+            f"The 3-Second Trick That Makes Him Obsessed ✨",
+            f"Why Being Unbothered Makes You 10x More Magnetic 💖 (Baddie Secret)",
+            f"{core_topic} ✨ (Why Nobody Warned Us About This 😭)"
         ]
         hashtags = [
             "#shorts",
             "#mayabaddie",
+            "#baddievibes",
+            "#pinterestgirl",
+            "#datingsecrets",
+            "#psychologyhacks",
+            "#darkfeminine",
+            "#magnetic",
             "#aesthetic",
-            "#psychologyfacts",
-            "#wikipediarabbithole",
-            "#pinterestvibes",
-            "#clumsybaddie",
-            "#genz",
+            "#glowup",
             "#relatable",
-            "#lifestyle",
-            "#hotgirlwalk",
-            "#ootd"
+            "#crushhack",
+            "#viral"
         ]
         pacing_directives = [
-            "Scene 1 (0-3s): Seductive pattern interrupt + instant curiosity hook.",
-            "Scene 2 (3-8s): Candid aesthetic backstory + soft 35mm golden hour glow.",
-            "Scene 3 (8-22s): Shocking Wikipedia revelation & seductive breakdown.",
-            "Scene 4 (22-30s): Scientific proof / psychological takeaway.",
-            "Scene 5 (30-38s): Playful wink payoff & comment CTA for Maya ✨."
+            "Scene 1 (0-4s): Seductive pattern interrupt + instant curiosity hook ('Okay babes, come closer...').",
+            "Scene 2 (4-9s): Candid aesthetic backstory + soft 35mm golden hour glow in Parisian cafe.",
+            "Scene 3 (9-21s): Intimate boudoir revelation & seductive psychological breakdown.",
+            "Scene 4 (21-28s): Real-world behavioral proof & magnetic allure takeaway.",
+            "Scene 5 (28-35s): Playful perfume spritz / wink payoff & comments CTA for Maya ✨."
         ]
 
         hook_eval = self.evaluate_hook_strength(hook)
 
         boost_data = {
             "topic": topic,
-            "niche": "pinterest_aesthetic_maya_baddie",
+            "niche": "pinterest_aesthetic_maya_cutie_baddie",
             "primary_title": titles[0],
             "ab_title_variants": titles,
             "hashtags": hashtags,
             "hook_evaluation": hook_eval,
             "retention_pacing": pacing_directives,
-            "algorithm_boost_score": 98.2,
+            "algorithm_boost_score": 98.8,
             "optimal_upload_hours": ["14:00 UTC", "18:30 UTC", "21:00 UTC"],
             "synthetic_media_declaration": True
         }

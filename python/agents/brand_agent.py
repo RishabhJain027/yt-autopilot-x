@@ -5,22 +5,22 @@ from python.services.llm_service import llm_service
 class BrandingAgent:
     async def generate_brand_identity(self, niche: str) -> Dict[str, Any]:
         fallback = {
-            "name": "FutureStack AI",
-            "shortlist": ["FutureStack AI", "NeuroAutomate", "NextGen Stack", "Cognitive Workflow", "PromptCraft Tech"],
-            "tagline": "Practical AI Tools & Automation That Actually Saves You Time",
-            "channel_description": "We explore cutting-edge AI software, developer tools, and workflow automations to 10x your productivity. New breakdowns every day.",
-            "logo_prompt": "Minimalist geometric hexagon with glowing cyan neural lines on deep slate background, vector logo, 8k",
-            "banner_prompt": "Futuristic clean workspace with neon accent lighting and abstract digital grid, wide 16:9 banner",
+            "name": "Maya ✨ Cutie Baddie",
+            "shortlist": ["Maya ✨ Cutie Baddie", "Maya Baddie Diaries", "Aesthetic Maya ✨", "The Baddie Vault", "Maya Unbothered"],
+            "tagline": "Seductive Psychology, Baddie Secrets & Pinterest Aesthetics",
+            "channel_description": "Welcome to Maya's daily aesthetic diaries ✨ We spill intoxicating tea on seductive psychology, dating hacks, high-value allure, and magnetic baddie secrets. Subscribe for your daily glow up babes 💖",
+            "logo_prompt": "Maya 21yo stunning gorgeous aesthetic baddie, hazel eyes, dreamy lips, messy bun, silk slip dress, soft golden hour glow, Kodak Portra 400 35mm film still, photorealistic 8k, luxury minimalist circle logo",
+            "banner_prompt": "Aesthetic sunlit Parisian loft with iced matcha latte, silk robe, velvet cushions, floating golden dust, dreamy 35mm film still banner",
             "brand_kit": {
-                "name": "FutureStack AI",
-                "tone": ["smart", "fast", "practical", "evidence-led"],
-                "primary_color": "#0284C7",
-                "secondary_color": "#0F172A",
-                "logo_style": "minimal geometric",
-                "thumbnail_style": "high contrast, one focal object, 3-5 words max"
+                "name": "Maya ✨ Cutie Baddie",
+                "tone": ["seductive", "velvety", "alluring", "playful", "unbothered", "dreamy"],
+                "primary_color": "#EC4899",
+                "secondary_color": "#180F1E",
+                "logo_style": "aesthetic 35mm film portrait",
+                "thumbnail_style": "dreamy golden hour, Portra 400 film grain, alluring baddie expression, clean frame"
             }
         }
-        sys_prompt = "You are the Channel Branding Agent. Generate 50 name ideas, shortlist, tagline, channel description, and visual identity."
+        sys_prompt = "You are the Channel Branding Agent for Maya ✨ Cutie Baddie. Generate name ideas, shortlist, tagline, channel description, and visual identity for an intoxicating Pinterest baddie channel."
         user_prompt = f"Niche: {niche}. Generate brand kit without trademark conflicts."
         return await llm_service.generate_json(sys_prompt, user_prompt, fallback)
 

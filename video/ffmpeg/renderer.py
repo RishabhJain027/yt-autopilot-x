@@ -98,16 +98,14 @@ class VideoRenderer:
         scene_img_path = os.path.join(settings.STORAGE_ROOT, "scenes", f"{production_id}_slide.png")
         os.makedirs(os.path.dirname(scene_img_path), exist_ok=True)
         
-        img = Image.new("RGB", (width, height), color="#070A12")
+        img = Image.new("RGB", (width, height), color="#180F1E")
         draw = ImageDraw.Draw(img)
         
-        # Sleek dark ambient cybernetic background
+        # Warm ambient rose gold & candlelight radial lighting
         center_y = height // 2
         for radius in range(600, 0, -12):
-            alpha = int((1.0 - (radius / 600.0)) * 35)
-            draw.ellipse([width // 2 - radius, center_y - radius, width // 2 + radius, center_y + radius], fill=(alpha // 4, alpha, alpha + 25))
-        for y in range(0, height, 48):
-            draw.line([(0, y), (width, y)], fill=(8, 14, 28), width=1)
+            alpha = int((1.0 - (radius / 600.0)) * 45)
+            draw.ellipse([width // 2 - radius, center_y - radius, width // 2 + radius, center_y + radius], fill=(alpha + 30, alpha // 2, alpha + 20))
             
         img.save(scene_img_path, format="PNG")
 

@@ -22,11 +22,11 @@ class HourlyTickOrchestrator:
             res = await session.execute(select(Channel).where(Channel.status == 'ACTIVE'))
             channels = res.scalars().all()
             if not channels:
-                logger.info("[HOURLY_TICK] Initializing default channel @BaddieAIStudio...")
+                logger.info("[HOURLY_TICK] Initializing default channel Maya ✨ Cutie Baddie...")
                 ch = Channel(
                     youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                    title="Baddie AI Studio",
-                    niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
+                    title="Maya ✨ Cutie Baddie",
+                    niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
                     operating_mode="AUTONOMOUS",
                     status="ACTIVE",
                     google_account_email="27rk04@gmail.com"
@@ -80,10 +80,10 @@ class HourlyTickOrchestrator:
                     available_topics = topics_res.scalars().all()
 
                     if not available_topics:
-                        logger.info(f"[HOURLY_TICK] Discovering fresh breakthrough viral trends for {ch.niche or 'AI Tech'} (excluding {len(past_topics)} past topics)...")
+                        logger.info(f"[HOURLY_TICK] Discovering fresh breakthrough viral trends for {ch.niche or 'Baddie Psychology'} (excluding {len(past_topics)} past topics)...")
                         candidates = await trend_agent.discover_trends(
-                            niche=ch.niche or "AI Breakthroughs",
-                            pillars=["AI Foundation Models", "Open Source AI", "Autonomous Agents", "Developer Productivity"],
+                            niche=ch.niche or "Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
+                            pillars=["Baddie Psychology", "Dating Secrets", "Aesthetic Magnetism", "Luxury Lore"],
                             exclude_topics=past_topics
                         )
                         for cand in candidates:

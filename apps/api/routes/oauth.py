@@ -44,7 +44,7 @@ async def oauth_connect_page(db: AsyncSession = Depends(get_db)):
         <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-2">
             <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Channel Profile</div>
             <div class="text-sm font-semibold text-sky-400 font-mono">27rk04@gmail.com</div>
-            <div class="text-xs text-slate-400">Handle: <strong class="text-slate-200">@BaddieAIStudio</strong></div>
+            <div class="text-xs text-slate-400">Handle: <strong class="text-slate-200">@MayaCutieBaddie (Maya ✨ Cutie Baddie)</strong></div>
             <div class="text-[11px] text-emerald-400 font-mono">Client ID Configured: Yes</div>
         </div>
 

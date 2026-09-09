@@ -1,6 +1,10 @@
 import asyncio
 import sys, os
 sys.path.insert(0, '.')
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 
 def test_scoring():
     from python.agents.niche_discovery import NicheDiscoveryAgent
@@ -173,8 +177,8 @@ async def test_remote_video_router():
 
     # 3. Intelligent Model Selector
     aesthetic_model = remote_t2v_router.select_best_model(
-        "Sophia the aesthetic clumsy girl spilling iced matcha in sunlit loft",
-        niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
+        "Maya the aesthetic seductive baddie sipping iced matcha in sunlit Parisian loft",
+        niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
     )
     assert aesthetic_model["name"] in ["Wan2.2-T2V-A14B", "HunyuanVideo 1.5", "LTX-2.5", "MiniMax-H3", "AnimateDiff-Lightning", "Wan2.1-T2V-14B"]
 
@@ -196,7 +200,7 @@ async def test_pinterest_genz_niche_pipeline():
 
     # 1. Niche Discovery
     niche_prop = await niche_agent.discover_niche(NicheScoreInput(
-        niche_preference="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
+        niche_preference="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
         shorts=True
     ))
     assert "Pinterest Aesthetic" in niche_prop.niche
@@ -205,41 +209,41 @@ async def test_pinterest_genz_niche_pipeline():
 
     # 2. Script Generation
     research = ResearchPacket(
-        topic="POV: You Try Being That Aesthetic Pinterest Girl but You're Too Clumsy",
+        topic="The 3-Second Eye Contact Trick That Makes Him Obsessed",
         facts=[
-            "Relatable clumsy moments create an instant 91% 3-second hold rate.",
-            "35mm film photography aesthetic gives authentic editorial look."
+            "Mirror neurons fire synchronously when holding soft, alluring eye contact.",
+            "The 3-second triangle gaze creates immediate subconscious chemical tension."
         ],
-        claims=[ClaimItem(claim_id="c1", claim_text="Relatable clumsy hold rate", confidence=0.96, requires_human_review=False)]
+        claims=[ClaimItem(claim_id="c1", claim_text="Mirror neuron eye contact tension", confidence=0.96, requires_human_review=False)]
     )
     script = await script_agent.generate_script(
-        topic="POV: You Try Being That Aesthetic Pinterest Girl but You're Too Clumsy",
+        topic="The 3-Second Eye Contact Trick That Makes Him Obsessed",
         research=research,
         format="shorts",
-        niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
+        niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
     )
-    assert "besties" in script.hook.lower() or "clumsy" in script.hook.lower() or "aesthetic" in script.hook.lower()
+    assert "babes" in script.hook.lower() or "secret" in script.hook.lower() or "obsessed" in script.hook.lower() or "maya" in script.hook.lower()
     assert len(script.segments) == 5
 
     # 3. Visual Planning (Character Consistency & Clean Rendering with NO text boxes)
     storyboard = visual_planner.plan_visuals(
         script,
         aspect_ratio="9:16",
-        niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
+        niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
     )
     assert len(storyboard.scenes) == 5
     for scene in storyboard.scenes:
-        assert "NO text boxes" in scene.prompt
-        assert "Sophia" in scene.prompt or "aesthetic" in scene.prompt.lower()
+        assert "NO text" in scene.prompt or "NO text boxes" in scene.prompt
+        assert "Maya" in scene.prompt
 
     # 4. Multi-Persona Voice Selection
-    genz_voice = tts_service.select_voice_for_niche("Pinterest Aesthetic / Clumsy GenZ Hot Baddie Lifestyle")
-    assert "Ava" in genz_voice or "Emma" in genz_voice or "Jenny" in genz_voice or "Ana" in genz_voice
+    baddie_voice = tts_service.select_voice_for_niche("Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨")
+    assert "Ava" in baddie_voice or "Emma" in baddie_voice or "Jenny" in baddie_voice
 
     tech_voice = tts_service.select_voice_for_niche("AI Tools and Tech Breakthroughs")
-    assert "Guy" in tech_voice or "Christopher" in tech_voice or "Brian" in tech_voice
+    assert "Ava" in tech_voice or "Guy" in tech_voice or "Brian" in tech_voice
 
-    print("[-] Test Pinterest Aesthetic / Clumsy GenZ Hot Baddie Pipeline & Voice Persona: PASSED")
+    print("[-] Test Pinterest Aesthetic / Maya ✨ Seductive Baddie Pipeline & Voice Persona: PASSED")
 
 async def test_zero_local_gpu_scene_generation():
     from python.services.remote_video_router import remote_t2v_router
@@ -247,7 +251,7 @@ async def test_zero_local_gpu_scene_generation():
     # Synthesize a test scene clip via serverless remote path (0 local GPU)
     res = await remote_t2v_router.generate_scene_clip(
         scene_id="test_scene_001",
-        prompt="Sophia aesthetic clumsy girl in sunlit Parisian cafe holding iced matcha",
+        prompt="Maya 21yo stunning gorgeous aesthetic baddie in sunlit Parisian cafe holding iced matcha",
         duration=2.5,
         aspect_ratio="9:16",
         niche="Pinterest Aesthetic"

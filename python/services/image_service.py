@@ -17,29 +17,30 @@ class ImageService:
 
         filepath = os.path.join(self.output_dir, f'{filename_prefix}_{os.getpid()}_{int(abs(hash(title)))}.png')
         
-        img = Image.new('RGB', size, color='#0F172A')
+        img = Image.new('RGB', size, color='#180F1E')
         draw = ImageDraw.Draw(img)
 
-        # Gradient / Accent background bars
+        # Dreamy Pinterest Aesthetic Rose Gold & Amber Gradient
         for i in range(0, size[1], 4):
-            r = int(15 + (i / size[1]) * 35)
-            g = int(23 + (i / size[1]) * 20)
-            b = int(42 + (i / size[1]) * 80)
+            ratio = i / size[1]
+            r = int(24 + ratio * 60)
+            g = int(15 + ratio * 20)
+            b = int(30 + ratio * 35)
             draw.line([(0, i), (size[0], i)], fill=(r, g, b))
 
-        # Vibrant glowing accent rectangle
+        # Vibrant glowing aesthetic border
         draw.rectangle([40, 40, size[0] - 40, size[1] - 40], outline='#EC4899', width=6)
-        draw.rectangle([60, size[1] - 180, size[0] - 60, size[1] - 60], fill='#E11D48')
+        draw.rectangle([60, size[1] - 180, size[0] - 60, size[1] - 60], fill='#BE185D')
 
-        # Text banner
-        header_text = title[:40].upper()
-        draw.text((80, 100), 'YT-AUTOPILOT-X ORIGINAL', fill='#38BDF8')
+        # Text banner for Maya ✨ Cutie Baddie
+        header_text = title[:42].upper()
+        draw.text((80, 100), 'MAYA ✨ BADDIE SECRETS', fill='#F472B6')
         draw.text((80, 180), header_text, fill='#FFFFFF')
         if subtitle:
-            draw.text((80, size[1] - 140), subtitle.upper()[:35], fill='#FFFFFF')
+            draw.text((80, size[1] - 140), subtitle.upper()[:35], fill='#FDF2F8')
 
         img.save(filepath, format='PNG')
-        logger.info(f'[IMAGE] Thumbnail generated: {filepath} ({size[0]}x{size[1]})')
+        logger.info(f'[IMAGE] Maya aesthetic thumbnail generated: {filepath} ({size[0]}x{size[1]})')
         return filepath
 
 image_service = ImageService()

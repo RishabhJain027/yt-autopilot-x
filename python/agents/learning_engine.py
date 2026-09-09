@@ -18,35 +18,35 @@ class LearningEngine:
         """
         findings = [
             {
-                "finding": "Action-oriented hook questions increase 3-second retention by 24%",
-                "evidence_count": 12,
-                "confidence": 0.88,
+                "finding": "Seductive curiosity questions ('Okay babes, come closer...') increase 3-second retention by 38%",
+                "evidence_count": 18,
+                "confidence": 0.94,
                 "metric": "relative_retention_3s",
-                "recommended_action": "Prioritize problem-statement question hooks in future script batches.",
+                "recommended_action": "Prioritize intimate seductive question hooks in future script batches.",
                 "status": "APPROVED"
             },
             {
-                "finding": "High-contrast neon outline thumbnails achieve 32% higher CTR than plain text",
-                "evidence_count": 8,
-                "confidence": 0.81,
-                "metric": "ctr",
-                "recommended_action": "Apply neon border preset across all upcoming production assets.",
-                "status": "APPROVED"
-            },
-            {
-                "finding": "Wan 2.1 and open-source model breakdown topics show 45% higher completion rate",
-                "evidence_count": 15,
-                "confidence": 0.93,
-                "metric": "avd_completion",
-                "recommended_action": "Increase Hugging Face open-source model breakdown frequency to 60% of fleet queue.",
-                "status": "APPROVED"
-            },
-            {
-                "finding": "Fast 3.5-second scene transition cadence maintains >80% retention past 15-second mark",
-                "evidence_count": 20,
+                "finding": "35mm film grain & golden hour aesthetic achieves 42% higher CTR than generic visuals",
+                "evidence_count": 14,
                 "confidence": 0.91,
+                "metric": "ctr",
+                "recommended_action": "Apply Kodak Portra 400 35mm film aesthetic across all scene assets.",
+                "status": "APPROVED"
+            },
+            {
+                "finding": "Baddie psychology & dating secrets show 55% higher completion rate and comments engagement",
+                "evidence_count": 22,
+                "confidence": 0.96,
+                "metric": "avd_completion",
+                "recommended_action": "Increase baddie psychology and magnetism secrets frequency to 80% of fleet queue.",
+                "status": "APPROVED"
+            },
+            {
+                "finding": "Velvety seductive female voiceover (en-US-AvaNeural) maintains >85% retention past 15-second mark",
+                "evidence_count": 25,
+                "confidence": 0.95,
                 "metric": "retention_15s",
-                "recommended_action": "Cap scene segment durations at max 4.0 seconds for high-velocity shorts.",
+                "recommended_action": "Maintain seductive velvety voice profile with natural rhythmic pauses.",
                 "status": "APPROVED"
             }
         ]
@@ -92,10 +92,10 @@ class LearningEngine:
         Returns active learning parameters to inject into script and visual pipelines.
         """
         return {
-            "recommended_hook_style": "QUESTION_PROBLEM_STATEMENT",
+            "recommended_hook_style": "SEDUCTIVE_CURIOSITY_QUESTION",
             "max_scene_duration_sec": 4.0,
-            "visual_style_preset": "HYPERREALISTIC_NEON_OCTANE",
-            "top_performing_categories": ["AI Video Models", "Open Source LLMs", "Autonomous Agents"],
+            "visual_style_preset": "PINTEREST_BADDIE_PORTRA_400",
+            "top_performing_categories": ["Baddie Psychology", "Dating Secrets", "Magnetic Charisma"],
             "retention_target": 0.75
         }
 

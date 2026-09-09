@@ -1,7 +1,7 @@
 """
-SEO & Publishing Metadata Agent for Maya ✨.
-Generates aesthetic, high-CTR titles, descriptions, and tags for Shorts based on
-fascinating Wikipedia research rabbit holes.
+SEO & Publishing Metadata Agent for Maya ✨ Cutie Baddie.
+Generates dreamy, alluring, high-CTR clickbait titles, juicy tea-spilling descriptions,
+and viral hashtags that attract both girls and boys.
 """
 
 from typing import List, Dict, Any
@@ -11,29 +11,42 @@ from python.services.llm_service import llm_service
 class SeoAgent:
     async def generate_metadata(self, topic: str, script_text: str) -> PublishingPackage:
         clean_topic = topic.replace(":", " -")
+        core_topic = clean_topic.split('-')[0].strip()
+        
         fallback = {
-            "primary_title": f"{clean_topic} ✨ (Wikipedia Rabbit Hole)",
+            "primary_title": f"{core_topic} ✨ (The Seductive Baddie Secret)",
             "alternate_titles": [
-                f"Why {clean_topic.split('-')[0].strip()} is Mindblowing ✨",
-                f"The Shocking Secret About {clean_topic.split('-')[0].strip()} 😭",
-                f"POV: You Find This Secret on Wikipedia at 2AM ✨"
+                f"The 3-Second Trick That Makes Him Obsessed ✨",
+                f"Why Being Unbothered Makes You 10x More Magnetic 😭💖",
+                f"POV: You Find This Seductive Psychology Secret at 2AM ✨"
             ],
             "description": (
-                f"{clean_topic} ✨\n\n"
-                "Welcome to Maya's daily aesthetic rabbit holes & baddie diaries! "
-                "Today we are diving into one of the most fascinating secrets documented on Wikipedia.\n\n"
-                "✨ Source: Wikipedia, The Free Encyclopedia (https://www.wikipedia.org)\n"
-                "💖 Drop a ✨ in the comments and subscribe to Maya for daily aesthetic psychology, history mysteries & lifestyle vibes!\n\n"
-                "#shorts #mayabaddie #aesthetic #psychologyfacts #wikipediarabbithole #pinterestvibes #genz #relatable"
+                f"Okay babes, come closer... let's spill the tea on {clean_topic} ✨\n\n"
+                "Welcome to Maya's daily aesthetic tea & baddie diaries! "
+                "Today we are diving into the most intoxicating psychological secrets and magnetic attraction hacks.\n\n"
+                "💖 Drop a ✨ in the comments and subscribe to Maya for your daily baddie workflows, dating tea & seductive psychology secrets!\n\n"
+                "#shorts #mayabaddie #baddievibes #pinterestgirl #datingsecrets #psychologyhacks #darkfeminine #magnetic #aesthetic #glowup #relatable #crushhack #viral"
             ),
-            "hashtags": ["#shorts", "#mayabaddie", "#aesthetic", "#psychologyfacts", "#wikipediarabbithole", "#pinterestvibes", "#genz", "#relatable"],
-            "tags": ["maya baddie", "aesthetic psychology", "wikipedia rabbit hole", "pratfall effect", "cleopatra secrets", "girly facts", "pinterest aesthetic", "genz lifestyle", "shorts"],
+            "hashtags": [
+                "#shorts", "#mayabaddie", "#baddievibes", "#pinterestgirl",
+                "#datingsecrets", "#psychologyhacks", "#darkfeminine", "#magnetic",
+                "#aesthetic", "#glowup", "#relatable", "#crushhack", "#viral"
+            ],
+            "tags": [
+                "maya baddie", "seductive girl", "pinterest aesthetic", "baddie psychology",
+                "dating hacks", "dark feminine", "magnetism secrets", "pratfall effect",
+                "eye contact trick", "cleopatra scent", "glow up", "relatable tea", "shorts"
+            ],
             "category_id": "22",  # People & Blogs / Entertainment
             "language": "en",
             "contains_synthetic_media": True
         }
 
-        sys_prompt = "You are the SEO & Metadata Agent for Maya ✨. Generate high CTR aesthetic titles, descriptions with Wikipedia citations, and viral tags."
+        sys_prompt = (
+            "You are the Viral SEO & Metadata Agent for Maya ✨ Cutie Baddie. "
+            "Generate irresistible, dreamy, seductive clickbait titles, juicy tea-spilling aesthetic descriptions, "
+            "and viral hashtags that attract both girls and boys. ZERO mentions of AI or tech jargon."
+        )
         user_prompt = f"Topic: {topic}, Narration: {script_text[:200]}"
         res = await llm_service.generate_json(sys_prompt, user_prompt, fallback)
         return PublishingPackage(**res)

@@ -12,94 +12,72 @@ from packages.logger.logger import logger, audit_log
 
 WIKIPEDIA_USER_AGENT = "MayaBaddieVibes/2.0 (https://youtube.com/@MayaBaddie; contact@mayabaddie.ai) httpx/0.27"
 
-# Curated high-retention aesthetic, psychological, luxury, mysterious, and fascinating Wikipedia rabbit holes
+# Curated high-retention aesthetic, seductive psychological, luxury, and baddie dating secrets
 CURATED_WIKIPEDIA_TOPICS = [
     {
         "title": "Pratfall effect",
-        "category": "Psychology & Magnetism",
+        "category": "Baddie Psychology & Magnetism",
         "search_term": "Pratfall effect",
-        "vibe": "Why clumsy, cute girlies are scientifically 10x more attractive and magnetic",
+        "vibe": "Why clumsy, unbothered cute baddies are scientifically 10x more magnetic and irresistible",
         "default_facts": [
-            "Psychologist Elliot Aronson discovered that highly competent people who make small clumsy mistakes become significantly more likable and attractive.",
-            "Flawless perfection actually intimidates people, while spilling a coffee or tripping creates instant subconscious trust and warmth.",
-            "Your clumsy moments are scientifically your biggest magnetic superpower."
+            "Psychologist Elliot Aronson proved that highly attractive people who make cute clumsy mistakes become significantly more magnetic and likable.",
+            "Flawless perfection actually intimidates people, while being playfully unbothered and laughing off a stumble creates instant subconscious trust and warmth.",
+            "Embracing your clumsy, carefree baddie energy is scientifically your biggest magnetic superpower."
         ]
     },
     {
         "title": "Mirror neuron",
-        "category": "Psychology & Chemistry",
+        "category": "Seductive Psychology & Eye Contact",
         "search_term": "Mirror neuron",
-        "vibe": "The subconscious secret of instant chemistry and eye contact",
+        "vibe": "The 3-second triangle eye contact trick that makes him instantly obsessed",
         "default_facts": [
-            "Mirror neurons in the human brain fire both when you perform an action and when you watch someone else do it.",
-            "This explains why holding someone's gaze for just 4 seconds triggers an involuntary rush of dopamine and emotional synchronization.",
-            "You can literally make someone feel what you are feeling just through micro-expressions."
+            "Mirror neurons in the human brain fire synchronously when you hold deliberate, soft eye contact, triggering a rapid release of oxytocin and dopamine.",
+            "The 3-second triangle gaze—glancing from his left eye, to his lips, to his right eye—creates immediate subconscious chemical tension.",
+            "Psychological science confirms you can create deep magnetic attraction without saying a single word."
         ]
     },
     {
         "title": "Cleopatra",
-        "category": "Luxury & History Secrets",
+        "category": "Luxury Scent & Charisma Secrets",
         "search_term": "Cleopatra",
-        "vibe": "The scandalous beauty secrets and custom scent formulas of history's ultimate baddie",
+        "vibe": "The Cleopatra scent and charisma formula that brought empires to their knees",
         "default_facts": [
-            "Cleopatra soaked the sails of her royal ships in custom cypress, cardamom, and rose oil so her scent announced her arrival miles away.",
-            "Historical records prove she spoke nine languages and used tactical charisma rather than just looks to dominate empires.",
-            "She wrote an entire lost beauty manuscript on botanical chemistry and aesthetic formulas."
-        ]
-    },
-    {
-        "title": "Bioluminescence",
-        "category": "Aesthetic Nature Magic",
-        "search_term": "Bioluminescence",
-        "vibe": "The glowing ocean phenomenon that looks like an ethereal fantasy",
-        "default_facts": [
-            "Bioluminescent dinoflagellates create glowing neon blue waves when disturbed by ocean currents or midnight swimmers.",
-            "The chemical reaction uses luciferin and oxygen to produce 100% cold light with zero wasted heat.",
-            "Certain beaches in the Maldives and Puerto Rico glow so bright at night they illuminate entire coastlines in electric sapphire."
-        ]
-    },
-    {
-        "title": "Dancing plague of 1518",
-        "category": "Bizarre Historical Mysteries",
-        "search_term": "Dancing plague of 1518",
-        "vibe": "The wild summer in Strasbourg where hundreds danced uncontrollably for weeks",
-        "default_facts": [
-            "In July 1518, a woman named Frau Troffea started dancing in the streets of Strasbourg and could not stop for six days.",
-            "Within a month, over 400 people joined in an unstoppable, manic dancing frenzy with musicians hired to play along.",
-            "Historians and medical researchers still debate whether it was mass psychogenic hysteria or ergot fungi poisoning."
+            "Cleopatra infused the sails of her royal flagship in custom cypress, cardamom, and rare rose oils so her signature scent captivated people miles before docking.",
+            "Ancient historical archives document that she mastered nine languages and vocal modulation to enchant leaders through irresistible psychological presence.",
+            "She authored lost botanical manuscripts on formulating custom signature scents to trigger intense memory recall and attraction."
         ]
     },
     {
         "title": "Halo effect",
-        "category": "Social Psychology",
+        "category": "Aesthetic Charisma & Glow Up",
         "search_term": "Halo effect",
-        "vibe": "The cognitive bias where one gorgeous aesthetic trait makes people assume you're an angel",
+        "vibe": "The psychological reason why a Pinterest baddie aesthetic rewires subconscious attraction",
         "default_facts": [
-            "The Halo Effect was first scientifically documented by psychologist Edward Thorndike in 1920.",
-            "When someone has a stylish, warm aesthetic presence, observers automatically assume they are smarter, kinder, and more trustworthy.",
-            "Putting effort into your aesthetic vibe literally rewires how the world perceives your entire personality."
+            "The Halo Effect, first discovered by psychologist Edward Thorndike, proves that one captivating aesthetic trait causes people to perceive you as exceptionally charming, witty, and high-value.",
+            "Aesthetic alignment, velvety perfume, and effortless styling subconsciously command instant respect and attraction across every room you enter.",
+            "Putting intentional effort into your aesthetic presence literally rewires how the human brain evaluates your worth."
+        ]
+    },
+    {
+        "title": "Ben Franklin effect",
+        "category": "Dating Psychology Secrets",
+        "search_term": "Ben Franklin effect",
+        "vibe": "The reverse psychological hack where asking for small favors makes him chase you",
+        "default_facts": [
+            "The Ben Franklin Effect demonstrates that people do not help you because they like you; rather, they convince themselves they adore you because they helped you.",
+            "Asking someone to hold your iced matcha or reach a high shelf activates subconscious cognitive dissonance that triggers deep emotional investment.",
+            "High-value baddies let people invest effort, which naturally magnifies their perceived value."
         ]
     },
     {
         "title": "Birkin bag",
-        "category": "Fashion & Luxury Lore",
+        "category": "Luxury Lore & Unbothered Energy",
         "search_term": "Birkin bag",
-        "vibe": "How a messy straw tote bag on an airplane created the most exclusive luxury accessory on Earth",
+        "vibe": "How a messy, spilled basket on an airplane birthed the world's ultimate luxury status symbol",
         "default_facts": [
-            "The Birkin was sketched on an airplane sick bag in 1984 after Jane Birkin's messy straw basket spilled all its contents in front of the CEO of Hermès.",
-            "Each bag takes over 18 hours of hand-stitching by a single artisan using saddle-stitching techniques that never unravel.",
-            "Historically, rare Birkin bags have outperformed both the S&P 500 and gold in investment returns."
-        ]
-    },
-    {
-        "title": "52-hertz whale",
-        "category": "Mysterious Heartbreak Lore",
-        "search_term": "52-hertz whale",
-        "vibe": "The story of the world's most mysterious, poetic ocean wanderer",
-        "default_facts": [
-            "Since 1989, scientists have tracked a whale that sings at an unusual frequency of 52 Hertz, far higher than any other species.",
-            "Because no other whale can hear its frequency, it travels the open Pacific Ocean singing songs that go unanswered.",
-            "It has become an iconic cultural symbol of unique, poetic individuality."
+            "The iconic Birkin bag was born in 1984 after Jane Birkin's messy straw basket spilled its contents everywhere in front of the CEO of Hermès on an airplane.",
+            "Her completely unbothered, carefree aesthetic inspired the most coveted, exclusive luxury accessory in fashion history.",
+            "True luxury and allure come from authentic, effortless confidence rather than rigid perfection."
         ]
     }
 ]

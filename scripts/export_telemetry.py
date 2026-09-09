@@ -148,9 +148,9 @@ async def export_telemetry():
                 'total_models_registered': remote_t2v_router.get_model_count()
             },
             'supported_niches': [
-                'AI Tools, Automation & Tech Breakthroughs',
-                'Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle',
-                'Productivity Automation'
+                'Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨',
+                'Seductive Psychology & Dating Secrets',
+                'Luxury Lore & Aesthetic Magnetism'
             ],
             'quality_gates_passed': True
         }

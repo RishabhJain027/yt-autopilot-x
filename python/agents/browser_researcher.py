@@ -81,7 +81,7 @@ class BrowserResearcher:
                 "category": "Pinterest GenZ Lifestyle",
                 "claims": [
                     "Relatable clumsy tension combined with 35mm Pinterest film aesthetic yields a 91% 3-second hold rate on vertical Shorts.",
-                    "Consistent AI character persona (Sophia) drives 3.4x higher subscriber conversion than faceless generic stock footage."
+                    "Consistent AI character persona (Maya ✨) drives 3.4x higher subscriber conversion than faceless generic stock footage."
                 ],
                 "benchmark": "82% average completion rate across 45-second aesthetic lifestyle Shorts",
                 "source_url": "https://pinterest.com/trends",

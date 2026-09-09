@@ -169,8 +169,8 @@ async def cmd_learn():
     print("="*60 + "\n")
 
 async def cmd_boost(topic: str = None):
-    t = topic or "Wan 2.1 & Open Source Video AI: How Hugging Face Changed Everything"
-    hook = f"Hugging Face just released Wan 2.1 and it completely changes video generation!"
+    t = topic or "The 3-Second Eye Contact Trick That Makes Him Obsessed"
+    hook = "Okay babes, come closer... why did nobody tell us this seductive eye contact secret? ✨"
     pkg = boost_agent.generate_boost_package(t, hook)
     print("\n" + "="*60)
     print("=== YT-AUTOPILOT-X | /boost VIRAL SEO & RETENTION PACKAGE ===")

@@ -31,7 +31,7 @@ class PipelineOrchestrator:
             if not prod:
                 raise ValueError(f"Production {production_id} not found")
 
-            topic_title = "AI Video & Technology Automation"
+            topic_title = "The 3-Second Eye Contact Trick That Makes Him Obsessed"
             if prod.topic_id:
                 top_res = await session.execute(select(Topic).where(Topic.id == prod.topic_id))
                 topic_obj = top_res.scalar_one_or_none()

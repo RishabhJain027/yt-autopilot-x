@@ -13,12 +13,28 @@ from packages.logger.logger import logger, audit_log
 
 class TrendAgent:
     def __init__(self):
-        # Curated pool of high-retention Wikipedia rabbit holes & aesthetic viral topics for Maya ✨
+        # Curated pool of high-retention seductive baddie psychology, dating secrets & aesthetic viral topics for Maya ✨
         self.topic_catalog = [
-            # --- Wikipedia Psychology & Aesthetic Lore (Primary) ---
+            # --- Seductive Baddie Psychology & Magnetism Secrets (Primary) ---
             {
-                "topic": "The Pratfall Effect: Why Clumsy Girls Are Scientifically 10x More Magnetic",
-                "category": "Wikipedia Psychology & Magnetism",
+                "topic": "The 3-Second Eye Contact Trick That Makes Him Obsessed",
+                "category": "Seductive Psychology & Eye Contact",
+                "momentum": 0.99,
+                "recency": 0.99,
+                "audience_fit": 0.99,
+                "differentiation": 0.97,
+                "production_feasibility": 0.98,
+                "rights_risk": 0.01,
+                "channel_fit": 0.99,
+                "evidence": {
+                    "wiki_title": "Mirror neuron",
+                    "source": "Wikipedia (https://en.wikipedia.org/wiki/Mirror_neuron)",
+                    "vibe": "The 3-second triangle eye contact hack that triggers intense obsession"
+                }
+            },
+            {
+                "topic": "Why Being Clumsy & Unbothered Makes You 10x More Magnetic",
+                "category": "Baddie Psychology & Pratfall Magnetism",
                 "momentum": 0.99,
                 "recency": 0.99,
                 "audience_fit": 0.98,
@@ -29,12 +45,12 @@ class TrendAgent:
                 "evidence": {
                     "wiki_title": "Pratfall effect",
                     "source": "Wikipedia (https://en.wikipedia.org/wiki/Pratfall_effect)",
-                    "vibe": "Psychological science of clumsy charm"
+                    "vibe": "Why clumsy, unbothered cute girlies are scientifically 10x more attractive"
                 }
             },
             {
-                "topic": "Cleopatra's Lost Beauty Secrets: Scent Formulas of History's Ultimate Baddie",
-                "category": "Wikipedia Luxury & History Lore",
+                "topic": "The Cleopatra Scent & Charisma Secret: How to Smell Seductively Unforgettable",
+                "category": "Luxury Scent & Historical Baddie Lore",
                 "momentum": 0.98,
                 "recency": 0.98,
                 "audience_fit": 0.97,
@@ -45,12 +61,12 @@ class TrendAgent:
                 "evidence": {
                     "wiki_title": "Cleopatra",
                     "source": "Wikipedia (https://en.wikipedia.org/wiki/Cleopatra)",
-                    "vibe": "Ancient luxury, botanical perfume, charisma"
+                    "vibe": "Ancient luxury, botanical perfume formulas, irresistible charisma"
                 }
             },
             {
-                "topic": "Mirror Neurons: The Subconscious Secret to Instant Chemistry in 4 Seconds",
-                "category": "Wikipedia Psychology & Magnetism",
+                "topic": "The Reverse Psychology Favors Hack: Why Asking Him for Help Makes Him Chase You",
+                "category": "Dating Psychology Secrets",
                 "momentum": 0.97,
                 "recency": 0.98,
                 "audience_fit": 0.96,
@@ -59,62 +75,14 @@ class TrendAgent:
                 "rights_risk": 0.01,
                 "channel_fit": 0.96,
                 "evidence": {
-                    "wiki_title": "Mirror neuron",
-                    "source": "Wikipedia (https://en.wikipedia.org/wiki/Mirror_neuron)",
-                    "vibe": "Neuroscience of eye contact and emotion"
+                    "wiki_title": "Ben Franklin effect",
+                    "source": "Wikipedia (https://en.wikipedia.org/wiki/Ben_Franklin_effect)",
+                    "vibe": "Reverse cognitive dissonance that triggers deep emotional investment"
                 }
             },
             {
-                "topic": "The Birkin Bag Origin: How a Messy Spilled Basket Created Earth's Most Exclusive Luxury",
-                "category": "Wikipedia Fashion & Luxury Lore",
-                "momentum": 0.96,
-                "recency": 0.97,
-                "audience_fit": 0.96,
-                "differentiation": 0.93,
-                "production_feasibility": 0.95,
-                "rights_risk": 0.01,
-                "channel_fit": 0.95,
-                "evidence": {
-                    "wiki_title": "Birkin bag",
-                    "source": "Wikipedia (https://en.wikipedia.org/wiki/Birkin_bag)",
-                    "vibe": "Jane Birkin airplane mishap and Hermès lore"
-                }
-            },
-            {
-                "topic": "Bioluminescence: The Glowing Ocean Waves That Look Like Ethereal Magic",
-                "category": "Wikipedia Aesthetic Nature",
-                "momentum": 0.95,
-                "recency": 0.97,
-                "audience_fit": 0.95,
-                "differentiation": 0.92,
-                "production_feasibility": 0.96,
-                "rights_risk": 0.01,
-                "channel_fit": 0.95,
-                "evidence": {
-                    "wiki_title": "Bioluminescence",
-                    "source": "Wikipedia (https://en.wikipedia.org/wiki/Bioluminescence)",
-                    "vibe": "Neon blue waves, chemistry of luciferin"
-                }
-            },
-            {
-                "topic": "The Dancing Plague of 1518: The Shocking Summer Hundreds Danced Uncontrollably",
-                "category": "Wikipedia Bizarre History",
-                "momentum": 0.95,
-                "recency": 0.96,
-                "audience_fit": 0.94,
-                "differentiation": 0.95,
-                "production_feasibility": 0.95,
-                "rights_risk": 0.01,
-                "channel_fit": 0.94,
-                "evidence": {
-                    "wiki_title": "Dancing plague of 1518",
-                    "source": "Wikipedia (https://en.wikipedia.org/wiki/Dancing_plague_of_1518)",
-                    "vibe": "Unsolved medieval frenzy"
-                }
-            },
-            {
-                "topic": "The Halo Effect: Why Aesthetic Presence Rewires How People Perceive You",
-                "category": "Wikipedia Social Psychology",
+                "topic": "The Red Lip & Scent Halo Effect: Why Aesthetics Rewire Subconscious Attraction",
+                "category": "Aesthetic Charisma & Glow Up",
                 "momentum": 0.96,
                 "recency": 0.97,
                 "audience_fit": 0.96,
@@ -125,23 +93,23 @@ class TrendAgent:
                 "evidence": {
                     "wiki_title": "Halo effect",
                     "source": "Wikipedia (https://en.wikipedia.org/wiki/Halo_effect)",
-                    "vibe": "Cognitive bias, aesthetic charisma"
+                    "vibe": "Cognitive bias, seductive presence, aesthetic glow up"
                 }
             },
             {
-                "topic": "52-Hertz Whale: The Poetic Secret of the World's Loneliest Ocean Singer",
-                "category": "Wikipedia Mystery Lore",
-                "momentum": 0.94,
-                "recency": 0.96,
-                "audience_fit": 0.94,
-                "differentiation": 0.92,
+                "topic": "The Birkin Bag Origin: How a Messy Spilled Basket Created Earth's Most Exclusive Luxury",
+                "category": "Luxury Lore & Unbothered Energy",
+                "momentum": 0.96,
+                "recency": 0.97,
+                "audience_fit": 0.96,
+                "differentiation": 0.93,
                 "production_feasibility": 0.95,
                 "rights_risk": 0.01,
-                "channel_fit": 0.93,
+                "channel_fit": 0.95,
                 "evidence": {
-                    "wiki_title": "52-hertz whale",
-                    "source": "Wikipedia (https://en.wikipedia.org/wiki/52-hertz_whale)",
-                    "vibe": "Poetic wanderer of the Pacific"
+                    "wiki_title": "Birkin bag",
+                    "source": "Wikipedia (https://en.wikipedia.org/wiki/Birkin_bag)",
+                    "vibe": "Jane Birkin airplane mishap and carefree Hermès status"
                 }
             }
         ]
