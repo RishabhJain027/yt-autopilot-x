@@ -183,7 +183,7 @@ async def main():
             license_json={"type": "Apache-2.0", "generator": "ImageService"}
         ))
 
-        print(f"[+] Generating Cloud AI scene visuals across remote models (Wan2.1 / Flux / CogVideoX)...")
+        print(f"[+] Generating Cloud AI scene visuals across remote models (MiniMax H3 / Kandinsky 5.0 / Wan 2.2 / HunyuanVideo 1.5 / LTX-2.3)...")
         t2v_clips = await remote_t2v_router.generate_storyboard_clips([s.model_dump() for s in visuals.scenes], aspect_ratio="9:16")
         for clip in t2v_clips:
             session.add(Asset(

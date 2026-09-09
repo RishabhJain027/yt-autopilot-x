@@ -4,7 +4,7 @@
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "persona": "Maya (21yo Cute Aesthetic Baddie)",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T07:07:39.030578+00:00",
+  "last_updated": "2026-09-09T07:30:37.733635+00:00",
   "channels_count": 1,
   "channels": [
     {
@@ -17,8 +17,29 @@
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 8,
+  "productions_count": 9,
   "productions": [
+    {
+      "id": "8e0deebc-38a9-4475-8990-6ff5c0524756",
+      "title": "The Cleopatra Scent Secret That Made Emperors Beg \u2728 (The Seductive Baddie Secret)",
+      "hook": "Okay babes, come closer... tell me why nobody warned us about this secret of The Cleopatra Scent Secret That Made Emperors Beg! \u2728",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#mayabaddie",
+        "#baddievibes",
+        "#pinterestgirl",
+        "#datingsecrets",
+        "#psychologyhacks",
+        "#darkfeminine",
+        "#magnetic"
+      ],
+      "duration_seconds": 63.95,
+      "youtube_video_id": "Myrt57Jtzpo",
+      "youtube_url": "https://youtube.com/shorts/Myrt57Jtzpo",
+      "created_at": "2026-09-09T07:28:38.209949"
+    },
     {
       "id": "c8e6ceda-f98f-42bf-9dd7-d33ac38bb4dd",
       "title": "The 3 \u2728 (The Seductive Baddie Secret)",
@@ -167,7 +188,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Maya \u2728 Cutie Baddie",
-    "timestamp": "2026-09-09T07:07:39.028880+00:00",
+    "timestamp": "2026-09-09T07:30:37.732178+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -177,9 +198,9 @@
       "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 8,
-      "completed_productions": 7,
-      "daily_publishing_rate": "7/3 Shorts today",
+      "total_productions_created": 9,
+      "completed_productions": 8,
+      "daily_publishing_rate": "8/3 Shorts today",
       "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
     },
@@ -236,49 +257,48 @@
     }
   ],
   "quota": {
-    "used": 6400,
+    "used": 9600,
     "limit": 10000,
-    "remaining": 3600
+    "remaining": 400
   },
   "budget": {
     "daily_spent": 0.0,
     "daily_limit": 25.0
   },
   "model_fleet": {
-    "t2v_wan22_moe": "Wan-AI/Wan2.2-T2V-A14B",
-    "t2v_wan22_ti2v": "Wan-AI/Wan2.2-TI2V-5B",
-    "t2v_wan22_lightning": "lightx2v/Wan2.2-Lightning",
-    "t2v_wan21": "Wan-AI/Wan2.1-T2V-1.3B",
-    "t2v_wan21_14b": "Wan-AI/Wan2.1-T2V-14B",
-    "t2v_hunyuan_15": "tencent/HunyuanVideo-1.5",
-    "t2v_hunyuan_base": "tencent/HunyuanVideo",
-    "t2v_fasthunyuan": "FastVideo/FastHunyuan",
-    "t2v_fasth3_4step": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree",
-    "t2v_ltx_25": "Lightricks/LTX-2.5-Diffusers",
-    "t2v_ltx_video": "Lightricks/LTX-Video",
     "t2v_minimax_h3": "MiniMaxAI/MiniMax-H3",
-    "t2v_cosmos_7b": "nvidia/Cosmos-1.0-Diffusion-7B-Text2World",
-    "t2v_animatediff": "ByteDance/AnimateDiff-Lightning",
-    "t2v_animatelcm": "wangfuyun/AnimateLCM",
+    "t2v_kandinsky_5_pro": "kandinskylab/kandinsky-5",
+    "t2v_hunyuan_15": "tencent/HunyuanVideo-1.5",
+    "t2v_ltx_23": "Lightricks/LTX-2.3",
+    "t2v_wan22_a14b": "Wan-AI/Wan2.2-T2V-A14B",
+    "t2v_wan22_ti2v_5b": "Wan-AI/Wan2.2-TI2V-5B",
+    "t2v_wan21_14b": "Wan-AI/Wan2.1-T2V-14B",
+    "t2v_wan21_13b": "Wan-AI/Wan2.1-T2V-1.3B",
+    "t2v_hunyuan_base": "tencent/HunyuanVideo",
+    "t2v_mochi_1": "genmo/mochi-1-preview",
     "t2v_cogvideox_5b": "zai-org/CogVideoX-5b",
     "t2v_cogvideox_2b": "zai-org/CogVideoX-2b",
-    "t2v_opensora_v2": "hpcai-tech/Open-Sora-v2",
-    "t2v_mochi_1": "genmo/mochi-1-preview",
-    "t2v_stepvideo": "stepfun-ai/stepvideo-t2v",
-    "t2v_pyramid_sd3": "rain1011/pyramid-flow-sd3",
-    "t2v_pyramid_miniflux": "rain1011/pyramid-flow-miniflux",
+    "t2v_cogvideox15_5b": "THUDM/CogVideoX1.5-5B",
+    "t2v_longcat_video": "meituan-longcat/LongCat-Video",
     "t2v_allegro": "rhymes-ai/Allegro",
-    "t2v_hotshot_xl": "hotshotco/Hotshot-XL",
-    "t2v_longcat": "meituan-longcat/LongCat-Video",
-    "t2v_krea_realtime": "krea/krea-realtime-video",
-    "t2v_i2vgen_xl": "ali-vilab/i2vgen-xl",
-    "t2v_modelscope_damo": "ali-vilab/modelscope-damo-text-to-video-synthesis",
-    "t2v_damo_ms_17b": "damo-vilab/text-to-video-ms-1.7b",
-    "t2v_modelscope_ali": "ali-vilab/text-to-video-ms-1.7b",
+    "t2v_open_sora": "hpcai-tech/Open-Sora",
+    "t2v_animatediff": "guoyww/animatediff",
+    "t2v_animatediff_lightning": "ByteDance/AnimateDiff-Lightning",
+    "t2v_pyramid_flow": "rain1011/pyramid-flow-sd3",
+    "t2v_stepvideo_30b": "stepfun-ai/stepvideo-t2v",
+    "t2v_ltx_video": "Lightricks/LTX-Video",
+    "t2v_ltx_distilled_13b": "Lightricks/LTX-Video-0.9.8-13B-distilled",
+    "t2v_modelscope_17b": "damo-vilab/text-to-video-ms-1.7b",
     "t2v_zeroscope_v2": "cerspense/zeroscope_v2_576w",
+    "t2v_hotshot_xl": "hotshotco/Hotshot-XL",
+    "t2v_videocrafter2": "AILab-CVC/VideoCrafter2",
+    "t2v_modelscope_videocrafter": "damo-vilab/videocrafter-diffusion",
+    "t2v_fastvideo_serving": "FastVideo/FastVideo",
+    "t2v_wan22_lightning": "lightx2v/Wan2.2-Lightning",
+    "t2v_krea_realtime": "krea/krea-realtime-video",
     "cloud_diffusion": "Remote Serverless Flux & Turbo AI Engine",
     "compute_mode": "remote_serverless_zero_local_vram",
-    "total_models_registered": 34
+    "total_models_registered": 48
   },
   "supported_niches": [
     "Pinterest Aesthetic & Girly Clumsy Baddie / Maya \u2728",

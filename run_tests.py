@@ -147,48 +147,67 @@ async def test_dynamic_trend_discovery():
 async def test_remote_video_router():
     from python.services.remote_video_router import remote_t2v_router
 
-    # 1. Model Registry Coverage (34+ open-source models & diffusers variants)
+    # 1. Model Registry Coverage: Validate all 30 exact models specified by user
     catalog = remote_t2v_router.get_model_catalog()
     assert len(catalog) >= 30, f"Expected at least 30 models, found {len(catalog)}"
 
-    required_models = [
-        "wan2.2_t2v_14b", "wan2.2_t2v_14b_diffusers", "wan2.2_ti2v_5b", "wan2.2_ti2v_5b_diffusers",
-        "wan2.2_lightning", "wan2.1", "wan2.1_diffusers", "wan2.1_t2v_14b",
-        "hunyuan_video_1.5", "hunyuan_video", "fasthunyuan", "fasth3_4step",
-        "ltx_2.5", "ltx_video", "minimax_h3", "cosmos_7b", "animatediff_lightning",
-        "animatelcm", "cogvideox_5b", "cogvideox", "open_sora_v2", "mochi_1",
-        "stepvideo_t2v", "pyramid_flow_sd3", "pyramid_flow_miniflux", "allegro",
-        "hotshot_xl", "longcat_video", "krea_realtime", "i2vgen_xl",
-        "modelscope_damo", "damo_ms_17b", "modelscope", "zeroscope_v2"
+    exact_30_models = [
+        "minimax_h3", "kandinsky_5_video_pro", "hunyuan_video_1.5", "ltx_2.3",
+        "wan2.2_t2v_14b", "wan2.2_ti2v_5b", "wan2.1_t2v_14b", "wan2.1_t2v_1.3b",
+        "hunyuan_video", "mochi_1", "cogvideox_5b", "cogvideox_2b",
+        "cogvideox1.5_5b", "longcat_video", "allegro", "open_sora",
+        "animatediff", "animatediff_lightning", "pyramid_flow", "stepvideo_t2v",
+        "ltx_video", "ltx_video_098_13b_distilled", "modelscope_t2v_17b", "zeroscope_v2",
+        "hotshot_xl", "videocrafter2", "modelscope_videocrafter", "fastvideo",
+        "wan2.2_lightning", "krea_realtime_video"
     ]
-    for m in required_models:
+    for m in exact_30_models:
         assert m in catalog, f"Missing model in registry: {m}"
         assert "hf_id" in catalog[m], f"Missing hf_id for {m}"
+        assert "github" in catalog[m], f"Missing github for {m}"
+        assert "browser" in catalog[m], f"Missing browser for {m}"
+        assert "params" in catalog[m], f"Missing params for {m}"
+        assert "category" in catalog[m], f"Missing category for {m}"
         assert "license" in catalog[m], f"Missing license for {m}"
 
-    # 2. Model Lookup Methods
-    found_by_hf = remote_t2v_router.get_model_by_hf_id("Wan-AI/Wan2.2-T2V-A14B")
-    assert found_by_hf is not None
-    assert found_by_hf["name"] == "Wan2.2-T2V-A14B"
+    # Also verify backward compatibility aliases
+    compat_aliases = [
+        "wan2.1", "wan2.1_diffusers", "wan2.2_t2v_14b_diffusers", "wan2.2_ti2v_5b_diffusers",
+        "cogvideox", "open_sora_v2", "pyramid_flow_sd3", "pyramid_flow_miniflux",
+        "modelscope_damo", "damo_ms_17b", "modelscope", "krea_realtime", "ltx_2.5",
+        "cosmos_7b", "i2vgen_xl", "fasthunyuan", "fasth3_4step", "animatelcm"
+    ]
+    for m in compat_aliases:
+        assert m in catalog, f"Missing compatibility alias: {m}"
 
-    found_by_key = remote_t2v_router.get_model_by_key("hunyuan_video_1.5")
-    assert found_by_key is not None
-    assert "HunyuanVideo 1.5" in found_by_key["name"]
+    # 2. Model Lookup Methods
+    found_by_hf = remote_t2v_router.get_model_by_hf_id("MiniMaxAI/MiniMax-H3")
+    assert found_by_hf is not None
+    assert found_by_hf["name"] == "MiniMax H3"
+
+    found_by_kandinsky = remote_t2v_router.get_model_by_key("kandinsky_5_video_pro")
+    assert found_by_kandinsky is not None
+    assert "Kandinsky 5.0" in found_by_kandinsky["name"]
 
     # 3. Intelligent Model Selector
     aesthetic_model = remote_t2v_router.select_best_model(
         "Maya the aesthetic seductive baddie sipping iced matcha in sunlit Parisian loft",
         niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
     )
-    assert aesthetic_model["name"] in ["Wan2.2-T2V-A14B", "HunyuanVideo 1.5", "LTX-2.5", "MiniMax-H3", "AnimateDiff-Lightning", "Wan2.1-T2V-14B"]
+    assert aesthetic_model["name"] in ["MiniMax H3", "Kandinsky 5.0 Video Pro", "Wan 2.2 T2V A14B", "Wan2.2-T2V-A14B", "HunyuanVideo 1.5", "LTX-2.3", "LTX-2.5", "Wan 2.1 T2V 14B"]
 
     tech_model = remote_t2v_router.select_best_model(
         "HunyuanVideo 1.5 4-step fast generation benchmark",
         niche="AI Tools & Tech Breakthroughs"
     )
-    assert tech_model["name"] in ["Wan2.2-Lightning (LightX2V)", "FastHunyuan (FastVideo)", "Wan2.1-T2V-1.3B", "LTX-Video 0.9.5", "Cosmos-1.0-Diffusion-7B-Text2World", "CogVideoX-5B"]
+    assert tech_model["name"] in [
+        "Wan2.2 Lightning", "Wan2.2-Lightning (LightX2V)", "FastHunyuan (FastVideo)",
+        "LTX-Video 0.9.8 13B Distilled", "AnimateDiff-Lightning", "Krea Realtime Video",
+        "Wan 2.1 T2V 1.3B", "Wan2.1-T2V-1.3B", "LTX-Video", "LTX-Video 0.9.5",
+        "Cosmos-1.0-Diffusion-7B-Text2World", "CogVideoX-5B"
+    ]
 
-    print(f"[-] Test Remote T2V Multi-Model Registry ({len(catalog)} models) & Intelligent Selector: PASSED")
+    print(f"[-] Test Remote T2V Multi-Model Registry ({len(catalog)} models including all 30 exact models) & Intelligent Selector: PASSED")
 
 async def test_pinterest_genz_niche_pipeline():
     from python.agents.niche_discovery import niche_agent
