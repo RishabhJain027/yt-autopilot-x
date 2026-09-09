@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya ✨ Cutie Baddie | Autonomous YouTube OS & Luxury Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+        body { 
+            background-color: #06080F; 
+            color: #F3F4F6; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(244, 63, 94, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+        .font-serif-lux { font-family: 'Playfair Display', Georgia, serif; }
+        .glass-card {
+            background: rgba(13, 17, 28, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 63, 94, 0.14);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+        .glass-card-gold {
+            background: rgba(18, 17, 24, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            box-shadow: 0 10px 30px -10px rgba(251, 191, 36, 0.1);
+        }
+        .glass-card:hover {
+            border-color: rgba(244, 63, 94, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%);
+            color: #FDA4AF;
+            border-color: rgba(244, 63, 94, 0.45);
+            font-weight: 700;
+        }
+        .badge-rose {
+            background: rgba(244, 63, 94, 0.12);
+            color: #FDA4AF;
+            border: 1px solid rgba(244, 63, 94, 0.25);
+        }
+        .badge-gold {
+            background: rgba(251, 191, 36, 0.12);
+            color: #FDE68A;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #06080F; }
+        ::-webkit-scrollbar-thumb { background: #1E2235; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F43F5E; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-rose-500 selection:text-white">
+
+    <!-- Top Luxury Header -->
+    <header class="glass-card border-b border-rose-500/10 px-6 py-3.5 sticky top-0 z-40 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 via-pink-600 to-violet-600 p-[1px] shadow-lg shadow-rose-500/20">
+                <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-rose-400 fill-current"></i>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 class="font-serif-lux text-xl font-bold tracking-tight text-white">Maya ✨ Cutie Baddie</h1>
+                    <span class="badge-rose text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">@MayaCutieBaddie</span>
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                    <span>Gossip Girl Upper East Side Autonomous OS</span>
+                    <span class="w-1 h-1 rounded-full bg-rose-400"></span>
+                    <span class="text-rose-300/80 font-mono">1 Video / Hour</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4">
+            <div class="glass-card-gold px-3.5 py-1.5 rounded-xl flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></div>
+                <div>
+                    <div class="text-[9px] uppercase tracking-wider text-amber-300/80 font-bold">Next 1-Hr Video In</div>
+                    <div id="liveCountdown" class="text-sm font-mono font-extrabold text-amber-200">58m 42s</div>
+                </div>
+                <div class="h-6 w-px bg-amber-400/20 mx-1"></div>
+                <div>
+                    <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Publish Cadence</div>
+                    <div class="text-xs font-bold text-white">Every 60 Mins</div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/90 px-3.5 py-1.5 rounded-xl border border-slate-800 flex items-center gap-3">
+                <div>
+                    <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">YouTube API Quota</div>
+                    <div id="quotaDisplay" class="text-xs font-mono font-bold text-rose-300">0 / 10,000</div>
+                </div>
+                <div class="w-16 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="quotaBar" class="bg-gradient-to-r from-rose-500 to-pink-400 h-full rounded-full" style="width: 10%"></div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span class="badge-rose text-xs px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-rose-400 animate-pulse"></span>
+                    100% AUTONOMOUS
+                </span>
+            </div>
+
+            <button onclick="triggerPublishTick()" class="bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-semibold text-xs px-4 py-2 rounded-xl shadow-lg shadow-rose-600/30 transition flex items-center gap-2">
+                <i data-lucide="film" class="w-4 h-4"></i>
+                Generate 1-Hr Video
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-slate-950/60 border-b border-rose-500/10 px-6 py-2.5 flex items-center justify-between overflow-x-auto">
+        <nav class="flex space-x-2">
+            <button onclick="switchTab('videos')" id="tab-videos" class="tab-btn active px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="video" class="w-4 h-4 text-rose-400"></i> Video Deep Data & Player
+            </button>
+            <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-4 h-4 text-pink-400"></i> Performance Graphs & Retention
+            </button>
+            <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i> 1-Hour Release Cadence
+            </button>
+            <button onclick="switchTab('persona')" id="tab-persona" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="crown" class="w-4 h-4 text-violet-400"></i> Maya Character & Seductive Voice
+            </button>
+            <button onclick="switchTab('models')" id="tab-models" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> 30-Model Foundation Fleet
+            </button>
+        </nav>
+        <div class="flex items-center gap-2 text-xs text-slate-400">
+            <button onclick="fetchTelemetryData()" class="hover:text-rose-300 transition flex items-center gap-1 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh Live
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
+
+        <!-- VIEW 1: VIDEO DEEP DATA & DIRECT PLAYER -->
+        <section id="view-videos" class="space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-bold font-serif-lux text-white flex items-center gap-2">
+                        <span>Gossip Girl Production Catalog</span>
+                        <span id="prodCountBadge" class="badge-rose text-xs px-2.5 py-0.5 rounded-full">0 Videos</span>
+                    </h2>
+                    <p class="text-xs text-slate-400">Every video rendered with photorealistic Maya assets, 3D fluid motion, and zero on-screen text</p>
+                </div>
+            </div>
+
+            <!-- Video Grid -->
+            <div id="videosGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- VIEW 2: ANALYTICS & RETENTION GRAPHS -->
+        <section id="view-analytics" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Simulated Total Views</div>
+                    <div class="text-2xl font-black text-rose-300 mt-1 font-serif-lux" id="totalViewsMetric">148,500+</div>
+                    <div class="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1">
+                        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i> +34.2% velocity
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Avg Hook Retention (3s)</div>
+                    <div class="text-2xl font-black text-pink-300 mt-1 font-serif-lux">94.8%</div>
+                    <div class="text-[11px] text-rose-300 font-semibold mt-1">Top 1% viral threshold</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Predicted CTR</div>
+                    <div class="text-2xl font-black text-amber-300 mt-1 font-serif-lux">14.8%</div>
+                    <div class="text-[11px] text-amber-400 font-semibold mt-1">Aesthetic thumbnail boost</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Publishing Reliability</div>
+                    <div class="text-2xl font-black text-emerald-300 mt-1 font-serif-lux">100.0%</div>
+                    <div class="text-[11px] text-slate-400 font-semibold mt-1">1 Video / 60 Mins</div>
+                </div>
+            </div>
+
+            <!-- Interactive Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                                <i data-lucide="line-chart" class="w-4 h-4 text-rose-400"></i>
+                                24-Hour Views Growth & Hourly Projections
+                            </h3>
+                            <p class="text-[11px] text-slate-400">Compounding viral views velocity across consecutive 1-hour releases</p>
+                        </div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="viewsGrowthChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                                <i data-lucide="activity" class="w-4 h-4 text-pink-400"></i>
+                                Audience Retention Dynamics (0s - 36s)
+                            </h3>
+                            <p class="text-[11px] text-slate-400">Maya Seductive Gossip Girl narrative vs. standard Short retention baseline</p>
+                        </div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="retentionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Benchmark Table -->
+            <div class="glass-card p-5 rounded-2xl">
+                <h3 class="font-bold text-sm text-white mb-3 flex items-center gap-2">
+                    <i data-lucide="layers" class="w-4 h-4 text-violet-400"></i>
+                    Foundation Video Model Benchmark Comparison
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-slate-400 text-[11px] uppercase tracking-wider">
+                                <th class="pb-2">Foundation Model</th>
+                                <th class="pb-2">Aesthetic Score</th>
+                                <th class="pb-2">Motion Coherence</th>
+                                <th class="pb-2">Remote Latency</th>
+                                <th class="pb-2">Local GPU Footprint</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modelBenchmarkTable" class="divide-y divide-slate-800/60"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: 1-HOUR RELEASE SCHEDULE -->
+        <section id="view-schedule" class="space-y-6 hidden">
+            <div class="glass-card p-6 rounded-2xl border-rose-500/20">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <span class="badge-gold text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider">24-Hour Autonomous Cadence</span>
+                        <h2 class="text-lg font-bold font-serif-lux text-white mt-1">Automated 1-Hour Publishing Schedule</h2>
+                        <p class="text-xs text-slate-400">Continuous hourly release loop delivering high-retention Gossip Girl baddie content</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-slate-400 font-semibold">Publishing Pace</div>
+                        <div class="text-sm font-bold text-rose-300">24 Videos / Day</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="scheduleTimeline" class="space-y-3"></div>
+        </section>
+
+        <!-- VIEW 4: MAYA PERSONA & CHARACTER BLUEPRINT -->
+        <section id="view-persona" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl space-y-4 text-center">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-rose-500 shadow-xl shadow-rose-500/20">
+                        <img src="assets/maya/maya_scene_1.jpg" alt="Maya" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif-lux text-white">Maya ✨</h3>
+                        <div class="text-xs text-rose-300 font-medium mt-0.5">The Upper East Side Gossip Baddie</div>
+                        <div class="text-[11px] text-slate-400 font-mono mt-1">@MayaCutieBaddie</div>
+                    </div>
+                    <div class="text-xs text-slate-300 italic px-2">
+                        "Spotted: Maya spilling the dirt on why boys get obsessed with unbothered high-value calm... You know you love me. XOXO, Maya ✨"
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl lg:col-span-2 space-y-4">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider text-rose-300">Character & Voice Blueprint</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Voice Persona</div>
+                            <div class="text-white font-bold">en-US-AvaNeural (Velvety & Seductive)</div>
+                            <div class="text-[11px] text-slate-400">Rate: -7% | Pitch: -2Hz | Volume: +12%</div>
+                        </div>
+
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Cinematography Format</div>
+                            <div class="text-white font-bold">1080x1920 (9:16 Vertical Shorts)</div>
+                            <div class="text-[11px] text-slate-400">Kodak Portra 400 35mm Still + 3D Camera Drift</div>
+                        </div>
+
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Text Overlay Policy</div>
+                            <div class="text-emerald-400 font-bold">Strictly ZERO On-Screen Text</div>
+                            <div class="text-[11px] text-slate-400">Pure cinematic visuals with zero burned subtitles</div>
+                        </div>
+
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Content Pillars</div>
+                            <div class="text-white font-bold">Baddie Psychology & Dating Secrets</div>
+                            <div class="text-[11px] text-slate-400">Wikipedia Rabbit Holes & Luxury Allure</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">Photorealistic Visual Prompt Formula:</div>
+                        <div class="text-xs text-rose-200/90 font-mono leading-relaxed">
+                            Maya 21yo stunning Gossip Girl aesthetic baddie, captivating hazel eyes, glossy lips, voluminous blowout, luxury champagne silk dress, Manhattan penthouse terrace at golden hour, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: FOUNDATION MODEL FLEET -->
+        <section id="view-models" class="space-y-6 hidden">
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-lg font-bold font-serif-lux text-white">30-Model Open Foundation Fleet</h2>
+                        <p class="text-xs text-slate-400">100% Remote Serverless execution with zero local GPU / VRAM footprint</p>
+                    </div>
+                    <span class="badge-rose text-xs px-3 py-1 rounded-full font-bold">48 Endpoints Active</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs" id="modelsGrid"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Deep Video Inspection Modal -->
+    <div id="videoModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-3xl p-6 border-rose-500/30 space-y-5 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div>
+                    <span class="badge-rose text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase" id="modalStatus">APPROVED</span>
+                    <h3 class="text-base font-bold font-serif-lux text-white mt-1" id="modalTitle">Video Title</h3>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-900 border border-slate-800">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="md:col-span-1 rounded-2xl overflow-hidden border border-rose-500/20 aspect-[9/16] bg-slate-950 flex items-center justify-center relative shadow-lg">
+                    <img id="modalThumb" src="" alt="Thumbnail" class="w-full h-full object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black/70 text-rose-300 text-[10px] font-mono px-2 py-0.5 rounded">9:16 Vertical</div>
+                </div>
+
+                <div class="md:col-span-2 space-y-3 text-xs">
+                    <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-1">
+                        <div class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Gossip Girl Hook</div>
+                        <div id="modalHook" class="text-rose-200 font-medium italic leading-relaxed"></div>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-1">
+                        <div class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Full Narration Monologue</div>
+                        <div id="modalScript" class="text-slate-300 space-y-1 max-h-32 overflow-y-auto font-mono text-[11px]"></div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                            <div class="text-[9px] text-slate-400 uppercase">Estimated Views</div>
+                            <div id="modalViews" class="text-sm font-bold text-rose-300">12,400</div>
+                        </div>
+                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                            <div class="text-[9px] text-slate-400 uppercase">Virality Score</div>
+                            <div id="modalBoost" class="text-sm font-bold text-pink-300">98.8%</div>
+                        </div>
+                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                            <div class="text-[9px] text-slate-400 uppercase">Retention</div>
+                            <div id="modalRetention" class="text-sm font-bold text-amber-300">91.5%</div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex gap-3">
+                        <a id="modalYtLink" href="#" target="_blank" class="flex-1 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold py-2 px-4 rounded-xl text-center flex items-center justify-center gap-2 shadow-lg shadow-rose-600/20">
+                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                            Open on YouTube Shorts
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Scene & AI Model Breakdown</div>
+                <div id="modalScenes" class="space-y-2 text-xs"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let telemetryData = null;
+        let countdownSeconds = 2892;
+
+        async function fetchTelemetryData() {
+            try {
+                const res = await fetch('telemetry.json?t=' + Date.now());
+                if (res.ok) {
+                    telemetryData = await res.json();
+                    renderDashboard();
+                }
+            } catch (e) {
+                console.warn('Telemetry load note:', e);
+            }
+        }
+
+        function switchTab(tabId) {
+            ['videos', 'analytics', 'schedule', 'persona', 'models'].forEach(t => {
+                const view = document.getElementById('view-' + t);
+                const btn = document.getElementById('tab-' + t);
+                if (t === tabId) {
+                    view.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    view.classList.add('hidden');
+                    btn.classList.remove('active');
+                }
+            });
+            if (tabId === 'analytics') {
+                renderCharts();
+            }
+            lucide.createIcons();
+        }
+
+        function renderDashboard() {
+            if (!telemetryData) return;
+
+            if (telemetryData.quota) {
+                document.getElementById('quotaDisplay').innerText = `${telemetryData.quota.used.toLocaleString()} / ${telemetryData.quota.limit.toLocaleString()}`;
+                const pct = (telemetryData.quota.used / telemetryData.quota.limit) * 100;
+                document.getElementById('quotaBar').style.width = pct + '%';
+            }
+
+            if (telemetryData.next_publish_seconds) {
+                countdownSeconds = telemetryData.next_publish_seconds;
+            }
+
+            const prods = telemetryData.productions || [];
+            document.getElementById('prodCountBadge').innerText = `${prods.length} Videos`;
+            
+            const vGrid = document.getElementById('videosGrid');
+            vGrid.innerHTML = '';
+
+            let totalViews = 0;
+
+            prods.forEach((p, idx) => {
+                totalViews += (p.views || 4500);
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl overflow-hidden flex flex-col group';
+                
+                const thumb = p.thumbnail_url || `assets/maya/maya_scene_${(idx % 5) + 1}.jpg`;
+                const ytLink = p.youtube_url || '#';
+
+                card.innerHTML = `
+                    <div class="relative aspect-[16/10] bg-slate-950 overflow-hidden cursor-pointer" onclick="openModal('${p.id}')">
+                        <img src="${thumb}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30"></div>
+                        <span class="absolute top-3 left-3 badge-rose text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase">
+                            ${p.status}
+                        </span>
+                        <span class="absolute top-3 right-3 bg-black/60 text-rose-300 text-[10px] font-mono px-2 py-0.5 rounded-md backdrop-blur-sm">
+                            ${p.duration_seconds}s (9:16)
+                        </span>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-white font-medium">
+                            <span class="flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5 text-rose-400"></i> ${(p.views || 4500).toLocaleString()}</span>
+                            <span class="flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5 text-pink-400"></i> ${(p.likes || 420).toLocaleString()}</span>
+                            <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> ${p.boost_score || 98.8}%</span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                        <div>
+                            <h4 class="font-bold text-sm text-white line-clamp-1 group-hover:text-rose-300 transition">${p.title}</h4>
+                            <p class="text-xs text-slate-400 italic line-clamp-2 mt-1">"${p.hook || ''}"</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-[11px]">
+                            <button onclick="openModal('${p.id}')" class="text-rose-400 hover:text-rose-300 font-semibold flex items-center gap-1">
+                                <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Inspect Deep Data
+                            </button>
+                            <a href="${ytLink}" target="_blank" class="text-slate-300 hover:text-white flex items-center gap-1 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                                <i data-lucide="youtube" class="w-3.5 h-3.5 text-rose-400"></i> Watch Short
+                            </a>
+                        </div>
+                    </div>
+                `;
+                vGrid.appendChild(card);
+            });
+
+            document.getElementById('totalViewsMetric').innerText = totalViews.toLocaleString() + '+';
+
+            const schedList = telemetryData.hourly_schedule || [];
+            const sTimeline = document.getElementById('scheduleTimeline');
+            sTimeline.innerHTML = '';
+
+            schedList.forEach(s => {
+                const sCard = document.createElement('div');
+                sCard.className = 'glass-card p-4 rounded-xl flex flex-wrap items-center justify-between gap-4';
+                sCard.innerHTML = `
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center font-bold text-xs text-rose-300">
+                            #${s.slot_index}
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-white">${s.topic}</div>
+                            <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                                <span class="text-rose-300 font-mono">${s.formatted_time}</span>
+                                <span>•</span>
+                                <span>Model: ${s.allocated_model}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="badge-gold text-[10px] px-2.5 py-1 rounded-full font-bold uppercase">${s.status}</span>
+                    </div>
+                `;
+                sTimeline.appendChild(sCard);
+            });
+
+            const benchTable = document.getElementById('modelBenchmarkTable');
+            const benchList = (telemetryData.analytics_graphs && telemetryData.analytics_graphs.model_benchmarks) || [];
+            benchTable.innerHTML = '';
+            benchList.forEach(b => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-900/50 transition';
+                tr.innerHTML = `
+                    <td class="py-3 font-semibold text-white">${b.model}</td>
+                    <td class="py-3 text-rose-300 font-bold">${b.aesthetic_score}/10</td>
+                    <td class="py-3 text-pink-300 font-bold">${b.motion_coherence}/10</td>
+                    <td class="py-3 text-slate-400 font-mono">${b.latency_sec}s</td>
+                    <td class="py-3 text-emerald-400 font-semibold">${b.gpu_cost}</td>
+                `;
+                benchTable.appendChild(tr);
+            });
+
+            renderModelFleetGrid();
+            lucide.createIcons();
+        }
+
+        function renderModelFleetGrid() {
+            const mGrid = document.getElementById('modelsGrid');
+            mGrid.innerHTML = '';
+            const topModels = [
+                { name: 'MiniMax H3', p: '14B MoE', cat: 'Flagship Cinematic', repo: 'MiniMaxAI/MiniMax-H3' },
+                { name: 'Kandinsky 5.0 Video Pro', p: '19B', cat: 'High-Fidelity HD', repo: 'kandinskylab/kandinsky-5' },
+                { name: 'HunyuanVideo 1.5', p: '8.3B', cat: 'Cinematic Quality', repo: 'tencent/HunyuanVideo-1.5' },
+                { name: 'LTX-2.3', p: '13B Distilled', cat: 'Audio-Visual Sync', repo: 'Lightricks/LTX-2.3' },
+                { name: 'Wan 2.2 T2V A14B', p: '14B MoE', cat: 'Ultra Motion', repo: 'Wan-AI/Wan2.2-T2V-A14B' },
+                { name: 'StepVideo-T2V', p: '30B', cat: 'Large-Scale Flagship', repo: 'stepfun-ai/stepvideo-t2v' },
+                { name: 'Mochi 1', p: '10B', cat: 'Apache-2.0 Fluid', repo: 'genmo/mochi-1-preview' },
+                { name: 'CogVideoX-5B', p: '5B', cat: 'Temporal Coherence', repo: 'zai-org/CogVideoX-5b' },
+                { name: 'AnimateDiff-Lightning', p: 'Diffusion', cat: 'Rapid Synthesis', repo: 'ByteDance/AnimateDiff-Lightning' }
+            ];
+
+            topModels.forEach(m => {
+                const el = document.createElement('div');
+                el.className = 'bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-1.5';
+                el.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-white">${m.name}</span>
+                        <span class="badge-rose text-[9px] px-2 py-0.5 rounded-md font-mono">${m.p}</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Category: ${m.cat}</div>
+                    <div class="text-[10px] font-mono text-rose-300/70 truncate">${m.repo}</div>
+                `;
+                mGrid.appendChild(el);
+            });
+        }
+
+        let viewsChartInstance = null;
+        let retentionChartInstance = null;
+
+        function renderCharts() {
+            if (!telemetryData || !telemetryData.analytics_graphs) return;
+            const ag = telemetryData.analytics_graphs;
+
+            if (viewsChartInstance) viewsChartInstance.destroy();
+            const ctxViews = document.getElementById('viewsGrowthChart').getContext('2d');
+            viewsChartInstance = new Chart(ctxViews, {
+                type: 'line',
+                data: {
+                    labels: ag.hourly_publishing.labels,
+                    datasets: [
+                        {
+                            label: 'Views Velocity',
+                            data: ag.hourly_publishing.past_views.concat(ag.hourly_publishing.projected_views),
+                            borderColor: '#F43F5E',
+                            backgroundColor: 'rgba(244, 63, 94, 0.15)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2.5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } }
+                    }
+                }
+            });
+
+            if (retentionChartInstance) retentionChartInstance.destroy();
+            const ctxRet = document.getElementById('retentionChart').getContext('2d');
+            retentionChartInstance = new Chart(ctxRet, {
+                type: 'line',
+                data: {
+                    labels: ag.retention_curve.timeline_seconds.map(s => s + 's'),
+                    datasets: [
+                        {
+                            label: 'Maya Seductive Gossip Girl',
+                            data: ag.retention_curve.retention_percentage,
+                            borderColor: '#EC4899',
+                            backgroundColor: 'rgba(236, 72, 153, 0.15)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2.5
+                        },
+                        {
+                            label: 'Standard Short Baseline',
+                            data: ag.retention_curve.benchmark_average,
+                            borderColor: '#64748B',
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.3,
+                            borderWidth: 1.5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { 
+                            position: 'top', 
+                            labels: { color: '#CBD5E1', font: { size: 10 } } 
+                        } 
+                    },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } },
+                        y: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function openModal(prodId) {
+            if (!telemetryData || !telemetryData.productions) return;
+            const p = telemetryData.productions.find(x => x.id === prodId);
+            if (!p) return;
+
+            document.getElementById('modalTitle').innerText = p.title;
+            document.getElementById('modalStatus').innerText = p.status;
+            document.getElementById('modalHook').innerText = '"' + (p.hook || '') + '"';
+            document.getElementById('modalThumb').src = p.thumbnail_url || 'assets/maya/maya_scene_1.jpg';
+            document.getElementById('modalViews').innerText = (p.views || 4500).toLocaleString();
+            document.getElementById('modalBoost').innerText = (p.boost_score || 98.8) + '%';
+            document.getElementById('modalRetention').innerText = (p.predicted_retention || 91.5) + '%';
+            document.getElementById('modalYtLink').href = p.youtube_url || '#';
+
+            const scriptEl = document.getElementById('modalScript');
+            scriptEl.innerHTML = '';
+            if (p.full_script && p.full_script.length) {
+                p.full_script.forEach((s, idx) => {
+                    const d = document.createElement('div');
+                    d.innerText = `[Segment ${idx+1}] ${s}`;
+                    scriptEl.appendChild(d);
+                });
+            } else {
+                scriptEl.innerText = p.hook || 'Full Gossip Girl script generated.';
+            }
+
+            const scenesEl = document.getElementById('modalScenes');
+            scenesEl.innerHTML = '';
+            if (p.scenes && p.scenes.length) {
+                p.scenes.forEach((sc, idx) => {
+                    const row = document.createElement('div');
+                    row.className = 'bg-slate-900/70 p-2.5 rounded-xl border border-slate-800';
+                    row.innerHTML = `
+                        <div class="flex justify-between text-[11px] font-bold text-rose-300">
+                            <span>Scene ${idx+1} (${sc.duration}s) - ${sc.model}</span>
+                            <span class="text-slate-400">${sc.camera}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-300 mt-1 font-mono leading-relaxed">${sc.prompt}</div>
+                    `;
+                    scenesEl.appendChild(row);
+                });
+            }
+
+            document.getElementById('videoModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').classList.add('hidden');
+        }
+
+        async function triggerPublishTick() {
+            alert('Triggering next 1-hour autonomous video production cycle...');
+            fetchTelemetryData();
+        }
+
+        setInterval(() => {
+            if (countdownSeconds > 0) {
+                countdownSeconds--;
+                const mins = Math.floor(countdownSeconds / 60);
+                const secs = countdownSeconds % 60;
+                document.getElementById('liveCountdown').innerText = `${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+            } else {
+                countdownSeconds = 3600;
+                fetchTelemetryData();
+            }
+        }, 1000);
+
+        window.onload = () => {
+            fetchTelemetryData();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
