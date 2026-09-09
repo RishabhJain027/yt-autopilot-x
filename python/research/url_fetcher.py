@@ -39,4 +39,21 @@ class SafeUrlFetcher:
             logger.error(f'Error fetching URL {url}: {e}')
             return None
 
+    async def safe_fetch(self, url: str):
+        try:
+            parsed = urlparse(url)
+            if parsed.scheme not in ('http', 'https'):
+                return "", 400, "text/plain"
+            hostname = parsed.hostname or ''
+            if PRIVATE_IP_REGEX.match(hostname):
+                return "", 403, "text/plain"
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) YT-Autopilot-X/1.0'}
+            async with httpx.AsyncClient(follow_redirects=True, timeout=self.timeout) as client:
+                resp = await client.get(url, headers=headers)
+                ct = resp.headers.get("content-type", "text/html")
+                return resp.text, resp.status_code, ct
+        except Exception as e:
+            logger.error(f'Error safe_fetch URL {url}: {e}')
+            return "", 500, "text/plain"
+
 safe_fetcher = SafeUrlFetcher()

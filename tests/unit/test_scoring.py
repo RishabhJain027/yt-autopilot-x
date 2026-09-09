@@ -13,7 +13,7 @@ def test_niche_opportunity_scoring_formula():
     score = round((80 * 0.30) + ((100 - 30) * 0.25) + (90 * 0.20) + (70 * 0.15) + ((100 - 20) * 0.10), 2)
     assert score == 78.0
 
-def tesr_trend_scoring_formula():
+def test_trend_scoring_formula():
     agent = TrendAgent()
     # Test exact formula (Section 9.2)
     # Velocity: 80, Search: 70, Longevity: 60, Freshness: 90

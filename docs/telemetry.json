@@ -3,7 +3,7 @@
   "channel_name": "Rishabh AI Studio",
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T05:37:08.809505+00:00",
+  "last_updated": "2026-09-09T05:43:19.277782+00:00",
   "channels_count": 1,
   "channels": [
     {
@@ -88,7 +88,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Rishabh AI Studio",
-    "timestamp": "2026-09-09T05:37:08.808100+00:00",
+    "timestamp": "2026-09-09T05:43:19.276201+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -157,9 +157,9 @@
     }
   ],
   "quota": {
-    "used": 8000,
+    "used": 9600,
     "limit": 10000,
-    "remaining": 2000
+    "remaining": 400
   },
   "budget": {
     "daily_spent": 0.0,
