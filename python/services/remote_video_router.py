@@ -502,34 +502,37 @@ class RemoteT2VRouter:
         """Finds a model by its registry key."""
         return self.models.get(key)
 
-    def select_best_model(self, prompt: str, niche: str = "tech", task: str = "t2v") -> Dict[str, Any]:
+    def select_best_model(self, prompt: str, niche: str = "aesthetic", task: str = "t2v") -> Dict[str, Any]:
         """
-        Intelligently selects the optimal remote open-source model based on prompt semantics and niche.
-        - Pinterest Aesthetic / GenZ Baddie / AI Character -> Prioritizes Wan2.2, HunyuanVideo 1.5, LTX-2.5, MiniMax-H3, AnimateDiff-Lightning
-        - Tech Breakthroughs / Code / Benchmarks -> Prioritizes Wan2.2-Lightning, Wan2.1-1.3B, FastHunyuan, Cosmos
+        Intelligently selects the highest-parameter flagship open-source video models:
+        - Priority 1: Wan2.2-T2V-A14B (14 Billion MoE parameters flagship)
+        - Priority 2: HunyuanVideo 1.5 (13 Billion parameters)
+        - Priority 3: MiniMax-H3 (14 Billion MoE parameters)
+        - Priority 4: Wan2.1-T2V-14B (14 Billion parameters)
+        - Priority 5: StepVideo-T2V (14 Billion parameters)
+        - Priority 6: LTX-2.5 / Cosmos 7B / Wan 2.2 Lightning
         """
         prompt_lower = prompt.lower()
         niche_lower = niche.lower()
 
-        is_aesthetic_or_character = any(k in prompt_lower or k in niche_lower for k in [
-            "aesthetic", "pinterest", "girl", "baddie", "character", "lifestyle",
-            "fashion", "outfit", "portrait", "sophia", "relatable", "clumsy", "vlog", "35mm"
-        ])
+        # Flagship 14B/13B parameter model prioritization order
+        flagship_14b_candidates = [
+            "wan2.2_t2v_14b",
+            "wan2.2_t2v_14b_diffusers",
+            "hunyuan_video_1.5",
+            "minimax_h3",
+            "wan2.1_t2v_14b",
+            "stepvideo_t2v",
+            "ltx_2.5",
+            "cosmos_7b",
+            "wan2.2_lightning"
+        ]
 
-        if is_aesthetic_or_character:
-            # Optimal models for photorealistic human characters and aesthetic lifestyle
-            candidates = ["wan2.2_t2v_14b", "hunyuan_video_1.5", "ltx_2.5", "minimax_h3", "animatediff_lightning", "wan2.1_t2v_14b"]
-            for m_key in candidates:
-                if m_key in self.models:
-                    return self.models[m_key]
-
-        # Fast tech / workflow candidates
-        fast_tech_candidates = ["wan2.2_lightning", "fasthunyuan", "wan2.1", "ltx_video", "cosmos_7b", "cogvideox_5b"]
-        for m_key in fast_tech_candidates:
+        for m_key in flagship_14b_candidates:
             if m_key in self.models:
                 return self.models[m_key]
 
-        return self.models.get("wan2.1", list(self.models.values())[0])
+        return self.models.get("wan2.2_t2v_14b", list(self.models.values())[0])
 
     async def _fetch_cloud_ai_image(self, prompt: str, aspect_ratio: str = "9:16", niche: str = "tech") -> Optional[str]:
         """
