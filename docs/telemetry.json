@@ -2,18 +2,9 @@
   "system_status": "HEALTHY",
   "channel_name": "Rishabh AI Studio",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-07T17:47:29.242255+00:00",
-  "channels_count": 2,
+  "last_updated": "2026-09-09T05:12:06.145027+00:00",
+  "channels_count": 1,
   "channels": [
-    {
-      "id": "db1b9cea-362f-4ded-819f-8d924b0881c0",
-      "name": "Rishabh AI Studio",
-      "niche": "AI Tools, Automation & Tech Breakthroughs",
-      "youtube_channel_id": "@RishabhAIStudio-27",
-      "mode": "AUTONOMOUS",
-      "status": "ACTIVE",
-      "account_email": "27rk04@gmail.com"
-    },
     {
       "id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
       "name": "Rishabh AI Studio",
@@ -24,42 +15,10 @@
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 15,
+  "productions_count": 1,
   "productions": [
     {
-      "id": "f4539e7f-15c2-4a2f-8b43-72d6981d1977",
-      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "QA_PENDING",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:46:54.767710"
-    },
-    {
-      "id": "d18d3620-31e1-4d0b-9358-47c3fbb86336",
-      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "QA_PENDING",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:46:17.687490"
-    },
-    {
-      "id": "257abd14-ca4e-4f28-b2aa-8efba48f2a82",
+      "id": "0595246e-f272-44b3-8b9f-aa3d90533930",
       "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
       "hook": "Stop wasting 3 hours every day on repetitive tasks.",
       "status": "SCHEDULED",
@@ -72,205 +31,13 @@
         "#Shorts"
       ],
       "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:30:09.885398"
-    },
-    {
-      "id": "8dfcea5d-707d-4303-9260-658cc11a5c26",
-      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:30:00.047127"
-    },
-    {
-      "id": "9a59a7f2-1bda-4a2d-8e6d-4af08b2c598d",
-      "title": "The Open Source AI Revolution Nobody is Talking About (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:27:13.233559"
-    },
-    {
-      "id": "19344244-a8f1-4340-a490-f070cde2b4dd",
-      "title": "The Open Source AI Revolution Nobody is Talking About (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:26:49.508817"
-    },
-    {
-      "id": "4cdf1d9b-4fa8-4f04-8f2c-79c7a5663e9b",
-      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:13:54.428343"
-    },
-    {
-      "id": "cf7397ca-3508-497c-ab9b-af9ed72b3e98",
-      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:13:43.660347"
-    },
-    {
-      "id": "1d16d4a2-ec10-4f0d-9250-a57adf9c3d33",
-      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "QA_PENDING",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:13:11.998197"
-    },
-    {
-      "id": "44c3f9ee-c9af-4091-a1ae-bd4ac015910c",
-      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T17:12:59.415285"
-    },
-    {
-      "id": "bf3df7ef-fc45-4634-b8b6-56a2f98a6e0b",
-      "title": "The Open Source AI Revolution Nobody is Talking About (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T16:40:51.092560"
-    },
-    {
-      "id": "feb7f434-6379-44bd-8dea-5527756477df",
-      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T16:30:00.049168"
-    },
-    {
-      "id": "833c1c23-fe6b-44fd-917c-6cff427685a3",
-      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T16:18:33.131611"
-    },
-    {
-      "id": "00f2cb67-991f-44c4-bfc1-ba90f90e1d6c",
-      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T16:04:41.589592"
-    },
-    {
-      "id": "5bfe3a11-ba4c-4227-a639-608f7ffb23ac",
-      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
-      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
-      "format": "shorts",
-      "tags": [
-        "#AI",
-        "#Automation",
-        "#Tech",
-        "#Productivity",
-        "#Shorts"
-      ],
-      "duration_seconds": 26.0,
-      "created_at": "2026-09-07T15:49:18.835675"
+      "created_at": "2026-09-09T05:11:21.087433"
     }
   ],
   "quota": {
-    "used": 9600,
+    "used": 1600,
     "limit": 10000,
-    "remaining": 400
+    "remaining": 8400
   },
   "budget": {
     "daily_spent": 0.0,

@@ -77,4 +77,15 @@ class QuotaManager:
         logger.info(f'[QUOTA] Consumed {cost} for {operation}. Remaining: {self.get_remaining_quota()}/{self.data["limit"]}')
         return True
 
+    def reset_quota(self):
+        today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+        self.data = {
+            'date': today,
+            'used': 0,
+            'limit': DAILY_LIMIT,
+            'calls': []
+        }
+        self._save()
+        logger.info(f'[QUOTA] Quota tracker explicitly reset to 0/{DAILY_LIMIT}')
+
 quota_manager = QuotaManager()

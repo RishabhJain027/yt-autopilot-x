@@ -199,6 +199,10 @@ class YouTubeService:
                                 "contains_synthetic_media": contains_synthetic_media,
                                 "reconciled": True
                             }
+                        else:
+                            logger.error(f"[YOUTUBE_API] Upload step failed with status {upload_resp.status_code}: {upload_resp.text}")
+                else:
+                    logger.error(f"[YOUTUBE_API] Resumable upload init failed with status {init_resp.status_code}: {init_resp.text}")
 
         # Fallback simulation if token is inactive
         mock_video_id = f"yt_{int(datetime.now(timezone.utc).timestamp())}"
