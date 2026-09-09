@@ -18,16 +18,20 @@ class MediaValidator:
             return False, {"error": "File does not exist"}
         
         size = os.path.getsize(filepath)
-        if size < 1024:
+        if size < 50000:
             return False, {"error": "File is abnormally small or empty", "size_bytes": size}
 
         file_hash = self.calculate_sha256(filepath)
         
-        # Use imageio-ffmpeg / ffprobe to check format
-        # Verify file header (MP4 contains ftyp)
+        # Verify file header (MP4 contains ftyp or moov, webm contains ebml)
         with open(filepath, "rb") as f:
             header = f.read(32)
-            is_mp4 = b"ftyp" in header or b"moov" in header
+            if header.startswith(b'\xff\xd8\xff') or header.startswith(b'\x89PNG'):
+                return False, {"error": "File is an image, not a video stream", "size_bytes": size}
+            is_mp4 = b"ftyp" in header or b"moov" in header or header.startswith(b"\x1a\x45\xdf\xa3")
+
+        if not is_mp4:
+            return False, {"error": "File does not contain valid MP4/video container signatures", "size_bytes": size}
 
         return True, {
             "valid": True,

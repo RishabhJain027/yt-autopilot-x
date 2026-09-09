@@ -883,14 +883,14 @@ class RemoteT2VRouter:
     async def _fetch_remote_serverless_video(self, prompt: str, aspect_ratio: str = "9:16", niche: str = "aesthetic", duration: float = 4.0) -> Optional[str]:
         """
         Fetches true full-motion remote serverless AI video from cloud text-to-video inference endpoints.
-        Consumes 0 MB of local GPU / compute footprint.
+        Consumes 0 MB of local GPU / compute footprint. Strictly validates video container.
         """
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
         clean_prompt = self._build_character_prompt(prompt, niche)
         encoded_prompt = urllib.parse.quote(clean_prompt)
         seed = int(time.time() * 1000) % 999999
 
-        # Serverless remote video endpoints (Pollinations video diffusion engine)
+        # Serverless remote video endpoints
         video_urls = [
             f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=video&seed={seed}&nologo=true",
         ]
@@ -900,7 +900,15 @@ class RemoteT2VRouter:
                 async with httpx.AsyncClient(timeout=40.0) as client:
                     resp = await client.get(url, follow_redirects=True)
                     content_type = resp.headers.get("content-type", "").lower()
-                    if resp.status_code == 200 and (content_type.startswith("video/") or resp.content[:4] == b'\x00\x00\x00\x18' or b'ftyp' in resp.content[:32] or len(resp.content) > 30000):
+                    # Strictly verify it is a real video container and NOT a JPEG or PNG image
+                    is_image = resp.content.startswith(b'\xff\xd8\xff') or resp.content.startswith(b'\x89PNG')
+                    is_video_header = (
+                        content_type.startswith("video/") or
+                        resp.content[4:8] == b'ftyp' or
+                        resp.content[4:8] == b'moov' or
+                        resp.content[:4] == b'\x1a\x45\xdf\xa3'
+                    )
+                    if resp.status_code == 200 and is_video_header and not is_image and len(resp.content) > 50000:
                         video_path = os.path.join(self.clips_dir, f"ai_video_{int(time.time() * 1000)}_{seed}.mp4")
                         with open(video_path, "wb") as f:
                             f.write(resp.content)
@@ -917,11 +925,11 @@ class RemoteT2VRouter:
         Providers:
         1. Pollinations Flux Engine (High-Aesthetic Photorealism)
         2. Pollinations Turbo Engine (Ultra-Fast Cloud Diffusion)
-        3. Pollinations SDXL Engine (Stable Diffusion XL)
-        4. Hugging Face Inference API (black-forest-labs/FLUX.1-schnell)
-        5. Hugging Face Inference API (stabilityai/stable-diffusion-xl-base-1.0)
-        6. Hugging Face Inference API (ByteDance/SDXL-Lightning)
-        7. Secondary Pollinations Mirror Gateway
+        3. Pollinations Flux-Realism Engine (Photorealistic Character Detailing)
+        4. Pollinations Midjourney Engine (Cinematic High-Fashion Framing)
+        5. Pollinations Flux-Pro / Flux-Schnell Engines
+        6. Hugging Face Inference API (black-forest-labs/FLUX.1-schnell, SDXL)
+        7. Secondary Pollinations Mirror Gateways
         Guarantees 100% remote execution with verified image validation.
         """
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
@@ -930,20 +938,23 @@ class RemoteT2VRouter:
         seed = int(time.time() * 1000) % 999999
         token = settings.HF_TOKEN or settings.HUGGINGFACE_API_KEY or os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_API_KEY")
 
-        # 1. Primary Pollinations Cloud Gateways (Flux, Turbo, SDXL)
+        # 1. Primary Pollinations Cloud Gateways (Flux, Turbo, Flux-Realism, Midjourney, Flux-Pro, Flux-Schnell)
         cloud_urls = [
             ("Pollinations Flux", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux&nologo=true&seed={seed}"),
             ("Pollinations Turbo", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=turbo&nologo=true&seed={seed}"),
-            ("Pollinations SDXL", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&nologo=true&seed={seed}"),
-            ("Pollinations Alt Mirror", f"https://pollinations.ai/p/{encoded_prompt}?width={width}&height={height}&model=flux&seed={seed}")
+            ("Pollinations Flux-Realism", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux-realism&nologo=true&seed={seed}"),
+            ("Pollinations Midjourney", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=midjourney&nologo=true&seed={seed}"),
+            ("Pollinations Flux-Pro", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux-pro&nologo=true&seed={seed}"),
+            ("Pollinations Flux-Schnell", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux-schnell&nologo=true&seed={seed}"),
+            ("Pollinations Alt Mirror", f"https://pollinations.ai/p/{encoded_prompt}?width={width}&height={height}&seed={seed}")
         ]
 
         for prov_name, url in cloud_urls:
             try:
                 async with httpx.AsyncClient(timeout=25.0) as client:
                     resp = await client.get(url, follow_redirects=True)
-                    if resp.status_code == 200 and len(resp.content) > 4000:
-                        saved_path = self._verify_and_save_image(resp.content, seed, prefix="ai_frame_pollinations")
+                    if resp.status_code == 200 and len(resp.content) > 3000:
+                        saved_path = self._verify_and_save_image(resp.content, seed, prefix=f"ai_frame_{prov_name.lower().replace(' ', '_')}")
                         if saved_path:
                             logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual via {prov_name} (Gossip Girl Maya): {saved_path}")
                             return saved_path
@@ -978,7 +989,7 @@ class RemoteT2VRouter:
                     try:
                         async with httpx.AsyncClient(timeout=30.0) as client:
                             resp = await client.post(hf_url, headers=headers, json=payload)
-                            if resp.status_code == 200 and len(resp.content) > 4000:
+                            if resp.status_code == 200 and len(resp.content) > 3000:
                                 saved_path = self._verify_and_save_image(resp.content, seed, prefix=f"ai_frame_hf_{hf_model.split('/')[-1]}")
                                 if saved_path:
                                     logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual via Hugging Face ({hf_model}): {saved_path}")
@@ -986,13 +997,13 @@ class RemoteT2VRouter:
                     except Exception as ex:
                         logger.warning(f"[REMOTE_T2V] Hugging Face Image API {hf_model} note: {ex}")
 
-        # 3. Final Retry Pass on Pollinations with simplified high-speed prompt
+        # 3. Final High-Speed Retry Pass on Pollinations with simplified prompt
         try:
             simple_prompt = urllib.parse.quote(f"Gossip Girl Maya 21yo aesthetic baddie Upper East Side Manhattan luxury golden hour, 8k portrait")
             simple_url = f"https://image.pollinations.ai/prompt/{simple_prompt}?width={width}&height={height}&model=turbo&nologo=true&seed={seed+7}"
             async with httpx.AsyncClient(timeout=20.0) as client:
                 resp = await client.get(simple_url, follow_redirects=True)
-                if resp.status_code == 200 and len(resp.content) > 4000:
+                if resp.status_code == 200 and len(resp.content) > 3000:
                     saved_path = self._verify_and_save_image(resp.content, seed + 7, prefix="ai_frame_retry")
                     if saved_path:
                         logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual via Retry Pass: {saved_path}")
@@ -1155,9 +1166,26 @@ class RemoteT2VRouter:
         # 3. Remote Serverless Cloud Photorealistic AI Scene + Real Fluid Motion Engine (0 Local GPU)
         ai_frame_path = await self._fetch_cloud_ai_image(prompt, aspect_ratio=aspect_ratio, niche=niche)
 
-        # 4. Luxury Editorial Fallback if all remote endpoints are offline (NEVER a blank purple blob)
+        # 4. Verified Photorealistic Maya Character Library Fallback (Guarantees true character in every scene!)
         if not ai_frame_path or not os.path.exists(ai_frame_path):
-            ai_frame_path = self._generate_editorial_visual_card(prompt, scene_id, width, height, niche=niche)
+            maya_lib = [
+                "storage/assets/maya/maya_scene_1.jpg",
+                "storage/assets/maya/maya_scene_2.jpg",
+                "storage/assets/maya/maya_scene_3.jpg",
+                "storage/assets/maya/maya_scene_4.jpg",
+                "storage/assets/maya/maya_scene_5.jpg"
+            ]
+            scene_idx = 0
+            try:
+                scene_idx = int(scene_id.replace("scene_", "")) - 1
+            except Exception:
+                pass
+            chosen_asset = maya_lib[scene_idx % len(maya_lib)]
+            if os.path.exists(chosen_asset):
+                ai_frame_path = chosen_asset
+                logger.info(f"[REMOTE_T2V] Using verified photorealistic Maya character asset for {scene_id}: {ai_frame_path}")
+            else:
+                ai_frame_path = self._generate_editorial_visual_card(prompt, scene_id, width, height, niche=niche)
 
         await asyncio.to_thread(self._convert_image_to_motion_clip, ai_frame_path, clip_path, dur_sec, width, height)
         logger.info(f"[REMOTE_T2V] Generated real fluid motion AI video clip for scene {scene_id} using {best_model['name']}: {clip_path}")

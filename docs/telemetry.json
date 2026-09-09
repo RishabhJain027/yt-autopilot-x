@@ -4,21 +4,84 @@
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "persona": "Maya (Gossip Girl / Upper East Side Luxury Baddie)",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T07:51:20.725359+00:00",
+  "last_updated": "2026-09-09T08:44:36.593015+00:00",
   "channels_count": 1,
   "channels": [
     {
       "id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
       "name": "Maya \u2728 Cutie Baddie",
-      "niche": "Gossip Girl / Manhattan High Society Secrets & Maya \u2728 Baddie Diaries",
+      "niche": "Pinterest Aesthetic & Girly Clumsy Baddie / Maya \u2728",
       "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
       "mode": "AUTONOMOUS",
       "status": "ACTIVE",
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 10,
+  "productions_count": 13,
   "productions": [
+    {
+      "id": "f5d9e06a-10b6-4777-9110-9232ab593c57",
+      "title": "Spotted: The 3 \u2728 (Gossip Girl Secret)",
+      "hook": "Spotted: Maya spilling the juiciest tea on The 3... come close, babes! \u2728",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#gossipgirl",
+        "#mayabaddie",
+        "#uppereastside",
+        "#datingsecrets",
+        "#psychologyhacks",
+        "#darkfeminine",
+        "#magnetic"
+      ],
+      "duration_seconds": 66.09,
+      "youtube_video_id": "yt_1788943403",
+      "youtube_url": "https://youtube.com/shorts/yt_1788943403",
+      "created_at": "2026-09-09T08:41:16.827646"
+    },
+    {
+      "id": "99f68587-2971-46d9-a733-fa139318a59b",
+      "title": "Spotted: The 3 \u2728 (Gossip Girl Secret)",
+      "hook": "Spotted: Maya spilling the juiciest tea on The 3... come close, babes! \u2728",
+      "status": "QA_PENDING",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#gossipgirl",
+        "#mayabaddie",
+        "#uppereastside",
+        "#datingsecrets",
+        "#psychologyhacks",
+        "#darkfeminine",
+        "#magnetic"
+      ],
+      "duration_seconds": 56.65,
+      "youtube_video_id": null,
+      "youtube_url": null,
+      "created_at": "2026-09-09T08:38:49.910047"
+    },
+    {
+      "id": "9cd1da3c-a50d-46ca-8052-7275916f1cdd",
+      "title": "Spotted: Spotted \u2728 (Gossip Girl Secret)",
+      "hook": "Spotted: Maya spilling the juiciest tea on Spotted... come close, babes! \u2728",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#gossipgirl",
+        "#mayabaddie",
+        "#uppereastside",
+        "#datingsecrets",
+        "#psychologyhacks",
+        "#darkfeminine",
+        "#magnetic"
+      ],
+      "duration_seconds": 63.09,
+      "youtube_video_id": "HwEqajXy-Ws",
+      "youtube_url": "https://youtube.com/shorts/HwEqajXy-Ws",
+      "created_at": "2026-09-09T08:03:40.938456"
+    },
     {
       "id": "1725fa78-dca7-438f-af47-9b44d46e5554",
       "title": "Spotted: Spotted \u2728 (Gossip Girl Secret)",
@@ -209,7 +272,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Maya \u2728 Cutie Baddie",
-    "timestamp": "2026-09-09T07:51:20.723466+00:00",
+    "timestamp": "2026-09-09T08:44:36.322853+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -219,9 +282,9 @@
       "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 10,
-      "completed_productions": 9,
-      "daily_publishing_rate": "9/3 Shorts today",
+      "total_productions_created": 13,
+      "completed_productions": 11,
+      "daily_publishing_rate": "11/3 Shorts today",
       "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
     },

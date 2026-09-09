@@ -266,6 +266,7 @@ async def test_pinterest_genz_niche_pipeline():
 
 async def test_zero_local_gpu_scene_generation():
     from python.services.remote_video_router import remote_t2v_router
+    from video.validation.media_validator import media_validator
 
     # Synthesize a test scene clip via serverless remote path (0 local GPU)
     res = await remote_t2v_router.generate_scene_clip(
@@ -277,6 +278,8 @@ async def test_zero_local_gpu_scene_generation():
     )
     assert res["status"] in ["READY", "REMOTE_SUCCESS"]
     assert os.path.exists(res["clip_path"])
+    valid, val_report = media_validator.validate_video_file(res["clip_path"])
+    assert valid == True, f"Generated clip failed video validation: {val_report}"
     assert res["duration"] >= 2.5
     print("[-] Test Zero Local GPU Remote Scene Generation: PASSED")
 
