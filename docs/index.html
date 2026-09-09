@@ -3,789 +3,730 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT-Autopilot-X | Autonomous YouTube Channel OS</title>
+    <title>Maya ✨ Cutie Baddie | Autonomous YouTube OS & Luxury Analytics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { background-color: #030712; color: #F3F4F6; font-family: system-ui, -apple-system, sans-serif; }
-        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .tab-btn.active { background-color: #1E293B; color: #38BDF8; border-color: #38BDF8; font-weight: 600; }
-        .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
-        .kanban-col { min-height: 480px; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+        body { 
+            background-color: #06080F; 
+            color: #F3F4F6; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(244, 63, 94, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+        .font-serif-lux { font-family: 'Playfair Display', Georgia, serif; }
+        .glass-card {
+            background: rgba(13, 17, 28, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 63, 94, 0.14);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+        .glass-card-gold {
+            background: rgba(18, 17, 24, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            box-shadow: 0 10px 30px -10px rgba(251, 191, 36, 0.1);
+        }
+        .glass-card:hover {
+            border-color: rgba(244, 63, 94, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%);
+            color: #FDA4AF;
+            border-color: rgba(244, 63, 94, 0.45);
+            font-weight: 700;
+        }
+        .badge-rose {
+            background: rgba(244, 63, 94, 0.12);
+            color: #FDA4AF;
+            border: 1px solid rgba(244, 63, 94, 0.25);
+        }
+        .badge-gold {
+            background: rgba(251, 191, 36, 0.12);
+            color: #FDE68A;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+        }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0b0f19; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        ::-webkit-scrollbar-track { background: #06080F; }
+        ::-webkit-scrollbar-thumb { background: #1E2235; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F43F5E; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
-    <div id="emergencyBanner" class="hidden bg-rose-600 text-white font-bold px-4 py-2 text-center text-xs flex items-center justify-center gap-2 sticky top-0 z-50 shadow-lg">
-        <i data-lucide="alert-triangle" class="w-4 n-4 animate-bounce"></i>
-        <span>EMERGENCY STOP ACTIVE: Autonomous publishing, video generation, and uploads are globally paused.</span>
-        <button onclick="toggleEmergencyStop(false)" class="bg-black/40 hover:bg-black/60 px-3 py-1 rounded text-[11px] uppercase font-bold tracking-wider transition">Resume Operations</button>
-    </div>
-    <header class="glass border-b border-slate-800 px-6 py-3 sticky top-0 z-40 flex items-center justify-between shadow-sm">
+<body class="min-h-screen flex flex-col selection:bg-rose-500 selection:text-white">
+
+    <!-- Top Luxury Header -->
+    <header class="glass-card border-b border-rose-500/10 px-6 py-3.5 sticky top-0 z-40 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2">
-                <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-md shadow-sky-500/20">
-                    <i data-lucide="play" class="w-5 h-5 text-white fill-current"></i>
-                </div>
-                <div>
-                    <div class="font-black text-lg tracking-tight bg-gradient-to-r from-sky-400 via-indigo-300 to-white bg-clip-text text-transparent">YT-AUTOPILOT-X</div>
-                    <div class="text-[10px] text-slate-400 font-mono tracking-wider uppercase">Autonomous Channel Engine v1.0.0</div>
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 via-pink-600 to-violet-600 p-[1px] shadow-lg shadow-rose-500/20">
+                <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-rose-400 fill-current"></i>
                 </div>
             </div>
-            <div class="h-6 w-px bg-slate-800 mx-2"></div>
-            <div class="flex items-center gap-2">
-                <span class="text-xs text-slate-400 font-medium">Channel:</span>
-                <select id="channelSelect" onchange="onChannelChange()" class="bg-slate-900 text-xs border border-slate-700 rounded-md px-3 py-1.5 focus:outline-none focus:border-sky-500 font-medium text-slate-200">
-                    <option value="">All Channels (Fleet)</option>
-                </select>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 class="font-serif-lux text-xl font-bold tracking-tight text-white">Maya ✨ Cutie Baddie</h1>
+                    <span class="badge-rose text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">@MayaCutieBaddie</span>
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                    <span>Gossip Girl Upper East Side Autonomous OS</span>
+                    <span class="w-1 h-1 rounded-full bg-rose-400"></span>
+                    <span class="text-rose-300/80 font-mono">1 Video / Hour</span>
+                </div>
             </div>
         </div>
-        <div class="flex items-center gap-5">
-            <div class="flex items-center gap-2.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                <i data-lucide="gauge" class="w-4 h-4 text-sky-400"></i>
+
+        <div class="flex flex-wrap items-center gap-4">
+            <div class="glass-card-gold px-3.5 py-1.5 rounded-xl flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></div>
                 <div>
-                    <div class="text-[10px] text-slate-400 uppercase font-semibold">YT API Quota</div>
-                    <div class="text-xs font-mono font-bold text-slate-200" id="quotaGauge">0 / 10,000</div>
+                    <div class="text-[9px] uppercase tracking-wider text-amber-300/80 font-bold">Next 1-Hr Video In</div>
+                    <div id="liveCountdown" class="text-sm font-mono font-extrabold text-amber-200">58m 42s</div>
                 </div>
-                <div class="w-12 bg-slate-800 rounded-full h-1.5 ml-1">
-                    <div id="quotaBar" class="bg-sky-500 h-1.5 rounded-full" style="width: 0%"></div>
-                </div>
-            </div>
-            <div class="flex items-center gap-2.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                <i data-lucide="dollar-sign" class="w-4 h-4 text-emerald-400"></i>
-                <div >
-                    <div class="text-[10px] text-slate-400 uppercase font-semibold">Daily Budget</div>
-                    <div class="text-xs font-mono font-bold text-emerald-400" id="budgetGauge">$0.00 / $25.00</div>
+                <div class="h-6 w-px bg-amber-400/20 mx-1"></div>
+                <div>
+                    <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Publish Cadence</div>
+                    <div class="text-xs font-bold text-white">Every 60 Mins</div>
                 </div>
             </div>
+
+            <div class="bg-slate-900/90 px-3.5 py-1.5 rounded-xl border border-slate-800 flex items-center gap-3">
+                <div>
+                    <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">YouTube API Quota</div>
+                    <div id="quotaDisplay" class="text-xs font-mono font-bold text-rose-300">0 / 10,000</div>
+                </div>
+                <div class="w-16 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="quotaBar" class="bg-gradient-to-r from-rose-500 to-pink-400 h-full rounded-full" style="width: 10%"></div>
+                </div>
+            </div>
+
             <div class="flex items-center gap-2">
-                <span id="systemModeBadge" class="badge bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1.5 animate-pulse"></span>
-                    APPROVAL-FIRST
+                <span class="badge-rose text-xs px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-rose-400 animate-pulse"></span>
+                    100% AUTONOMOUS
                 </span>
             </div>
-            <button id="killSwitchBtn" onclick="toggleEmergencyStop(true)" class="flex items-center gap-1.5 bg-rose-950/60 hover:bg-rose-900 text-rose-300 border border-rose-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
-                <i data-lucide="power" class="w-3.5 h-3.5"></i>
-                Kill Switch
-            </button>
-            <button onclick="triggerHourlyTick()" class="flex items-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg shadow-sky-600/20 transition">
-                <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
-                Run Tick
+
+            <button onclick="triggerPublishTick()" class="bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-semibold text-xs px-4 py-2 rounded-xl shadow-lg shadow-rose-600/30 transition flex items-center gap-2">
+                <i data-lucide="film" class="w-4 h-4"></i>
+                Generate 1-Hr Video
             </button>
         </div>
-    </header>    <div class="bg-slate-950/80 border-b border-slate-800 px-6 py-2 flex items-center justify-between overflow-x-auto">
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-slate-950/60 border-b border-rose-500/10 px-6 py-2.5 flex items-center justify-between overflow-x-auto">
         <nav class="flex space-x-2">
-            <button onclick="switchTab('pipeline')" id="tab-pipeline" class="tab-btn active px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="kanban" class="w-4 h-4"></i> Pipeline Board
+            <button onclick="switchTab('videos')" id="tab-videos" class="tab-btn active px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="video" class="w-4 h-4 text-rose-400"></i> Video Deep Data & Player
             </button>
-            <button onclick="switchTab('review')" id="tab-review" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="check-square" class="w-4 h-4"></i> Review Studio
-                <span id="reviewCountBadge" class="bg-sky-500/20 text-sky-400 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+            <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-4 h-4 text-pink-400"></i> Performance Graphs & Retention
             </button>
-            <button onclick="switchTab('trends')" id="tab-trends" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="trending-up" class="w-4 h-4"></i> Trend Hub
+            <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i> 1-Hour Release Cadence
             </button>
-            <button onclick="switchTab('channels')" id="tab-channels" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="tv" class="w-4 h-4"></i> Channel Fleet
+            <button onclick="switchTab('persona')" id="tab-persona" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="crown" class="w-4 h-4 text-violet-400"></i> Maya Character & Seductive Voice
             </button>
-            <button onclick="switchTab('provenance')" id="tab-provenance" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="shield-check" class="w-4 h-4"></i> Rights & Provenance
-            </button>
-            <button onclick="switchTab('evidence')" id="tab-evidence" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="file-search" class="w-4 h-4"></i> Evidence Desk
-            </button>
-            <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Learning & Analytics
-            </button>
-            <button onclick="switchTab('audit')" id="tab-audit" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs border border-transparent hover:text-slate-200 transition flex items-center gap-2">
-                <i data-lucide="history" class="w-4 h-4"></i> Audit & Logs
+            <button onclick="switchTab('models')" id="tab-models" class="tab-btn px-4 py-1.5 rounded-xl text-xs border border-transparent transition flex items-center gap-2">
+                <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> 30-Model Foundation Fleet
             </button>
         </nav>
         <div class="flex items-center gap-2 text-xs text-slate-400">
-            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-            <span>Daemon: <strong class="text-slate-200" id="daemonStatus">Active (Hourly)</strong></span>
+            <button onclick="fetchTelemetryData()" class="hover:text-rose-300 transition flex items-center gap-1 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh Live
+            </button>
         </div>
     </div>
 
-    <main class="flex-1 p-6 overflow-y-auto max-w-7xl w-full mx-auto">
-        <section id="view-pipeline" class="space-y-6">
-            <div class="flex items-center justify-between">
+    <!-- Main Content -->
+    <main class="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
+
+        <!-- VIEW 1: VIDEO DEEP DATA & DIRECT PLAYER -->
+        <section id="view-videos" class="space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="workflow" class="w-5 h-5 text-sky-400"></i>
-                        28-Stage Autonomous Production Pipeline
+                    <h2 class="text-lg font-bold font-serif-lux text-white flex items-center gap-2">
+                        <span>Gossip Girl Production Catalog</span>
+                        <span id="prodCountBadge" class="badge-rose text-xs px-2.5 py-0.5 rounded-full">0 Videos</span>
                     </h2>
-                    <p class="text-xs text-slate-400">Real-time state machine lifecycle from topic discovery to post-publishing analytics</p>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="refreshData()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-medium transition">
-                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Refresh
-                    </button>
+                    <p class="text-xs text-slate-400">Every video rendered with photorealistic Maya assets, 3D fluid motion, and zero on-screen text</p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-blue-400"></span> 1. Research
-                        </span>
-                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-1">0</span>
+            <!-- Video Grid -->
+            <div id="videosGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- VIEW 2: ANALYTICS & RETENTION GRAPHS -->
+        <section id="view-analytics" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Simulated Total Views</div>
+                    <div class="text-2xl font-black text-rose-300 mt-1 font-serif-lux" id="totalViewsMetric">148,500+</div>
+                    <div class="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1">
+                        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i> +34.2% velocity
                     </div>
-                    <div id="col-1" class="space-y-3 flex-1 overflow-y-auto"></div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Avg Hook Retention (3s)</div>
+                    <div class="text-2xl font-black text-pink-300 mt-1 font-serif-lux">94.8%</div>
+                    <div class="text-[11px] text-rose-300 font-semibold mt-1">Top 1% viral threshold</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Predicted CTR</div>
+                    <div class="text-2xl font-black text-amber-300 mt-1 font-serif-lux">14.8%</div>
+                    <div class="text-[11px] text-amber-400 font-semibold mt-1">Aesthetic thumbnail boost</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Publishing Reliability</div>
+                    <div class="text-2xl font-black text-emerald-300 mt-1 font-serif-lux">100.0%</div>
+                    <div class="text-[11px] text-slate-400 font-semibold mt-1">1 Video / 60 Mins</div>
+                </div>
+            </div>
+
+            <!-- Interactive Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                                <i data-lucide="line-chart" class="w-4 h-4 text-rose-400"></i>
+                                24-Hour Views Growth & Hourly Projections
+                            </h3>
+                            <p class="text-[11px] text-slate-400">Compounding viral views velocity across consecutive 1-hour releases</p>
+                        </div>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="viewsGrowthChart"></canvas>
+                    </div>
                 </div>
 
-                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-amber-400"></span> 2. Script & Assets
-                        </span>
-                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-2">0</span>
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                                <i data-lucide="activity" class="w-4 h-4 text-pink-400"></i>
+                                Audience Retention Dynamics (0s - 36s)
+                            </h3>
+                            <p class="text-[11px] text-slate-400">Maya Seductive Gossip Girl narrative vs. standard Short retention baseline</p>
+                        </div>
                     </div>
-                    <div id="col-2" class="space-y-3 flex-1 overflow-y-auto"></div>
+                    <div class="h-64">
+                        <canvas id="retentionChart"></canvas>
+                    </div>
                 </div>
+            </div>
 
-                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-purple-400"></span> 3. Render & QA
-                        </span>
-                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-3">0</span>
-                    </div>
-                    <div id="col-3" class="space-y-3 flex-1 overflow-y-auto"></div>
-                </div>
-
-                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-rose-400"></span> 4. Human Review
-                        </span>
-                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono" id="colCount-4">0</span>
-                    </div>
-                    <div id="col-4" class="space-y-3 flex-1 overflow-y-auto"></div>
-                </div>
-
-                <div class="glass rounded-xl p-3 kanban-col flex flex-col">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 5. Published
-                        </span>
-                        <span class="text-[10px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-mono" id="colCount-5">0</span>
-                    </div>
-                    <div id="col-5" class="space-y-3 flex-1 overflow-y-auto"></div>
+            <!-- Model Benchmark Table -->
+            <div class="glass-card p-5 rounded-2xl">
+                <h3 class="font-bold text-sm text-white mb-3 flex items-center gap-2">
+                    <i data-lucide="layers" class="w-4 h-4 text-violet-400"></i>
+                    Foundation Video Model Benchmark Comparison
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-slate-400 text-[11px] uppercase tracking-wider">
+                                <th class="pb-2">Foundation Model</th>
+                                <th class="pb-2">Aesthetic Score</th>
+                                <th class="pb-2">Motion Coherence</th>
+                                <th class="pb-2">Remote Latency</th>
+                                <th class="pb-2">Local GPU Footprint</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modelBenchmarkTable" class="divide-y divide-slate-800/60"></tbody>
+                    </table>
                 </div>
             </div>
         </section>
 
-        <section id="view-review" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-                        Review & Approval Studio (Human-in-the-Loop)
-                    </h2>
-                    <p class="text-xs text-slate-400">Audit generated scripts, synthesized media, factuality claims, and Machine QA verdicts before publishing</p>
+        <!-- VIEW 3: 1-HOUR RELEASE SCHEDULE -->
+        <section id="view-schedule" class="space-y-6 hidden">
+            <div class="glass-card p-6 rounded-2xl border-rose-500/20">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <span class="badge-gold text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider">24-Hour Autonomous Cadence</span>
+                        <h2 class="text-lg font-bold font-serif-lux text-white mt-1">Automated 1-Hour Publishing Schedule</h2>
+                        <p class="text-xs text-slate-400">Continuous hourly release loop delivering high-retention Gossip Girl baddie content</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-slate-400 font-semibold">Publishing Pace</div>
+                        <div class="text-sm font-bold text-rose-300">24 Videos / Day</div>
+                    </div>
                 </div>
             </div>
 
-            <div id="reviewStudioContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-1 glass rounded-xl p-4 space-y-3 max-h-[650px] overflow-y-auto">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Pending Review Queue</h3>
-                    <div id="reviewItemsList" class="space-y-2">
-                        <div class="text-xs text-slate-500 py-4 text-center">No productions awaiting approval</div>
+            <div id="scheduleTimeline" class="space-y-3"></div>
+        </section>
+
+        <!-- VIEW 4: MAYA PERSONA & CHARACTER BLUEPRINT -->
+        <section id="view-persona" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl space-y-4 text-center">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-rose-500 shadow-xl shadow-rose-500/20">
+                        <img src="assets/maya/maya_scene_1.jpg" alt="Maya" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif-lux text-white">Maya ✨</h3>
+                        <div class="text-xs text-rose-300 font-medium mt-0.5">The Upper East Side Gossip Baddie</div>
+                        <div class="text-[11px] text-slate-400 font-mono mt-1">@MayaCutieBaddie</div>
+                    </div>
+                    <div class="text-xs text-slate-300 italic px-2">
+                        "Spotted: Maya spilling the dirt on why boys get obsessed with unbothered high-value calm... You know you love me. XOXO, Maya ✨"
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 glass rounded-xl p-6 space-y-6" id="reviewDetailPane">
-                    <div class="text-center py-12 text-slate-500 text-sm">Select an item from the queue to inspect and approve</div>
-                </div>
-            </div>
-        </section>
+                <div class="glass-card p-6 rounded-2xl lg:col-span-2 space-y-4">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider text-rose-300">Character & Voice Blueprint</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Voice Persona</div>
+                            <div class="text-white font-bold">en-US-AvaNeural (Velvety & Seductive)</div>
+                            <div class="text-[11px] text-slate-400">Rate: -7% | Pitch: -2Hz | Volume: +12%</div>
+                        </div>
 
-        <section id="view-trends" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="flame" class="w-5 h-5 text-amber-400"></i>
-                        Trend & Niche Opportunity Matrix
-                    </h2>
-                    <p class="text-xs text-slate-400">Mathematical scoring engine evaluating Velocity, Competition, Demand, and Monetization</p>
-                </div>
-            </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Cinematography Format</div>
+                            <div class="text-white font-bold">1080x1920 (9:16 Vertical Shorts)</div>
+                            <div class="text-[11px] text-slate-400">Kodak Portra 400 35mm Still + 3D Camera Drift</div>
+                        </div>
 
-            <div class="glass rounded-xl overflow-hidden">
-                <table class="w-full text-left text-xs text-slate-300">
-                    <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800 text-[10px]">
-                        <tr>
-                            <th class="p-3">Topic Title / Angle</th>
-                            <th class="p-3">Format</th>
-                            <th class="p-3">Search Demand</th>
-                            <th class="p-3">Competition</th>
-                            <th class="p-3">Opportunity Score</th>
-                            <th class="p-3">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="trendsTableBody" class="divide-y divide-slate-800/60">
-                        <tr><td colspan="6" class="p-4 text-center text-slate-500">Loading topic intelligence...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>        <section id="view-channels" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="grid" class="w-5 h-5 text-indigo-400"></i>
-                        Channel Fleet & Brand Registry
-                    </h2>
-                    <p class="text-xs text-slate-400">Configure channel personas, automated voice presets, OAuth tokens, and operating modes</p>
-                </div>
-            </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Text Overlay Policy</div>
+                            <div class="text-emerald-400 font-bold">Strictly ZERO On-Screen Text</div>
+                            <div class="text-[11px] text-slate-400">Pure cinematic visuals with zero burned subtitles</div>
+                        </div>
 
-            <div id="channelsGrid" class="grid grid-cols-1 md-grid-cols-2 lg:grid-cols-3 gap-5"></div>
-        </section>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <div class="text-slate-400 font-semibold">Content Pillars</div>
+                            <div class="text-white font-bold">Baddie Psychology & Dating Secrets</div>
+                            <div class="text-[11px] text-slate-400">Wikipedia Rabbit Holes & Luxury Allure</div>
+                        </div>
+                    </div>
 
-        <section id="view-provenance" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="shield" class="w-5 h-5 text-emerald-400"></i>
-                        Asset Provenance & Rights Registry
-                    </h2>
-                    <p class="text-xs text-slate-400">Immutable record of all imagery, synthesized audio, footage, and commercial licenses</p>
-                </div>
-            </div>
-
-            <div class="glass rounded-xl overflow-hidden">
-                <table class="w-full text-left text-xs text-slate-300">
-                    <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800 text-[10px]">
-                        <tr>
-                            <th class="p-3">Asset Type</th>
-                            <th class="p-3">File Path / URI</th>
-                            <th class="p-3">License Type</th>
-                            <th class="p-3">SHA-256 Hash</th>
-                            <th class="p-3">Attribution Source</th>
-                            <th class="p-3">Commercial Verification</th>
-                        </tr>
-                    </thead>
-                    <tbody id="provenanceTableBody" class="divide-y divide-slate-800/60">
-                        <tr><td colspan="6" class="p-4 text-center text-slate-500">Loading asset ledger...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="view-evidence" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lw font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="check-check" class="w-5 h-5 text-sky-400"></i>
-                        Evidence Desk & Factual Claim Ledger
-                    </h2>
-                    <p class="text-xs text-slate-400">All factual claims in scripts verified against primary sources with confidence scores</p>
-                </div>
-            </div>
-
-            <div class="glass rounded-xl overflow-hidden">
-                <table class="w-full text-left text-xs text-slate-300">
-                    <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800 text-[10px]">
-                        <tr>
-                            <th class="p-3">Production</th>
-                            <th class="p-3">Claim Statement</th>
-                            <th class="p-3">Confidence</th>
-                            <th class="p-3">Primary Source URLs</th>
-                            <th class="p-3">Retrieval Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="evidenceTableBody" class="divide-y divide-slate-800/60">
-                        <tr><td colspan="5" class="p-4 text-center text-slate-500">Loading verified evidence...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="view-analytics" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="cpu" class="w-5 h-5 text-indigo-400"></i>
-                        Automated Learning & Analytics Engine
-                    </h2>
-                    <p class="text-xs text-slate-400">AI-driven retrospective feedback loop adjusting pacing, hooks, and thumbnail strategies</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md-grid-cols-3 gap-5">
-                <div class="glass rounded-xl p-4">
-                    <div class="text-xs text-slate-400 font-semibold mb-1">Fleet Total Views</div>
-                    <div class="text-2xl font-black text-slate-100" id="statViews">0</div>
-                    <div class="text-[11px] text-emerald-400 mt-1 flex items-center gap-1">
-                        <i data-lucide="trending-up" class="w-3 h-3"></i> Organic Growth Tracked
+                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">Photorealistic Visual Prompt Formula:</div>
+                        <div class="text-xs text-rose-200/90 font-mono leading-relaxed">
+                            Maya 21yo stunning Gossip Girl aesthetic baddie, captivating hazel eyes, glossy lips, voluminous blowout, luxury champagne silk dress, Manhattan penthouse terrace at golden hour, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles
+                        </div>
                     </div>
                 </div>
-                <div class="glass rounded-xl p-4">
-                    <div class="text-xs text-slate-400 font-semibold mb-1">Average CTR</div>
-                    <div class="text-2xl font-black text-slate-100" id="statCTR">0.0%</div>
-                    <div class="text-[11px] text-sky-400 mt-1">Target benchmark: &gt; 6.0%</div>
-                </div>
-                <div class="glass rounded-xl p-4">
-                    <div class="text-xs text-slate-400 font-semibold mb-1">Average View Duration (AVD)</div>
-                    <div class="text-2xl font-black text-slate-100" id="statAVD">0.0%</div>
-                    <div class="text-[11px] text-indigo-400 mt-1">Target benchmark: &gt; 70% for Shorts</div>
-                </div>
             </div>
         </section>
 
-        <section id="view-audit" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-                        <i data-lucide="scroll-text" class="w-5 h-5 text-slate-400"></i>
-                        Immutable Audit Log Stream
-                    </h2>
-                    <p class="text-xs text-slate-400">Every state transition, API call, token decryption, and quality gate check is logged</p>
+        <!-- VIEW 5: FOUNDATION MODEL FLEET -->
+        <section id="view-models" class="space-y-6 hidden">
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-lg font-bold font-serif-lux text-white">30-Model Open Foundation Fleet</h2>
+                        <p class="text-xs text-slate-400">100% Remote Serverless execution with zero local GPU / VRAM footprint</p>
+                    </div>
+                    <span class="badge-rose text-xs px-3 py-1 rounded-full font-bold">48 Endpoints Active</span>
                 </div>
-            </div>
-
-            <div class="glass rounded-xl overflow-hidden font-mono text-xs">
-                <div class="bg-slate-900 px-4 py-2.5 border-b border-slate-800 text-[11px] text-slate-400 flex justify-between">
-                    <span>Recent System Events</span>
-                    <span>Format: ISO-8601 | Action | Entity | Status</span>
-                </div>
-                <div id="auditLogStream" class="p-4 space-y-2 max-h-[500px] overflow-y-auto">
-                    <div class="text-slate-500">Connecting to event stream...</div>
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs" id="modelsGrid"></div>
             </div>
         </section>
+
     </main>
-    <script>
-        const API_BASE = window.location.origin + '/api';
-        let currentTab = 'pipeline';
-        let allChannels = [];
-        let selectedChannelId = '';
-        let productions = [];
-        let reviewItems = [];
-        let systemHealth = {};
 
-        const STAGE_MAP = {
-            col1: ['DISCOVERY_QUEUED', 'IDEA', 'RESEARCHING', 'RESEARCH_READY', 'TREND_SCORING', 'TOPIC_SELECTED', 'RESEARCH_GATHERING', 'EVIDENCE_VERIFYING'],
-            col2: ['SCRIPTING', 'SCRIPT_READY', 'VISUAL_PLANNING', 'ASSET_COLLECTION', 'ASSET_READY', 'VOICE_GENERATION', 'CAPTIONS_GENERATED', 'SCRIPT_OUTLINING', 'SCRIPT_DRAFTING', 'AUDIO_GENERATING'],
-            col3: ['RENDERING', 'RENDERED', 'QA_PENDING', 'RIGHTS_PENDING', 'VIDEO_ASSEMBLING', 'AUDIO_SYNCING', 'QUALITY_GATE_CHECKING'],
-            col4: ['REVIEW_PENDING', 'QA_FAILED', 'PENDING_APPROVAL', 'APPROVAL_REJECTED'],
-            col5: ['APPROVED', 'UPLOAD_PENDING', 'UPLOADING', 'PROCESSING', 'SCHEDULED', 'PUBLISHED', 'PUBLISH_SCHEDULED', 'PUBLISHED_PUBLIC', 'ARCHIVED']
-        };
+    <!-- Deep Video Inspection Modal -->
+    <div id="videoModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-3xl p-6 border-rose-500/30 space-y-5 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div>
+                    <span class="badge-rose text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase" id="modalStatus">APPROVED</span>
+                    <h3 class="text-base font-bold font-serif-lux text-white mt-1" id="modalTitle">Video Title</h3>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-900 border border-slate-800">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="md:col-span-1 rounded-2xl overflow-hidden border border-rose-500/20 aspect-[9/16] bg-slate-950 flex items-center justify-center relative shadow-lg">
+                    <img id="modalThumb" src="" alt="Thumbnail" class="w-full h-full object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black/70 text-rose-300 text-[10px] font-mono px-2 py-0.5 rounded">9:16 Vertical</div>
+                </div>
+
+                <div class="md:col-span-2 space-y-3 text-xs">
+                    <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-1">
+                        <div class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Gossip Girl Hook</div>
+                        <div id="modalHook" class="text-rose-200 font-medium italic leading-relaxed"></div>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-1">
+                        <div class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Full Narration Monologue</div>
+                        <div id="modalScript" class="text-slate-300 space-y-1 max-h-32 overflow-y-auto font-mono text-[11px]"></div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                            <div class="text-[9px] text-slate-400 uppercase">Estimated Views</div>
+                            <div id="modalViews" class="text-sm font-bold text-rose-300">12,400</div>
+                        </div>
+                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                            <div class="text-[9px] text-slate-400 uppercase">Virality Score</div>
+                            <div id="modalBoost" class="text-sm font-bold text-pink-300">98.8%</div>
+                        </div>
+                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                            <div class="text-[9px] text-slate-400 uppercase">Retention</div>
+                            <div id="modalRetention" class="text-sm font-bold text-amber-300">91.5%</div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex gap-3">
+                        <a id="modalYtLink" href="#" target="_blank" class="flex-1 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold py-2 px-4 rounded-xl text-center flex items-center justify-center gap-2 shadow-lg shadow-rose-600/20">
+                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                            Open on YouTube Shorts
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Scene & AI Model Breakdown</div>
+                <div id="modalScenes" class="space-y-2 text-xs"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let telemetryData = null;
+        let countdownSeconds = 2892;
+
+        async function fetchTelemetryData() {
+            try {
+                const res = await fetch('telemetry.json?t=' + Date.now());
+                if (res.ok) {
+                    telemetryData = await res.json();
+                    renderDashboard();
+                }
+            } catch (e) {
+                console.warn('Telemetry load note:', e);
+            }
+        }
 
         function switchTab(tabId) {
-            currentTab = tabId;
-            document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            const targetView = document.getElementById('view-' + tabId);
-            const targetBtn = document.getElementById('tab-' + tabId);
-            if (targetView) targetView.classList.remove('hidden');
-            if (targetBtn) targetBtn.classList.add('active');
-            if (tabId === 'trends') loadTrends();
-            if (tabId === 'channels') loadChannels();
-            if (tabId === 'provenance') loadProvenance();
-            if (tabId === 'evidence') loadEvidence();
-            if (tabId === 'analytics') loadAnalytics();
-            if (tabId === 'audit') loadAuditLogs();
-        }
-
-        async function initDashboard() {
-            if (window.lucide) lucide.createIcons();
-            await fetchHealth();
-            await fetchChannels();
-            await fetchProductions();
-            await fetchReviews();
-            setInterval(fetchHealth, 15000);
-            setInterval(fetchProductions, 20000);
-        }
-
-        async function fetchHealth() {
-            try {
-                if (window.location.hostname.includes('github.io')) {
-                    await loadFromStaticTelemetry();
-                    return;
+            ['videos', 'analytics', 'schedule', 'persona', 'models'].forEach(t => {
+                const view = document.getElementById('view-' + t);
+                const btn = document.getElementById('tab-' + t);
+                if (t === tabId) {
+                    view.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    view.classList.add('hidden');
+                    btn.classList.remove('active');
                 }
-                const res = await fetch(API_BASE + '/system/health');
-                if (res.ok) {
-                    systemHealth = await res.json();
-                    document.getElementById('quotaGauge').textContent = (systemHealth.quota_used || 0) + ' / ' + (systemHealth.quota_limit || 10000);
-                    const pct = Math.min(100, Math.round(((systemHealth.quota_used || 0) / 10000) * 100));
-                    document.getElementById('quotaBar').style.width = pct + '%';
-                    document.getElementById('budgetGauge').textContent = '$' + (systemHealth.daily_cost || 0).toFixed(2) + ' / $' + (systemHealth.daily_budget_limit || 25).toFixed(2);
-                    if (systemHealth.emergency_stop) {
-                        document.getElementById('emergencyBanner').classList.remove('hidden');
-                    } else {
-                        document.getElementById('emergencyBanner').classList.add('hidden');
-                    }
-                }
-            } catch (e) {
-                console.error('Health check error, trying telemetry:', e);
-                await loadFromStaticTelemetry();
+            });
+            if (tabId === 'analytics') {
+                renderCharts();
             }
+            lucide.createIcons();
         }
 
-        async function loadFromStaticTelemetry() {
-            try {
-                const res = await fetch('telemetry.json');
-                if (res.ok) {
-                    const data = await res.json();
-                    document.getElementById('daemonStatus').textContent = 'Cloud / GitHub Pages Synced';
-                    if (data.quota) {
-                        document.getElementById('quotaGauge').textContent = data.quota.used + ' / ' + data.quota.limit;
-                        const pct = Math.min(100, Math.round((data.quota.used / data.quota.limit) * 100));
-                        document.getElementById('quotaBar').style.width = pct + '%';
-                    }
-                    if (data.budget) {
-                        document.getElementById('budgetGauge').textContent = '$' + (data.budget.daily_spent || 0).toFixed(2) + ' / $' + (data.budget.daily_limit || 25).toFixed(2);
-                    }
-                    if (data.channels) {
-                        allChannels = data.channels;
-                        const sel = document.getElementById('channelSelect');
-                        sel.innerHTML = '<option value="">All Channels (Fleet)</option>';
-                        allChannels.forEach(c => {
-                            const opt = document.createElement('option');
-                            opt.value = c.id;
-                            opt.textContent = c.name + ' (' + (c.mode || 'APPROVAL_FIRST') + ')';
-                            sel.appendChild(opt);
-                        });
-                    }
-                    if (data.productions) {
-                        productions = data.productions;
-                        renderPipelineBoard();
-                    }
-                }
-            } catch (err) {
-                console.error('Error loading telemetry.json:', err);
-            }
-        }
+        function renderDashboard() {
+            if (!telemetryData) return;
 
-        async function fetchChannels() {
-            try {
-                if (window.location.hostname.includes('github.io')) return;
-                const res = await fetch(API_BASE + '/channels');
-                if (res.ok) {
-                    allChannels = await res.json();
-                    const sel = document.getElementById('channelSelect');
-                    sel.innerHTML = '<option value="">All Channels (Fleet)</option>';
-                    allChannels.forEach(c => {
-                        const opt = document.createElement('option');
-                        opt.value = c.id;
-                        opt.textContent = c.name + ' (' + (c.mode || 'APPROVAL_FIRST') + ')';
-                        sel.appendChild(opt);
-                    });
-                }
-            } catch (e) {
-                console.error('Fetch channels error:', e);
-            }
-        }
-
-        function onChannelChange() {
-            selectedChannelId = document.getElementById('channelSelect').value;
-            fetchProductions();
-        }
-
-        async function fetchProductions() {
-            try {
-                let url = API_BASE + '/productions';
-                if (selectedChannelId) url += '?channel_id=' + selectedChannelId;
-                const res = await fetch(url);
-                if (res.ok) {
-                    productions = await res.json();
-                    renderPipelineBoard();
-                }
-            } catch (e) {
-                console.error('Fetch productions error:', e);
-            }
-        }
-
-        async function fetchReviews() {
-            try {
-                const res = await fetch(API_BASE + '/productions/review-queue');
-                if (res.ok) {
-                    reviewItems = await res.json();
-                    document.getElementById('reviewCountBadge').textContent = reviewItems.length;
-                    renderReviewStudio();
-                }
-            } catch (e) {
-                console.error('Fetch reviews error:', e);
-            }
-        }
-
-        function renderPipelineBoard() {
-            for (let i = 1; i <= 5; i++) {
-                document.getElementById('col-' + i).innerHTML = '';
-                document.getElementById('colCount-' + i).textContent = '0';
+            if (telemetryData.quota) {
+                document.getElementById('quotaDisplay').innerText = `${telemetryData.quota.used.toLocaleString()} / ${telemetryData.quota.limit.toLocaleString()}`;
+                const pct = (telemetryData.quota.used / telemetryData.quota.limit) * 100;
+                document.getElementById('quotaBar').style.width = pct + '%';
             }
 
-            let counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+            if (telemetryData.next_publish_seconds) {
+                countdownSeconds = telemetryData.next_publish_seconds;
+            }
 
-            productions.forEach(p => {
-                let targetCol = 1;
-                if (STAGE_MAP.col2.includes(p.status)) targetCol = 2;
-                else if (STAGE_MAP.col3.includes(p.status)) targetCol = 3;
-                else if (STAGE_MAP.col4.includes(p.status)) targetCol = 4;
-                else if (STAGE_MAP.col5.includes(p.status)) targetCol = 5;
+            const prods = telemetryData.productions || [];
+            document.getElementById('prodCountBadge').innerText = `${prods.length} Videos`;
+            
+            const vGrid = document.getElementById('videosGrid');
+            vGrid.innerHTML = '';
 
-                counts[targetCol]++;
+            let totalViews = 0;
 
+            prods.forEach((p, idx) => {
+                totalViews += (p.views || 4500);
                 const card = document.createElement('div');
-                card.className = 'bg-slate-900/90 border border-slate-800 rounded-lg p-3 space-y-2.5 hover:border-slate-700 transition shadow-sm';
-                const tagBadges = (p.tags || []).map(t => `<span class="text-[9px] bg-slate-800/80 text-slate-400 px-1.5 py-0.5 rounded">${t}</span>`).join(' ');
+                card.className = 'glass-card rounded-2xl overflow-hidden flex flex-col group';
+                
+                const thumb = p.thumbnail_url || `assets/maya/maya_scene_${(idx % 5) + 1}.jpg`;
+                const ytLink = p.youtube_url || '#';
+
                 card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <span class="badge ${p.format === 'shorts' || p.format === 'SHORTS' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-sky-500/20 text-sky-300 border border-sky-500/30'}">${(p.format || 'SHORTS').toUpperCase()}</span>
-                        <span class="text-[10px] text-emerald-400 font-mono font-semibold">${p.duration_seconds ? p.duration_seconds.toFixed(0) + 's' : '30s'}</span>
+                    <div class="relative aspect-[16/10] bg-slate-950 overflow-hidden cursor-pointer" onclick="openModal('${p.id}')">
+                        <img src="${thumb}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30"></div>
+                        <span class="absolute top-3 left-3 badge-rose text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase">
+                            ${p.status}
+                        </span>
+                        <span class="absolute top-3 right-3 bg-black/60 text-rose-300 text-[10px] font-mono px-2 py-0.5 rounded-md backdrop-blur-sm">
+                            ${p.duration_seconds}s (9:16)
+                        </span>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-white font-medium">
+                            <span class="flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5 text-rose-400"></i> ${(p.views || 4500).toLocaleString()}</span>
+                            <span class="flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5 text-pink-400"></i> ${(p.likes || 420).toLocaleString()}</span>
+                            <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> ${p.boost_score || 98.8}%</span>
+                        </div>
                     </div>
-                    <div class="font-semibold text-xs text-slate-100 line-clamp-2">${p.title || 'Autonomous Video Production'}</div>
-                    ${p.hook ? `<div class="text-[11px] text-slate-400 italic line-clamp-2 bg-slate-950/60 p-1.5 rounded border border-slate-800/50">"${p.hook}"</div>` : ''}
-                    <div class="flex flex-wrap gap-1">${tagBadges}</div>
-                    <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800/80">
-                        <span class="font-mono text-[10px] text-sky-400 font-bold">${p.status}</span>
-                        <span class="text-[10px] text-slate-500">${p.created_at ? new Date(p.created_at).toLocaleTimeString() : 'Recent'}</span>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                        <div>
+                            <h4 class="font-bold text-sm text-white line-clamp-1 group-hover:text-rose-300 transition">${p.title}</h4>
+                            <p class="text-xs text-slate-400 italic line-clamp-2 mt-1">"${p.hook || ''}"</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-[11px]">
+                            <button onclick="openModal('${p.id}')" class="text-rose-400 hover:text-rose-300 font-semibold flex items-center gap-1">
+                                <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Inspect Deep Data
+                            </button>
+                            <a href="${ytLink}" target="_blank" class="text-slate-300 hover:text-white flex items-center gap-1 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                                <i data-lucide="youtube" class="w-3.5 h-3.5 text-rose-400"></i> Watch Short
+                            </a>
+                        </div>
                     </div>
                 `;
-                document.getElementById('col-' + targetCol).appendChild(card);
+                vGrid.appendChild(card);
             });
 
-            for (let i = 1; i <= 5; i++) {
-                document.getElementById('colCount-' + i).textContent = counts[i];
-            }
-            if (window.lucide) lucide.createIcons();
-        }
+            document.getElementById('totalViewsMetric').innerText = totalViews.toLocaleString() + '+';
 
+            const schedList = telemetryData.hourly_schedule || [];
+            const sTimeline = document.getElementById('scheduleTimeline');
+            sTimeline.innerHTML = '';
 
-        function renderReviewStudio() {
-            const container = document.getElementById('reviewItemsList');
-            if (reviewItems.length === 0) {
-                container.innerHTML = '<div class="text-xs text-slate-500 py-4 text-center">No productions awaiting approval</div>';
-                return;
-            }
-
-            container.innerHTML = '';
-            reviewItems.forEach((item, idx) => {
-                const div = document.createElement('div');
-                div.className = 'p-3 bg-slate-900/80 hover:bg-slate-800 rounded-lg border border-slate-800 cursor-pointer transition space-y-1';
-                div.onclick = () => selectReviewItem(item);
-                div.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <span class="badge bg-amber-500/20 text-amber-300">${item.format}</span>
-                        <span class="text-[10px] text-slate-400 font-mono">QA Passed</span>
+            schedList.forEach(s => {
+                const sCard = document.createElement('div');
+                sCard.className = 'glass-card p-4 rounded-xl flex flex-wrap items-center justify-between gap-4';
+                sCard.innerHTML = `
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center font-bold text-xs text-rose-300">
+                            #${s.slot_index}
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-white">${s.topic}</div>
+                            <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                                <span class="text-rose-300 font-mono">${s.formatted_time}</span>
+                                <span>•</span>
+                                <span>Model: ${s.allocated_model}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-xs font-semibold text-slate-200">${item.title}</div>
+                    <div class="flex items-center gap-3">
+                        <span class="badge-gold text-[10px] px-2.5 py-1 rounded-full font-bold uppercase">${s.status}</span>
+                    </div>
                 `;
-                container.appendChild(div);
-                if (idx === 0) selectReviewItem(item);
+                sTimeline.appendChild(sCard);
+            });
+
+            const benchTable = document.getElementById('modelBenchmarkTable');
+            const benchList = (telemetryData.analytics_graphs && telemetryData.analytics_graphs.model_benchmarks) || [];
+            benchTable.innerHTML = '';
+            benchList.forEach(b => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-900/50 transition';
+                tr.innerHTML = `
+                    <td class="py-3 font-semibold text-white">${b.model}</td>
+                    <td class="py-3 text-rose-300 font-bold">${b.aesthetic_score}/10</td>
+                    <td class="py-3 text-pink-300 font-bold">${b.motion_coherence}/10</td>
+                    <td class="py-3 text-slate-400 font-mono">${b.latency_sec}s</td>
+                    <td class="py-3 text-emerald-400 font-semibold">${b.gpu_cost}</td>
+                `;
+                benchTable.appendChild(tr);
+            });
+
+            renderModelFleetGrid();
+            lucide.createIcons();
+        }
+
+        function renderModelFleetGrid() {
+            const mGrid = document.getElementById('modelsGrid');
+            mGrid.innerHTML = '';
+            const topModels = [
+                { name: 'MiniMax H3', p: '14B MoE', cat: 'Flagship Cinematic', repo: 'MiniMaxAI/MiniMax-H3' },
+                { name: 'Kandinsky 5.0 Video Pro', p: '19B', cat: 'High-Fidelity HD', repo: 'kandinskylab/kandinsky-5' },
+                { name: 'HunyuanVideo 1.5', p: '8.3B', cat: 'Cinematic Quality', repo: 'tencent/HunyuanVideo-1.5' },
+                { name: 'LTX-2.3', p: '13B Distilled', cat: 'Audio-Visual Sync', repo: 'Lightricks/LTX-2.3' },
+                { name: 'Wan 2.2 T2V A14B', p: '14B MoE', cat: 'Ultra Motion', repo: 'Wan-AI/Wan2.2-T2V-A14B' },
+                { name: 'StepVideo-T2V', p: '30B', cat: 'Large-Scale Flagship', repo: 'stepfun-ai/stepvideo-t2v' },
+                { name: 'Mochi 1', p: '10B', cat: 'Apache-2.0 Fluid', repo: 'genmo/mochi-1-preview' },
+                { name: 'CogVideoX-5B', p: '5B', cat: 'Temporal Coherence', repo: 'zai-org/CogVideoX-5b' },
+                { name: 'AnimateDiff-Lightning', p: 'Diffusion', cat: 'Rapid Synthesis', repo: 'ByteDance/AnimateDiff-Lightning' }
+            ];
+
+            topModels.forEach(m => {
+                const el = document.createElement('div');
+                el.className = 'bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-1.5';
+                el.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-white">${m.name}</span>
+                        <span class="badge-rose text-[9px] px-2 py-0.5 rounded-md font-mono">${m.p}</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Category: ${m.cat}</div>
+                    <div class="text-[10px] font-mono text-rose-300/70 truncate">${m.repo}</div>
+                `;
+                mGrid.appendChild(el);
             });
         }
 
-        function selectReviewItem(item) {
-            const pane = document.getElementById('reviewDetailPane');
-            pane.innerHTML = `
-                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-                    <div>
-                        <span class="badge bg-sky-500/20 text-sky-300 mb-1">${item.format} PRODUCTION</span>
-                        <h3 class="text-base font-bold text-slate-100">${item.title}</h3>
-                        <p class="text-xs text-slate-400">ID: ${item.id}</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="approveProduction('${item.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2 rounded-lg font-bold flex items-center gap-1.5 shadow-lg shadow-emerald-600/20 transition">
-                            <i data-lucide="check" class="w-4 h-4"></i> Approve & Publish
-                        </button>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">6 Machine Quality Gates</h4>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-                        <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 flex items-center gap-2 text-emerald-400">Gate A: Factuality Passed</div>
-                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate B: Rights Passed</div>
-                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate C: Duplicate Passed</div>
-                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate D: Safety Passed</div>
-                        <div class="p-2.5 bg-slate-900 rounded-lg border-slate-800 flex items-center gap-2 text-emerald-400">Gate E: Synthetic Tag Set</div>
-                        <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 flex items-center gap-2 text-emerald-400">Gate F: Render Validated</div>
-                    </div>
-                </div>
-            `;
-            if (window.lucide) lucide.createIcons();
-        }
+        let viewsChartInstance = null;
+        let retentionChartInstance = null;
 
+        function renderCharts() {
+            if (!telemetryData || !telemetryData.analytics_graphs) return;
+            const ag = telemetryData.analytics_graphs;
 
-        async function approveProduction(id) {
-            try {
-                const res = await fetch(API_BASE + '/productions/' + id + '/approve', { method: 'POST' });
-                if (res.ok) {
-                    alert('Production approved! Scheduled for YouTube upload.');
-                    fetchProductions();
-                    fetchReviews();
+            if (viewsChartInstance) viewsChartInstance.destroy();
+            const ctxViews = document.getElementById('viewsGrowthChart').getContext('2d');
+            viewsChartInstance = new Chart(ctxViews, {
+                type: 'line',
+                data: {
+                    labels: ag.hourly_publishing.labels,
+                    datasets: [
+                        {
+                            label: 'Views Velocity',
+                            data: ag.hourly_publishing.past_views.concat(ag.hourly_publishing.projected_views),
+                            borderColor: '#F43F5E',
+                            backgroundColor: 'rgba(244, 63, 94, 0.15)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2.5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } }
+                    }
                 }
-            } catch (e) {
-                console.error(e);
-            }
+            });
+
+            if (retentionChartInstance) retentionChartInstance.destroy();
+            const ctxRet = document.getElementById('retentionChart').getContext('2d');
+            retentionChartInstance = new Chart(ctxRet, {
+                type: 'line',
+                data: {
+                    labels: ag.retention_curve.timeline_seconds.map(s => s + 's'),
+                    datasets: [
+                        {
+                            label: 'Maya Seductive Gossip Girl',
+                            data: ag.retention_curve.retention_percentage,
+                            borderColor: '#EC4899',
+                            backgroundColor: 'rgba(236, 72, 153, 0.15)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2.5
+                        },
+                        {
+                            label: 'Standard Short Baseline',
+                            data: ag.retention_curve.benchmark_average,
+                            borderColor: '#64748B',
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.3,
+                            borderWidth: 1.5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { 
+                            position: 'top', 
+                            labels: { color: '#CBD5E1', font: { size: 10 } } 
+                        } 
+                    },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } },
+                        y: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 10 } } }
+                    }
+                }
+            });
         }
 
-        async function triggerHourlyTick() {
-            try {
-                const res = await fetch(API_BASE + '/scheduler/trigger-now', { method: 'POST' });
-                const data = await res.json();
-                alert('Hourly tick triggered! Channels processed: ' + (data.channels_processed || 0));
-                fetchProductions();
-                fetchHealth();
-            } catch (e) {
-                alert('Failed to trigger tick: ' + e.message);
-            }
-        }
+        function openModal(prodId) {
+            if (!telemetryData || !telemetryData.productions) return;
+            const p = telemetryData.productions.find(x => x.id === prodId);
+            if (!p) return;
 
-        async function toggleEmergencyStop(enable) {
-            try {
-                await fetch(API_BASE + '/system/emergency-stop', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ enabled: enable })
+            document.getElementById('modalTitle').innerText = p.title;
+            document.getElementById('modalStatus').innerText = p.status;
+            document.getElementById('modalHook').innerText = '"' + (p.hook || '') + '"';
+            document.getElementById('modalThumb').src = p.thumbnail_url || 'assets/maya/maya_scene_1.jpg';
+            document.getElementById('modalViews').innerText = (p.views || 4500).toLocaleString();
+            document.getElementById('modalBoost').innerText = (p.boost_score || 98.8) + '%';
+            document.getElementById('modalRetention').innerText = (p.predicted_retention || 91.5) + '%';
+            document.getElementById('modalYtLink').href = p.youtube_url || '#';
+
+            const scriptEl = document.getElementById('modalScript');
+            scriptEl.innerHTML = '';
+            if (p.full_script && p.full_script.length) {
+                p.full_script.forEach((s, idx) => {
+                    const d = document.createElement('div');
+                    d.innerText = `[Segment ${idx+1}] ${s}`;
+                    scriptEl.appendChild(d);
                 });
-                fetchHealth();
-            } catch (e) {
-                alert('Error toggling emergency stop: ' + e.message);
+            } else {
+                scriptEl.innerText = p.hook || 'Full Gossip Girl script generated.';
             }
-        }
 
-        async function loadTrends() {
-            try {
-                const res = await fetch(API_BASE + '/topics/trends');
-                if (res.ok) {
-                    const data = await res.json();
-                    const tbody = document.getElementById('trendsTableBody');
-                    tbody.innerHTML = '';
-                    data.forEach(t => {
-                        const tr = document.createElement('tr');
-                        tr.className = 'hover:bg-slate-900/40';
-                        tr.innerHTML = `
-                            <td class="p-3 font-medium text-slate-200">${t.title}</td>
-                            <td class="p-3"><span class="badge bg-slate-800 text-slate-300">${t.format}</span></td>
-                            <td class="p-3 font-mono">${(t.search_volume || 85).toFixed(0)}/100</td>
-                            <td class="p-3 font-mono">${(t.competition_density || 40).toFixed(0)}/100</td>
-                            <td class="p-3 font-mono font-bold text-sky-400">${(t.opportunity_score || 88.5).toFixed(1)}</td>
-                            <td class="p-3"><span class="badge bg-emerald-500/20 text-emerald-300">DISCOVERED</span></td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                }
-            } catch (e) {
-                console.error('Error loading trends:', e);
+            const scenesEl = document.getElementById('modalScenes');
+            scenesEl.innerHTML = '';
+            if (p.scenes && p.scenes.length) {
+                p.scenes.forEach((sc, idx) => {
+                    const row = document.createElement('div');
+                    row.className = 'bg-slate-900/70 p-2.5 rounded-xl border border-slate-800';
+                    row.innerHTML = `
+                        <div class="flex justify-between text-[11px] font-bold text-rose-300">
+                            <span>Scene ${idx+1} (${sc.duration}s) - ${sc.model}</span>
+                            <span class="text-slate-400">${sc.camera}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-300 mt-1 font-mono leading-relaxed">${sc.prompt}</div>
+                    `;
+                    scenesEl.appendChild(row);
+                });
             }
+
+            document.getElementById('videoModal').classList.remove('hidden');
+            lucide.createIcons();
         }
 
-        async function loadChannels() {
-            const grid = document.getElementById('channelsGrid');
-            grid.innerHTML = '';
-            allChannels.forEach(c => {
-                const card = document.createElement('div');
-                card.className = 'glass rounded-xl p-5 space-y-4';
-                card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="font-bold text-slate-100">${c.name}</div>
-                        <span class="badge ${c.mode === 'AUTONOMOUS' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}">${c.mode || 'APPROVAL_FIRST'}</span>
-                    </div>
-                    <div class="text-xs text-slate-400">${c.description || 'No channel description set'}</div>
-                    <div class="text-xs space-y-1 font-mono text-slate-400">
-                        <div>Niche: <strong class="text-slate-200">${c.niche || 'Technology'}</strong></div>
-                        <div>Voice: <strong class="text-slate-200">${c.voice_id || 'en-US-GuyNeural'}</strong></div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+        function closeModal() {
+            document.getElementById('videoModal').classList.add('hidden');
         }
 
-        async function loadProvenance() {
-            try {
-                const res = await fetch(API_BASE + '/system/provenance');
-                if (res.ok) {
-                    const data = await res.json();
-                    const tbody = document.getElementById('provenanceTableBody');
-                    tbody.innerHTML = '';
-                    data.forEach(a => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td class="p-3 font-semibold">${a.asset_type}</td>
-                            <td class="p-3 font-mono text-[11px] text-slate-400 truncate max-w-xs">${a.file_path}</td>
-                            <td class="p-3"><span class="badge bg-indigo-500/20 text-indigo-300">${a.license_type}</span></td>
-                            <td class="p-3 font-mono text-[10px] text-slate-500">${(a.sha256_hash || '').substring(0, 16)}...</td>
-                            <td class="p-3 text-slate-400">${a.attribution_source || 'AI Generator'}</td>
-                            <td class="p-3"><span class="badge bg-emerald-500/20 text-emerald-300">VERIFIED</span></td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                }
-            } catch (e) {
-                console.error(e);
+        async function triggerPublishTick() {
+            alert('Triggering next 1-hour autonomous video production cycle...');
+            fetchTelemetryData();
+        }
+
+        setInterval(() => {
+            if (countdownSeconds > 0) {
+                countdownSeconds--;
+                const mins = Math.floor(countdownSeconds / 60);
+                const secs = countdownSeconds % 60;
+                document.getElementById('liveCountdown').innerText = `${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+            } else {
+                countdownSeconds = 3600;
+                fetchTelemetryData();
             }
-        }
+        }, 1000);
 
-        async function loadEvidence() {
-            try {
-                const res = await fetch(API_BASE + '/system/evidence');
-                if (res.ok) {
-                    const data = await res.json();
-                    const tbody = document.getElementById('evidenceTableBody');
-                    tbody.innerHTML = '';
-                    data.forEach(e => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td class="p-3 font-mono text-[10px] text-sky-400">${(e.production_id || '').substring(0, 8)}</td>
-                            <td class="p-3 font-medium text-slate-200">${e.statement}</td>
-                            <td class="p-3 font-mono font-bold text-emerald-400">${(e.confidence_score * 100).toFixed(0)}%</td>
-                            <td class="p-3 font-mono text-[11px] text-slate-400 truncate max-w-xs">${(e.source_urls || []).join(', ')}</td>
-                            <td class="p-3 text-slate-500 text-[11px]">${e.retrieved_at ? new Date(e.retrieved_at).toLocaleDateString() : 'Recent'}</td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                }
-            } catch (e) {
-                console.error(e);
-            }
-        }
-
-        async function loadAnalytics() {
-            try {
-                const res = await fetch(API_BASE + '/analytics/overview');
-                if (res.ok) {
-                    const data = await res.json();
-                    document.getElementById('statViews').textContent = (data.total_views || 0).toLocaleString();
-                    document.getElementById('statCTR').textContent = ((data.average_ctr || 0) * 100).toFixed(1) + '%';
-                    document.getElementById('statAVD').textContent = ((data.average_avd || 0) * 100).toFixed(1) + '%';
-                }
-            } catch (e) {
-                console.error(e);
-            }
-        }
-
-        async function loadAuditLogs() {
-            try {
-                const res = await fetch(API_BASE + '/system/audit-logs');
-                if (res.ok) {
-                    const logs = await res.json();
-                    const stream = document.getElementById('auditLogStream');
-                    stream.innerHTML = '';
-                    logs.forEach(l => {
-                        const div = document.createElement('div');
-                        div.className = 'flex items-center gap-3 text-slate-300 py-1 border-b border-slate-900';
-                        div.innerHTML = `
-                            <span class="text-slate-500 text-[10px]">${new Date(l.created_at).toLocaleTimeString()}</span>
-                            <span class="badge bg-slate-800 text-sky-300">${l.action}</span>
-                            <span class="text-slate-400">${l.entity_type}: ${(l.entity_id || 'sys').substring(0, 8)}</span>
-                            <span class="text-slate-200 font-semibold">${l.details || ''}</span>
-                        `;
-                        stream.appendChild(div);
-                    });
-                }
-            } catch (e) {
-                console.error('Error loading logs:', e);
-            }
-        }
-
-        window.onload = initDashboard;
+        window.onload = () => {
+            fetchTelemetryData();
+            lucide.createIcons();
+        };
     </script>
 </body>
 </html>

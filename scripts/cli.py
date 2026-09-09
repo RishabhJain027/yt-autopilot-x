@@ -221,6 +221,7 @@ def main():
     boost_p = subparsers.add_parser("boost", help="Generate viral boost package and hook evaluation (/boost)")
     boost_p.add_argument("--topic", type=str, default=None, help="Topic to optimize")
 
+    subparsers.add_parser("daemon", help="Run 1-hour autonomous publishing daemon")
     subparsers.add_parser("export-telemetry", help="Export latest telemetry JSON for GitHub Pages")
     subparsers.add_parser("status", help="Display system health and quota")
     subparsers.add_parser("serve", help="Start FastAPI server and dashboard")
@@ -235,6 +236,9 @@ def main():
         asyncio.run(cmd_generate_video(args.topic))
     elif args.command == "dry-run":
         asyncio.run(cmd_generate_video(args.topic if hasattr(args, 'topic') else None))
+    elif args.command == "daemon":
+        from scripts.run_hourly_daemon import run_hourly_daemon
+        asyncio.run(run_hourly_daemon())
     elif args.command == "goal":
         asyncio.run(cmd_goal())
     elif args.command == "browser":
