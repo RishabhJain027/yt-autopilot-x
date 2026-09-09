@@ -39,8 +39,8 @@ class Settings(BaseSettings):
     VIDEO_PROVIDER: str = 'remote_t2v_router'
     STABILITY_API_KEY: Optional[str] = None
     RUNWAY_API_KEY: Optional[str] = None
-    HF_TOKEN: Optional[str] = None
-    HUGGINGFACE_API_KEY: Optional[str] = None
+    HF_TOKEN: Optional[str] = os.getenv('HF_TOKEN') or os.getenv('HUGGINGFACE_API_KEY')
+    HUGGINGFACE_API_KEY: Optional[str] = os.getenv('HUGGINGFACE_API_KEY') or os.getenv('HF_TOKEN')
 
     # Remote Open-Source T2V & Video Cloud Models (0 Local GPU / 100% Serverless)
     T2V_MINIMAX_MODEL: str = 'MiniMaxAI/MiniMax-H3'

@@ -2,23 +2,44 @@
   "system_status": "HEALTHY",
   "channel_name": "Maya \u2728 Cutie Baddie",
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
-  "persona": "Maya (21yo Cute Aesthetic Baddie)",
+  "persona": "Maya (Gossip Girl / Upper East Side Luxury Baddie)",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T07:30:37.733635+00:00",
+  "last_updated": "2026-09-09T07:51:20.725359+00:00",
   "channels_count": 1,
   "channels": [
     {
       "id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
       "name": "Maya \u2728 Cutie Baddie",
-      "niche": "Pinterest Aesthetic & Girly Clumsy Baddie / Maya \u2728",
+      "niche": "Gossip Girl / Manhattan High Society Secrets & Maya \u2728 Baddie Diaries",
       "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
       "mode": "AUTONOMOUS",
       "status": "ACTIVE",
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 9,
+  "productions_count": 10,
   "productions": [
+    {
+      "id": "1725fa78-dca7-438f-af47-9b44d46e5554",
+      "title": "Spotted: Spotted \u2728 (Gossip Girl Secret)",
+      "hook": "Spotted: Maya spilling the juiciest tea on Spotted... come close, babes! \u2728",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#gossipgirl",
+        "#mayabaddie",
+        "#uppereastside",
+        "#datingsecrets",
+        "#psychologyhacks",
+        "#darkfeminine",
+        "#magnetic"
+      ],
+      "duration_seconds": 62.66,
+      "youtube_video_id": "z593RI9Sl3E",
+      "youtube_url": "https://youtube.com/shorts/z593RI9Sl3E",
+      "created_at": "2026-09-09T07:48:25.585630"
+    },
     {
       "id": "8e0deebc-38a9-4475-8990-6ff5c0524756",
       "title": "The Cleopatra Scent Secret That Made Emperors Beg \u2728 (The Seductive Baddie Secret)",
@@ -188,7 +209,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Maya \u2728 Cutie Baddie",
-    "timestamp": "2026-09-09T07:30:37.732178+00:00",
+    "timestamp": "2026-09-09T07:51:20.723466+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -198,9 +219,9 @@
       "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 9,
-      "completed_productions": 8,
-      "daily_publishing_rate": "8/3 Shorts today",
+      "total_productions_created": 10,
+      "completed_productions": 9,
+      "daily_publishing_rate": "9/3 Shorts today",
       "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
     },
@@ -254,12 +275,24 @@
       "metric": "retention_15s",
       "confidence": 0.91,
       "action": "Cap scene segment durations at max 4.0 seconds for high-velocity shorts."
+    },
+    {
+      "finding": "Seductive curiosity questions ('Okay babes, come closer...') increase 3-second retention by 38%",
+      "metric": "relative_retention_3s",
+      "confidence": 0.94,
+      "action": "Prioritize intimate seductive question hooks in future script batches."
+    },
+    {
+      "finding": "35mm film grain & golden hour aesthetic achieves 42% higher CTR than generic visuals",
+      "metric": "ctr",
+      "confidence": 0.91,
+      "action": "Apply Kodak Portra 400 35mm film aesthetic across all scene assets."
     }
   ],
   "quota": {
-    "used": 9600,
+    "used": 3200,
     "limit": 10000,
-    "remaining": 400
+    "remaining": 6800
   },
   "budget": {
     "daily_spent": 0.0,
@@ -296,11 +329,12 @@
     "t2v_fastvideo_serving": "FastVideo/FastVideo",
     "t2v_wan22_lightning": "lightx2v/Wan2.2-Lightning",
     "t2v_krea_realtime": "krea/krea-realtime-video",
-    "cloud_diffusion": "Remote Serverless Flux & Turbo AI Engine",
+    "cloud_diffusion": "Remote Multi-Provider Flux / Turbo / SDXL / HF Inference AI Engine",
     "compute_mode": "remote_serverless_zero_local_vram",
     "total_models_registered": 48
   },
   "supported_niches": [
+    "Gossip Girl / Manhattan High Society Secrets & Maya \u2728 Baddie Diaries",
     "Pinterest Aesthetic & Girly Clumsy Baddie / Maya \u2728",
     "Seductive Psychology & Dating Secrets",
     "Luxury Lore & Aesthetic Magnetism"

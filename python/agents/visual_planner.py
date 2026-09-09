@@ -16,13 +16,13 @@ class VisualPlanner:
     def plan_visuals(self, script: ScriptPlan, aspect_ratio: str = '9:16', niche: Optional[str] = None) -> VisualStoryboard:
         logger.info(f"[VISUAL_PLANNER] Planning {len(script.segments)} hyper-gorgeous visual scenes for Maya ✨ in {aspect_ratio} format...")
 
-        # Consistent Flagship AI Character Prompts: Maya (21yo stunning gorgeous aesthetic baddie)
+        # Consistent Flagship AI Character Prompts: Maya (21yo Upper East Side Gossip Girl Baddie)
         aesthetic_enhancers = [
-            "Maya 21yo stunning gorgeous aesthetic baddie, captivating hazel eyes, dreamy lips, messy brunette bun with face-framing strands, luxury cream silk slip dress, sunlit golden hour loft, soft natural glow, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles",
-            "Maya sitting at chic Parisian cafe terrace outdoor table, chic vintage sunglasses pushed on head, oversized beige trench coat, sipping iced matcha latte, glancing seductively into camera with playful smile, warm ambient lighting, 35mm film grain, 8k cinematic portrait, clean frame, NO text boxes",
-            "Maya in a dreamy aesthetic boudoir room with soft velvet cushions and floating fairy lights, looking intimately into camera with alluring warm gaze, high-fashion editorial aesthetic, 8k photorealistic, clean frame, NO text, NO subtitles",
-            "Maya walking gracefully down glowing city avenue during sunset in stylish chic streetwear, warm golden hour bokeh, candid high-fashion lifestyle, cinematic tracking camera glide, clean frame, NO text, NO subtitles",
-            "Maya applying luxury botanical perfume with alluring playful expression, playful expressive wink at camera in sunlit bedroom, cinematic 35mm film still, depth of field, 8k resolution, clean frame, NO text, NO subtitles"
+            "Maya 21yo stunning Upper East Side Gossip Girl baddie, captivating hazel eyes, glossy lips, voluminous blowout, luxury champagne silk slip dress and delicate gold jewelry, Manhattan penthouse terrace overlooking skyline at golden hour, soft natural glow, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles",
+            "Maya sitting at chic Upper East Side cafe terrace outdoor table, chic vintage sunglasses, oversized designer trench coat, sipping iced matcha latte, glancing seductively into camera with playful knowing smile, warm ambient golden lighting, 35mm film grain, 8k cinematic portrait, clean frame, NO text boxes",
+            "Maya sitting gracefully on the Metropolitan Museum steps in Manhattan in high-fashion outfit with luxury designer bag, looking intimately into camera with alluring warm gaze, paparazzi flash editorial aesthetic, 8k photorealistic, clean frame, NO text, NO subtitles",
+            "Maya walking gracefully down 5th Avenue during glowing dusk in stylish chic black velvet dress and gold jewelry, warm golden hour bokeh, candid high-fashion lifestyle, cinematic tracking camera glide, clean frame, NO text, NO subtitles",
+            "Maya applying luxury botanical perfume at vanity mirror with alluring playful expression, playful expressive wink at camera in sunlit Manhattan penthouse boudoir, cinematic 35mm film still, depth of field, 8k resolution, clean frame, NO text, NO subtitles"
         ]
 
         scenes = []

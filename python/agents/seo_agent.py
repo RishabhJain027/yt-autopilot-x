@@ -14,26 +14,27 @@ class SeoAgent:
         core_topic = clean_topic.split('-')[0].strip()
         
         fallback = {
-            "primary_title": f"{core_topic} ✨ (The Seductive Baddie Secret)",
+            "primary_title": f"Spotted: {core_topic} ✨ (Gossip Girl Secret)",
             "alternate_titles": [
-                f"The 3-Second Trick That Makes Him Obsessed ✨",
-                f"Why Being Unbothered Makes You 10x More Magnetic 😭💖",
-                f"POV: You Find This Seductive Psychology Secret at 2AM ✨"
+                f"Spotted: The 3-Second Eye Contact Trick That Makes Him Obsessed ✨",
+                f"Spotted: Why Being Unbothered Makes You 10x More Magnetic 😭💖",
+                f"Spotted: The Upper East Side Psychology Secret Nobody Tells You ✨"
             ],
             "description": (
-                f"Okay babes, come closer... let's spill the tea on {clean_topic} ✨\n\n"
-                "Welcome to Maya's daily aesthetic tea & baddie diaries! "
-                "Today we are diving into the most intoxicating psychological secrets and magnetic attraction hacks.\n\n"
-                "💖 Drop a ✨ in the comments and subscribe to Maya for your daily baddie workflows, dating tea & seductive psychology secrets!\n\n"
-                "#shorts #mayabaddie #baddievibes #pinterestgirl #datingsecrets #psychologyhacks #darkfeminine #magnetic #aesthetic #glowup #relatable #crushhack #viral"
+                f"Spotted: Maya spilling the juiciest tea on {clean_topic} ✨\n\n"
+                "Welcome to Maya's daily Gossip Girl aesthetic diaries! "
+                "Today we are diving into the most intoxicating psychological secrets and Upper East Side magnetic attraction hacks.\n\n"
+                "💖 Drop a ✨ in the comments and subscribe to Maya for your daily Gossip Girl diaries, dating tea & high-society secrets!\n\n"
+                "You know you love me... XOXO, Maya ✨\n\n"
+                "#shorts #gossipgirl #mayabaddie #uppereastside #datingsecrets #psychologyhacks #darkfeminine #magnetic #aesthetic #glowup #relatable #crushhack #viral"
             ),
             "hashtags": [
-                "#shorts", "#mayabaddie", "#baddievibes", "#pinterestgirl",
+                "#shorts", "#gossipgirl", "#mayabaddie", "#uppereastside",
                 "#datingsecrets", "#psychologyhacks", "#darkfeminine", "#magnetic",
                 "#aesthetic", "#glowup", "#relatable", "#crushhack", "#viral"
             ],
             "tags": [
-                "maya baddie", "seductive girl", "pinterest aesthetic", "baddie psychology",
+                "gossip girl", "maya baddie", "upper east side", "seductive psychology",
                 "dating hacks", "dark feminine", "magnetism secrets", "pratfall effect",
                 "eye contact trick", "cleopatra scent", "glow up", "relatable tea", "shorts"
             ],

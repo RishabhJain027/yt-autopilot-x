@@ -28,48 +28,48 @@ class ScriptAgent:
 
         clean_topic = topic.replace(":", " -")
 
-        # Maya ✨ Seductive Baddie Tea-Spilling & Aesthetic Storytelling Template
-        hook = f"Okay babes, come closer... tell me why nobody warned us about this secret of {clean_topic.split('-')[0].strip()}! ✨"
-        context = f"So I was sipping my iced matcha in my silk robe, going down the juiciest psychology rabbit hole, and the tea is crazy."
+        # Maya ✨ Gossip Girl / Manhattan Upper East Side Tea-Spilling Storytelling Template
+        hook = f"Spotted: Maya spilling the juiciest tea on {clean_topic.split('-')[0].strip()}... come close, babes! ✨"
+        context = f"So I was on the penthouse terrace in my silk slip dress sipping iced matcha, and this psychological secret completely rewired everything."
         core_value = f"Listen closely: {fact1} {fact2}"
         proof = f"The wildest part? {fact3}"
-        payoff = "You literally become completely irresistible the second you stop chasing and start glowing."
-        cta = "Drop a ✨ in the comments and follow Maya for your daily aesthetic tea & baddie diaries 💖"
+        payoff = "You literally command the entire room the second you stop chasing and start glowing. You know you love me... XOXO, Maya ✨"
+        cta = "Drop a ✨ in the comments and follow Maya for your daily Gossip Girl tea & baddie diaries 💖"
 
         segments = [
             ScriptSegment(
                 id="scene_001",
                 voiceover=hook,
                 duration=4.0,
-                visual_intent="Maya 21yo stunning gorgeous aesthetic baddie, captivating hazel eyes, dreamy lips, messy brunette bun with face-framing strands, oversized cream knit sweater, sunlit golden hour loft, soft natural glow, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles",
+                visual_intent="Maya 21yo stunning Gossip Girl aesthetic baddie, captivating hazel eyes, glossy lips, voluminous blowout, luxury champagne silk dress, Manhattan penthouse terrace at golden hour, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles",
                 claims=[claims_ids[0]] if claims_ids else []
             ),
             ScriptSegment(
                 id="scene_002",
                 voiceover=context,
                 duration=5.5,
-                visual_intent="Maya sitting at chic Parisian cafe terrace outdoor table, chic vintage sunglasses pushed on head, oversized beige trench coat, sipping iced matcha latte, glancing seductively into camera with playful smile, warm ambient lighting, 35mm film grain, 8k cinematic portrait, clean frame, NO text boxes",
+                visual_intent="Maya sitting at chic Upper East Side cafe terrace outdoor table, vintage designer sunglasses, sipping iced matcha latte, glancing seductively into camera with playful knowing smirk, warm golden lighting, 35mm film grain, 8k cinematic portrait, clean frame, NO text boxes",
                 claims=[]
             ),
             ScriptSegment(
                 id="scene_003",
                 voiceover=core_value,
                 duration=12.0,
-                visual_intent="Maya in a dreamy aesthetic boudoir room with soft velvet cushions and floating fairy lights, looking intimately into camera with alluring warm gaze, high-fashion editorial aesthetic, 8k photorealistic, clean frame, NO text",
+                visual_intent="Maya sitting gracefully on the Metropolitan Museum steps in Manhattan in high-fashion outfit with luxury designer handbag, looking intimately into camera with alluring warm gaze, paparazzi flash aesthetic, 8k photorealistic, clean frame, NO text",
                 claims=[claims_ids[1]] if len(claims_ids) > 1 else []
             ),
             ScriptSegment(
                 id="scene_004",
                 voiceover=proof,
                 duration=7.5,
-                visual_intent="Maya walking gracefully down glowing city avenue during sunset in stylish chic streetwear, warm golden hour bokeh, candid high-fashion lifestyle, cinematic camera glide, clean frame, NO text",
+                visual_intent="Maya walking gracefully down 5th Avenue during glowing sunset in stylish chic black dress and gold jewelry, warm golden hour bokeh, candid high-fashion lifestyle, cinematic camera glide, clean frame, NO text",
                 claims=[claims_ids[2]] if len(claims_ids) > 2 else []
             ),
             ScriptSegment(
                 id="scene_005",
                 voiceover=f"{payoff} {cta}",
                 duration=7.0,
-                visual_intent="Maya applying luxury botanical perfume with alluring playful expression, playful expressive wink at camera in sunlit bedroom, cinematic 35mm film still, depth of field, 8k resolution, clean frame, NO text",
+                visual_intent="Maya spritzing luxury perfume at vanity mirror in luxury Manhattan penthouse boudoir, playful wink at camera, soft ambient vanity lights, cinematic 35mm film still, depth of field, 8k resolution, clean frame, NO text",
                 claims=[]
             )
         ]
@@ -77,7 +77,7 @@ class ScriptAgent:
         total_est = sum(s.duration for s in segments)
 
         fallback = {
-            "title_candidate": f"{clean_topic} ✨ (Baddie Secret)",
+            "title_candidate": f"Spotted: {clean_topic} ✨ (Gossip Girl Secret)",
             "hook": hook,
             "context": context,
             "core_value": core_value,
@@ -90,12 +90,12 @@ class ScriptAgent:
         }
 
         sys_prompt = (
-            "You are Maya ✨, the ultimate seductive, alluring, captivating aesthetic baddie. "
-            "You spill juicy psychological tea, dating secrets, and baddie wisdom in a dreamy, whispering, intoxicating Pinterest-girl aesthetic. "
-            "Your voice is velvety, playful, confident, and irresistible to both girls and boys. "
+            "You are Maya ✨, the ultimate Gossip Girl aesthetic baddie of the Upper East Side. "
+            "You spill scandalous psychological tea, dating secrets, and high-society allure in a seductive, velvety, whispering Manhattan Gossip Girl tone ('Spotted: Maya spilling the dirt...'). "
+            "Your voice is velvety, playful, confident, irresistible, and witty. Always conclude with 'You know you love me... XOXO, Maya ✨'. "
             "Write an irresistible, velvety, high-retention 9:16 Shorts script based on the provided psychology facts. "
             "Strictly NO tech jargon, ZERO AI mentions ('Hugging Face', 'open source AI', 'AI Studio' are completely forbidden). "
-            "Make every sentence seductive, witty, fascinating, and aesthetic."
+            "Make every sentence seductive, witty, fascinating, and high-fashion aesthetic."
         )
         user_prompt = f"Topic: {topic}, Facts: {facts}, Format: {format}"
 

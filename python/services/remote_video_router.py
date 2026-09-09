@@ -796,28 +796,97 @@ class RemoteT2VRouter:
 
         return self.models.get("minimax_h3", list(self.models.values())[0])
 
+    def _build_character_prompt(self, prompt: str, niche: str) -> str:
+        """Builds hyper-detailed, photorealistic Gossip Girl / Maya prompts."""
+        niche_lower = niche.lower()
+        is_maya_gossip = any(k in niche_lower or k in prompt.lower() for k in [
+            "gossip", "maya", "baddie", "aesthetic", "pinterest", "girl", "dating", "psychology", "upper east side", "manhattan", "luxury"
+        ])
+
+        if is_maya_gossip:
+            return (
+                f"{prompt}, 21yo stunning gorgeous Upper East Side Gossip Girl baddie Maya, captivating hazel eyes, "
+                f"glossy lips, voluminous blonde brunette blowout hairstyle, luxury cream silk slip dress and designer outfit, delicate gold jewelry, "
+                f"Manhattan penthouse balcony terrace overlooking skyline at golden hour, chic Upper East Side cafe terrace, "
+                f"Kodak Portra 400 35mm film still, soft golden hour lighting, shallow depth of field, photorealistic 8k, "
+                f"ultra-detailed skin texture, beautiful high fashion aesthetic, clean frame, strictly no text boxes, no subtitles, no watermark, no captions"
+            )
+        else:
+            return (
+                f"{prompt}, hyperrealistic 8k cinematic render, volumetric studio lighting, "
+                f"clean modern aesthetic, photorealistic detail, cinematic depth of field, sharp focus, strictly no text boxes, no subtitles"
+            )
+
+    def _verify_and_save_image(self, content: bytes, seed: int, prefix: str = "ai_frame") -> Optional[str]:
+        """Validates that bytes represent a genuine, non-corrupt image and saves it to disk."""
+        import io
+        if not content or len(content) < 3000:
+            return None
+        try:
+            img = Image.open(io.BytesIO(content))
+            img.verify()
+            img_path = os.path.join(self.clips_dir, f"{prefix}_{int(time.time() * 1000)}_{seed}.png")
+            img = Image.open(io.BytesIO(content))
+            img.convert("RGB").save(img_path, format="PNG")
+            return img_path
+        except Exception as e:
+            logger.warning(f"[REMOTE_T2V] Image validation failed: {e}")
+            return None
+
+    def _generate_editorial_visual_card(self, prompt: str, scene_id: str, width: int, height: int, niche: str = "aesthetic") -> str:
+        """
+        Generates a high-fashion Gossip Girl luxury broadcast visual card with Manhattan aesthetic,
+        glowing golden hour gradients, editorial framing, and scene typography.
+        Guarantees that a video NEVER defaults to a blank purple circular blob.
+        """
+        img_path = os.path.join(self.clips_dir, f"editorial_frame_{scene_id}_{int(time.time()*1000)%10000}.png")
+        img = Image.new("RGB", (width, height), color="#0D0814")
+        draw = ImageDraw.Draw(img)
+
+        # Rich multi-stop luxury amber & rose-gold Manhattan dusk gradient
+        for y in range(height):
+            ratio = y / height
+            r = int(18 + 45 * ratio + 30 * (1.0 - abs(ratio - 0.5) * 2))
+            g = int(10 + 20 * ratio + 15 * (1.0 - abs(ratio - 0.5) * 2))
+            b = int(22 + 35 * ratio)
+            draw.line([(0, y), (width, y)], fill=(r, g, b))
+
+        # Ambient atmospheric golden hour lighting beam
+        center_y = int(height * 0.42)
+        for radius in range(500, 0, -15):
+            alpha = int((1.0 - (radius / 500.0)) * 60)
+            glow_color = (alpha + 70, alpha + 35, alpha // 2 + 10)
+            draw.ellipse([width // 2 - radius, center_y - radius, width // 2 + radius, center_y + radius], fill=glow_color)
+
+        # High-fashion editorial double borders in champagne gold & rose
+        draw.rectangle([35, 35, width - 35, height - 35], outline="#D4AF37", width=4)
+        draw.rectangle([48, 48, width - 48, height - 48], outline="#EC4899", width=2)
+        draw.rectangle([55, 55, width - 55, height - 55], outline="#FDF2F8", width=1)
+
+        # Gossip Girl Upper East Side banner card
+        draw.rectangle([80, 140, width - 80, 260], fill="#1E1028", outline="#D4AF37", width=3)
+        draw.text((120, 165), "SPOTTED: MAYA ✨ GOSSIP GIRL", fill="#D4AF37")
+        draw.text((120, 205), "MANHATTAN HIGH SOCIETY & BADDIE SECRETS", fill="#F472B6")
+
+        # Scene context badge
+        clean_hint = prompt.split(",")[0][:75]
+        draw.rectangle([80, height - 380, width - 80, height - 160], fill="#180F1E", outline="#EC4899", width=2)
+        draw.text((110, height - 350), "UPPER EAST SIDE EXCLUSIVE", fill="#D4AF37")
+        draw.text((110, height - 310), clean_hint.upper()[:40], fill="#FFFFFF")
+        draw.text((110, height - 265), clean_hint.upper()[40:80] if len(clean_hint) > 40 else "XOXO, MAYA ✨", fill="#FBCFE8")
+        draw.text((110, height - 215), "YOU KNOW YOU LOVE ME • XOXO MAYA ✨", fill="#F472B6")
+
+        img.save(img_path, format="PNG")
+        logger.info(f"[REMOTE_T2V] Generated luxury Gossip Girl editorial visual card: {img_path}")
+        return img_path
+
     async def _fetch_remote_serverless_video(self, prompt: str, aspect_ratio: str = "9:16", niche: str = "aesthetic", duration: float = 4.0) -> Optional[str]:
         """
         Fetches true full-motion remote serverless AI video from cloud text-to-video inference endpoints.
         Consumes 0 MB of local GPU / compute footprint.
         """
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
-        niche_lower = niche.lower()
-        is_genz_aesthetic = any(k in niche_lower or k in prompt.lower() for k in ["pinterest", "aesthetic", "girl", "baddie", "character", "lifestyle", "clumsy", "maya", "psychology", "dating"])
-
-        if is_genz_aesthetic:
-            clean_prompt = (
-                f"{prompt}, 21yo stunning gorgeous aesthetic baddie Maya, captivating hazel eyes, dreamy lips, "
-                f"messy bun, sunlit golden hour, Kodak Portra 400 35mm film still, soft natural lighting, "
-                f"shallow depth of field, photorealistic skin texture, ultra-high resolution 8k, beautiful cinematic color grading, "
-                f"clean frame, strictly no text boxes, no subtitles, no watermark, no captions"
-            )
-        else:
-            clean_prompt = (
-                f"{prompt}, hyperrealistic 8k cinematic render, volumetric studio lighting, "
-                f"clean modern aesthetic, photorealistic detail, cinematic depth of field, sharp focus, strictly no text boxes, no subtitles"
-            )
-
+        clean_prompt = self._build_character_prompt(prompt, niche)
         encoded_prompt = urllib.parse.quote(clean_prompt)
         seed = int(time.time() * 1000) % 999999
 
@@ -835,7 +904,7 @@ class RemoteT2VRouter:
                         video_path = os.path.join(self.clips_dir, f"ai_video_{int(time.time() * 1000)}_{seed}.mp4")
                         with open(video_path, "wb") as f:
                             f.write(resp.content)
-                        logger.info(f"[REMOTE_T2V] Fetched Real Cloud AI Video Stream ({'Aesthetic Baddie' if is_genz_aesthetic else 'Cinematic'}): {video_path}")
+                        logger.info(f"[REMOTE_T2V] Fetched Real Cloud AI Video Stream (Gossip Girl Maya): {video_path}")
                         return video_path
             except Exception as e:
                 logger.warning(f"[REMOTE_T2V] Remote Serverless Video endpoint note ({url[:45]}...): {e}")
@@ -844,48 +913,92 @@ class RemoteT2VRouter:
 
     async def _fetch_cloud_ai_image(self, prompt: str, aspect_ratio: str = "9:16", niche: str = "aesthetic") -> Optional[str]:
         """
-        Fetches photorealistic cloud-generated AI scene visual via remote serverless inference endpoints.
-        Strictly consumes 0 MB of local GPU / VRAM.
-        Clean rendering: Strictly avoids ugly text overlays and watermarks.
+        Fetches photorealistic cloud-generated AI scene visual via multi-provider remote serverless inference endpoints.
+        Providers:
+        1. Pollinations Flux Engine (High-Aesthetic Photorealism)
+        2. Pollinations Turbo Engine (Ultra-Fast Cloud Diffusion)
+        3. Pollinations SDXL Engine (Stable Diffusion XL)
+        4. Hugging Face Inference API (black-forest-labs/FLUX.1-schnell)
+        5. Hugging Face Inference API (stabilityai/stable-diffusion-xl-base-1.0)
+        6. Hugging Face Inference API (ByteDance/SDXL-Lightning)
+        7. Secondary Pollinations Mirror Gateway
+        Guarantees 100% remote execution with verified image validation.
         """
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
-        niche_lower = niche.lower()
-        is_genz_aesthetic = any(k in niche_lower or k in prompt.lower() for k in ["pinterest", "aesthetic", "girl", "baddie", "character", "lifestyle", "clumsy", "maya", "psychology", "dating"])
-
-        if is_genz_aesthetic:
-            clean_prompt = (
-                f"{prompt}, 21yo stunning gorgeous aesthetic baddie Maya, captivating hazel eyes, dreamy lips, "
-                f"messy bun, sunlit golden hour, Kodak Portra 400 35mm film still, soft natural lighting, "
-                f"shallow depth of field, photorealistic skin texture, ultra-high resolution 8k, beautiful cinematic color grading, "
-                f"clean frame, strictly no text boxes, no subtitles, no watermark, no captions"
-            )
-        else:
-            clean_prompt = (
-                f"{prompt}, hyperrealistic 8k cinematic render, volumetric studio lighting, "
-                f"clean modern aesthetic, photorealistic detail, cinematic depth of field, sharp focus, strictly no text boxes, no subtitles"
-            )
-
+        clean_prompt = self._build_character_prompt(prompt, niche)
         encoded_prompt = urllib.parse.quote(clean_prompt)
         seed = int(time.time() * 1000) % 999999
+        token = settings.HF_TOKEN or settings.HUGGINGFACE_API_KEY or os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_API_KEY")
 
-        # Cloud serverless endpoints (Flux & Turbo diffusion running on remote cloud clusters)
+        # 1. Primary Pollinations Cloud Gateways (Flux, Turbo, SDXL)
         cloud_urls = [
-            f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux&nologo=true&seed={seed}",
-            f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=turbo&nologo=true&seed={seed}"
+            ("Pollinations Flux", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux&nologo=true&seed={seed}"),
+            ("Pollinations Turbo", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=turbo&nologo=true&seed={seed}"),
+            ("Pollinations SDXL", f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&nologo=true&seed={seed}"),
+            ("Pollinations Alt Mirror", f"https://pollinations.ai/p/{encoded_prompt}?width={width}&height={height}&model=flux&seed={seed}")
         ]
 
-        for url in cloud_urls:
+        for prov_name, url in cloud_urls:
             try:
-                async with httpx.AsyncClient(timeout=18.0) as client:
+                async with httpx.AsyncClient(timeout=25.0) as client:
                     resp = await client.get(url, follow_redirects=True)
-                    if resp.status_code == 200 and len(resp.content) > 5000:
-                        img_path = os.path.join(self.clips_dir, f"ai_frame_{int(time.time() * 1000)}_{seed}.png")
-                        with open(img_path, "wb") as f:
-                            f.write(resp.content)
-                        logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual ({'Seductive Aesthetic Baddie' if is_genz_aesthetic else 'Cinematic'}): {img_path}")
-                        return img_path
+                    if resp.status_code == 200 and len(resp.content) > 4000:
+                        saved_path = self._verify_and_save_image(resp.content, seed, prefix="ai_frame_pollinations")
+                        if saved_path:
+                            logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual via {prov_name} (Gossip Girl Maya): {saved_path}")
+                            return saved_path
             except Exception as e:
-                logger.warning(f"[REMOTE_T2V] Remote Cloud AI endpoint note ({url[:45]}...): {e}")
+                logger.warning(f"[REMOTE_T2V] Cloud AI {prov_name} note ({url[:45]}...): {e}")
+
+        # 2. Hugging Face Inference API Fallback (FLUX.1-schnell / SDXL / SDXL-Lightning)
+        if token:
+            hf_image_models = [
+                "black-forest-labs/FLUX.1-schnell",
+                "stabilityai/stable-diffusion-xl-base-1.0",
+                "ByteDance/SDXL-Lightning",
+                "prompthero/openjourney"
+            ]
+            for hf_model in hf_image_models:
+                hf_urls = [
+                    f"https://router.huggingface.co/hf-inference/models/{hf_model}",
+                    f"https://api-inference.huggingface.co/models/{hf_model}"
+                ]
+                headers = {
+                    "Authorization": f"Bearer {token}",
+                    "Content-Type": "application/json"
+                }
+                payload = {
+                    "inputs": clean_prompt,
+                    "parameters": {
+                        "width": 768 if width == 1080 else 1024,
+                        "height": 1024 if height == 1920 else 768
+                    }
+                }
+                for hf_url in hf_urls:
+                    try:
+                        async with httpx.AsyncClient(timeout=30.0) as client:
+                            resp = await client.post(hf_url, headers=headers, json=payload)
+                            if resp.status_code == 200 and len(resp.content) > 4000:
+                                saved_path = self._verify_and_save_image(resp.content, seed, prefix=f"ai_frame_hf_{hf_model.split('/')[-1]}")
+                                if saved_path:
+                                    logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual via Hugging Face ({hf_model}): {saved_path}")
+                                    return saved_path
+                    except Exception as ex:
+                        logger.warning(f"[REMOTE_T2V] Hugging Face Image API {hf_model} note: {ex}")
+
+        # 3. Final Retry Pass on Pollinations with simplified high-speed prompt
+        try:
+            simple_prompt = urllib.parse.quote(f"Gossip Girl Maya 21yo aesthetic baddie Upper East Side Manhattan luxury golden hour, 8k portrait")
+            simple_url = f"https://image.pollinations.ai/prompt/{simple_prompt}?width={width}&height={height}&model=turbo&nologo=true&seed={seed+7}"
+            async with httpx.AsyncClient(timeout=20.0) as client:
+                resp = await client.get(simple_url, follow_redirects=True)
+                if resp.status_code == 200 and len(resp.content) > 4000:
+                    saved_path = self._verify_and_save_image(resp.content, seed + 7, prefix="ai_frame_retry")
+                    if saved_path:
+                        logger.info(f"[REMOTE_T2V] Fetched Remote Cloud AI Visual via Retry Pass: {saved_path}")
+                        return saved_path
+        except Exception as ex_retry:
+            logger.warning(f"[REMOTE_T2V] Retry pass note: {ex_retry}")
 
         return None
 
@@ -971,12 +1084,12 @@ class RemoteT2VRouter:
         best_model = self.select_best_model(prompt, niche=niche)
         logger.info(f"[REMOTE_T2V] Routing scene {scene_id} ({best_model['name']} | Remote Serverless): '{prompt[:60]}...'")
 
-        token = settings.HF_TOKEN or settings.HUGGINGFACE_API_KEY
+        token = settings.HF_TOKEN or settings.HUGGINGFACE_API_KEY or os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_API_KEY")
         clip_path = os.path.join(self.clips_dir, f"clip_{scene_id}_{int(time.time()*1000)%10000}.mp4")
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
         dur_sec = max(2.5, float(duration))
 
-        # 1. Attempt remote Hugging Face Cloud Inference API if API token is active
+        # 1. Attempt remote Hugging Face Cloud Inference API for Video if API token is active
         if token:
             target_models = [
                 best_model["hf_id"],
@@ -1042,25 +1155,9 @@ class RemoteT2VRouter:
         # 3. Remote Serverless Cloud Photorealistic AI Scene + Real Fluid Motion Engine (0 Local GPU)
         ai_frame_path = await self._fetch_cloud_ai_image(prompt, aspect_ratio=aspect_ratio, niche=niche)
 
-        # Procedural fallback if offline (Clean aesthetic gradient, NO ugly text overlays)
+        # 4. Luxury Editorial Fallback if all remote endpoints are offline (NEVER a blank purple blob)
         if not ai_frame_path or not os.path.exists(ai_frame_path):
-            ai_frame_path = os.path.join(self.clips_dir, f"frame_{scene_id}_{int(time.time()*1000)%10000}.png")
-            is_aesthetic = "aesthetic" in niche.lower() or "pinterest" in niche.lower()
-            bg_color = "#180F1E" if is_aesthetic else "#080C14"
-            img = Image.new("RGB", (width, height), color=bg_color)
-            draw = ImageDraw.Draw(img)
-
-            # Elegant atmospheric radial ambient lighting
-            center_y = height // 2
-            for radius in range(550, 0, -10):
-                alpha_intensity = int((1.0 - (radius / 550.0)) * 45)
-                if is_aesthetic:
-                    color = (alpha_intensity + 30, alpha_intensity // 2, alpha_intensity + 20)
-                else:
-                    color = (alpha_intensity // 3, alpha_intensity, alpha_intensity + 25)
-                draw.ellipse([width // 2 - radius, center_y - radius, width // 2 + radius, center_y + radius], fill=color)
-
-            img.save(ai_frame_path, format="PNG")
+            ai_frame_path = self._generate_editorial_visual_card(prompt, scene_id, width, height, niche=niche)
 
         await asyncio.to_thread(self._convert_image_to_motion_clip, ai_frame_path, clip_path, dur_sec, width, height)
         logger.info(f"[REMOTE_T2V] Generated real fluid motion AI video clip for scene {scene_id} using {best_model['name']}: {clip_path}")

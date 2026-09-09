@@ -93,7 +93,7 @@ async def export_telemetry():
             'system_status': 'HEALTHY',
             'channel_name': 'Maya ✨ Cutie Baddie',
             'youtube_channel_id': 'UCOzdVylRBgYrewZ1Q3giwww',
-            'persona': 'Maya (21yo Cute Aesthetic Baddie)',
+            'persona': 'Maya (Gossip Girl / Upper East Side Luxury Baddie)',
             'account_email': '27rk04@gmail.com',
             'last_updated': datetime.now(timezone.utc).isoformat(),
             'channels_count': len(channels),
@@ -142,11 +142,12 @@ async def export_telemetry():
                 't2v_fastvideo_serving': 'FastVideo/FastVideo',
                 't2v_wan22_lightning': 'lightx2v/Wan2.2-Lightning',
                 't2v_krea_realtime': 'krea/krea-realtime-video',
-                'cloud_diffusion': 'Remote Serverless Flux & Turbo AI Engine',
+                'cloud_diffusion': 'Remote Multi-Provider Flux / Turbo / SDXL / HF Inference AI Engine',
                 'compute_mode': 'remote_serverless_zero_local_vram',
                 'total_models_registered': remote_t2v_router.get_model_count()
             },
             'supported_niches': [
+                'Gossip Girl / Manhattan High Society Secrets & Maya ✨ Baddie Diaries',
                 'Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨',
                 'Seductive Psychology & Dating Secrets',
                 'Luxury Lore & Aesthetic Magnetism'

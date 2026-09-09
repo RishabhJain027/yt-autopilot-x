@@ -20,27 +20,30 @@ class ImageService:
         img = Image.new('RGB', size, color='#180F1E')
         draw = ImageDraw.Draw(img)
 
-        # Dreamy Pinterest Aesthetic Rose Gold & Amber Gradient
+        # Dreamy Gossip Girl Rose Gold, Amber & Obsidian Manhattan Gradient
         for i in range(0, size[1], 4):
             ratio = i / size[1]
-            r = int(24 + ratio * 60)
-            g = int(15 + ratio * 20)
-            b = int(30 + ratio * 35)
+            r = int(22 + ratio * 65)
+            g = int(14 + ratio * 28)
+            b = int(28 + ratio * 32)
             draw.line([(0, i), (size[0], i)], fill=(r, g, b))
 
-        # Vibrant glowing aesthetic border
-        draw.rectangle([40, 40, size[0] - 40, size[1] - 40], outline='#EC4899', width=6)
-        draw.rectangle([60, size[1] - 180, size[0] - 60, size[1] - 60], fill='#BE185D')
+        # Vibrant glowing aesthetic border in champagne gold & rose
+        draw.rectangle([35, 35, size[0] - 35, size[1] - 35], outline='#D4AF37', width=6)
+        draw.rectangle([45, 45, size[0] - 45, size[1] - 45], outline='#EC4899', width=2)
+        draw.rectangle([60, size[1] - 220, size[0] - 60, size[1] - 60], fill='#1E1028', outline='#D4AF37', width=2)
 
-        # Text banner for Maya ✨ Cutie Baddie
-        header_text = title[:42].upper()
-        draw.text((80, 100), 'MAYA ✨ BADDIE SECRETS', fill='#F472B6')
-        draw.text((80, 180), header_text, fill='#FFFFFF')
+        # Text banner for Maya ✨ Gossip Girl
+        header_text = title[:45].upper()
+        draw.text((80, 90), 'SPOTTED: MAYA ✨ GOSSIP GIRL', fill='#D4AF37')
+        draw.text((80, 130), 'UPPER EAST SIDE SECRETS', fill='#F472B6')
+        draw.text((80, 190), header_text, fill='#FFFFFF')
         if subtitle:
-            draw.text((80, size[1] - 140), subtitle.upper()[:35], fill='#FDF2F8')
+            draw.text((80, size[1] - 180), subtitle.upper()[:35], fill='#FDF2F8')
+        draw.text((80, size[1] - 120), 'YOU KNOW YOU LOVE ME • XOXO MAYA ✨', fill='#F472B6')
 
         img.save(filepath, format='PNG')
-        logger.info(f'[IMAGE] Maya aesthetic thumbnail generated: {filepath} ({size[0]}x{size[1]})')
+        logger.info(f'[IMAGE] Maya Gossip Girl aesthetic thumbnail generated: {filepath} ({size[0]}x{size[1]})')
         return filepath
 
 image_service = ImageService()

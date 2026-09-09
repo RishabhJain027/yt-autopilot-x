@@ -13,12 +13,12 @@ from packages.logger.logger import logger, audit_log
 
 class TrendAgent:
     def __init__(self):
-        # Curated pool of high-retention seductive baddie psychology, dating secrets & aesthetic viral topics for Maya ✨
+        # Curated pool of high-retention Gossip Girl baddie psychology, dating secrets & aesthetic viral topics for Maya ✨
         self.topic_catalog = [
-            # --- Seductive Baddie Psychology & Magnetism Secrets (Primary) ---
+            # --- Gossip Girl & Seductive Baddie Psychology (Primary) ---
             {
                 "topic": "The 3-Second Eye Contact Trick That Makes Him Obsessed",
-                "category": "Seductive Psychology & Eye Contact",
+                "category": "Gossip Girl Psychology & Triangle Gaze",
                 "momentum": 0.99,
                 "recency": 0.99,
                 "audience_fit": 0.99,
@@ -33,8 +33,8 @@ class TrendAgent:
                 }
             },
             {
-                "topic": "Why Being Clumsy & Unbothered Makes You 10x More Magnetic",
-                "category": "Baddie Psychology & Pratfall Magnetism",
+                "topic": "Spotted: Why Being Clumsy & Unbothered Makes You 10x More Magnetic",
+                "category": "Upper East Side Psychology & Pratfall Magnetism",
                 "momentum": 0.99,
                 "recency": 0.99,
                 "audience_fit": 0.98,
@@ -45,12 +45,12 @@ class TrendAgent:
                 "evidence": {
                     "wiki_title": "Pratfall effect",
                     "source": "Wikipedia (https://en.wikipedia.org/wiki/Pratfall_effect)",
-                    "vibe": "Why clumsy, unbothered cute girlies are scientifically 10x more attractive"
+                    "vibe": "Why unbothered, careless high-value girlies are scientifically 10x more attractive"
                 }
             },
             {
-                "topic": "The Cleopatra Scent & Charisma Secret: How to Smell Seductively Unforgettable",
-                "category": "Luxury Scent & Historical Baddie Lore",
+                "topic": "Spotted: The Cleopatra Scent & Charisma Secret — How to Smell Seductively Unforgettable",
+                "category": "Luxury Scent & High Society Lore",
                 "momentum": 0.98,
                 "recency": 0.98,
                 "audience_fit": 0.97,
@@ -65,8 +65,8 @@ class TrendAgent:
                 }
             },
             {
-                "topic": "The Reverse Psychology Favors Hack: Why Asking Him for Help Makes Him Chase You",
-                "category": "Dating Psychology Secrets",
+                "topic": "Spotted: The Reverse Psychology Favors Hack That Makes Him Chase You",
+                "category": "Manhattan Dating Psychology Secrets",
                 "momentum": 0.97,
                 "recency": 0.98,
                 "audience_fit": 0.96,
@@ -81,8 +81,8 @@ class TrendAgent:
                 }
             },
             {
-                "topic": "The Red Lip & Scent Halo Effect: Why Aesthetics Rewire Subconscious Attraction",
-                "category": "Aesthetic Charisma & Glow Up",
+                "topic": "Spotted: The Red Lip & Scent Halo Effect — Why Aesthetics Rewire Subconscious Attraction",
+                "category": "Gossip Girl Allure & Aesthetic Halo",
                 "momentum": 0.96,
                 "recency": 0.97,
                 "audience_fit": 0.96,
@@ -97,8 +97,8 @@ class TrendAgent:
                 }
             },
             {
-                "topic": "The Birkin Bag Origin: How a Messy Spilled Basket Created Earth's Most Exclusive Luxury",
-                "category": "Luxury Lore & Unbothered Energy",
+                "topic": "Spotted: The Birkin Bag Origin — How Carefree Chaos Created Earth's Most Exclusive Luxury",
+                "category": "Upper East Side Luxury Lore",
                 "momentum": 0.96,
                 "recency": 0.97,
                 "audience_fit": 0.96,

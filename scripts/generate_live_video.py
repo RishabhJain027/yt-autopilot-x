@@ -29,16 +29,37 @@ from video.ffmpeg.renderer import video_renderer
 from video.validation.media_validator import media_validator
 from python.services.youtube_service import youtube_service
 from python.pipelines.state_machine import state_machine
+from packages.config.settings import settings
 from scripts.export_telemetry import export_telemetry
 from packages.logger.logger import logger
 from sqlalchemy.future import select
+
+def purge_pipeline_artifacts():
+    """Purges old broken procedural clips and renders from storage."""
+    dirs_to_clean = [
+        os.path.join(settings.STORAGE_ROOT, "clips"),
+        os.path.join(settings.STORAGE_ROOT, "renders"),
+        os.path.join(settings.STORAGE_ROOT, "scenes")
+    ]
+    for d in dirs_to_clean:
+        if os.path.exists(d):
+            for fname in os.listdir(d):
+                fpath = os.path.join(d, fname)
+                try:
+                    if os.path.isfile(fpath):
+                        os.remove(fpath)
+                except Exception as e:
+                    logger.warning(f"Could not remove {fpath}: {e}")
+    print("[+] Purged old pipeline clips and renders from storage/clips, storage/renders, storage/scenes.")
 
 async def main():
     print("=" * 70)
     print("YT-AUTOPILOT-X | LIVE AUTONOMOUS VIDEO PRODUCTION & UPLOAD")
     print("Channel: @MayaCutieBaddie - Maya ✨ Cutie Baddie (UCOzdVylRBgYrewZ1Q3giwww)")
+    print("Persona: Gossip Girl / Upper East Side Manhattan Baddie")
     print("=" * 70)
 
+    purge_pipeline_artifacts()
     await init_db()
 
     async with AsyncSessionLocal() as session:
@@ -47,11 +68,12 @@ async def main():
             select(Channel).where(Channel.youtube_channel_id == "UCOzdVylRBgYrewZ1Q3giwww")
         )
         ch = ch_res.scalars().first()
+        channel_niche = "Gossip Girl / Manhattan High Society Secrets & Maya ✨ Baddie Diaries"
         if not ch:
             ch = Channel(
                 youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
                 title="Maya ✨ Cutie Baddie",
-                niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
+                niche=channel_niche,
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE",
                 google_account_email="27rk04@gmail.com"
@@ -61,7 +83,7 @@ async def main():
             await session.refresh(ch)
         else:
             ch.title = "Maya ✨ Cutie Baddie"
-            ch.niche = "Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
+            ch.niche = channel_niche
             ch.operating_mode = "AUTONOMOUS"
             ch.status = "ACTIVE"
             await session.commit()
@@ -77,8 +99,8 @@ async def main():
 
         # 3. Discover fresh trending research topics
         candidates = await trend_agent.discover_trends(
-            niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
-            pillars=["Baddie Psychology", "Dating Secrets", "Aesthetic Magnetism", "Luxury Lore"],
+            niche=channel_niche,
+            pillars=["Gossip Girl Secrets", "High Society Psychology", "Aesthetic Magnetism", "Luxury Lore"],
             exclude_topics=past_topics
         )
 
