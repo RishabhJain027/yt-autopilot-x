@@ -48,6 +48,7 @@ wheels/
 logs/
 .system_generated/
 .gemini/
+scratch/
 
 # OS Specific
 .DS_Store
