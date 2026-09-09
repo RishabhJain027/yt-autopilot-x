@@ -40,7 +40,7 @@ class RemoteT2VRouter:
         self.clips_dir = os.path.join(settings.STORAGE_ROOT, "clips")
         os.makedirs(self.clips_dir, exist_ok=True)
 
-        # Full Open-Source Model Fleet Registry (29+ models/variants)
+        # Full Open-Source Model Fleet Registry (34+ models/variants)
         self.models: Dict[str, Dict[str, Any]] = {
             # --- Wan 2.2 Series (State-of-the-Art DiT / MoE) ---
             "wan2.2_t2v_14b": {
@@ -55,6 +55,18 @@ class RemoteT2VRouter:
                 "strengths": ["Cinematic realism", "Complex character motion", "Temporal consistency"],
                 "tier": "flagship"
             },
+            "wan2.2_t2v_14b_diffusers": {
+                "name": "Wan2.2-T2V-A14B-Diffusers",
+                "hf_id": "Wan-AI/Wan2.2-T2V-A14B-Diffusers",
+                "github": "https://github.com/Wan-Video/Wan2.2",
+                "category": "t2v",
+                "params": "14B MoE Diffusers",
+                "fps": 24,
+                "priority": 1,
+                "license": "Apache 2.0",
+                "strengths": ["Hugging Face Diffusers pipeline native", "High fidelity 1080p"],
+                "tier": "flagship"
+            },
             "wan2.2_ti2v_5b": {
                 "name": "Wan2.2-TI2V-5B",
                 "hf_id": "Wan-AI/Wan2.2-TI2V-5B",
@@ -65,6 +77,18 @@ class RemoteT2VRouter:
                 "priority": 1,
                 "license": "Apache 2.0",
                 "strengths": ["Image-to-video conditioning", "Character identity retention", "High-res 720p"],
+                "tier": "flagship"
+            },
+            "wan2.2_ti2v_5b_diffusers": {
+                "name": "Wan2.2-TI2V-5B-Diffusers",
+                "hf_id": "Wan-AI/Wan2.2-TI2V-5B-Diffusers",
+                "github": "https://github.com/Wan-Video/Wan2.2",
+                "category": "ti2v",
+                "params": "5B Diffusers",
+                "fps": 24,
+                "priority": 1,
+                "license": "Apache 2.0",
+                "strengths": ["Diffusers image conditioning", "Aesthetic persona animation"],
                 "tier": "flagship"
             },
             "wan2.2_lightning": {
@@ -105,6 +129,18 @@ class RemoteT2VRouter:
                 "strengths": ["Lightweight serverless routing", "Sub-second cloud dispatch", "720p 16fps"],
                 "tier": "standard"
             },
+            "wan2.1_diffusers": {
+                "name": "Wan2.1-T2V-1.3B-Diffusers",
+                "hf_id": "Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+                "github": "https://github.com/Wan-Video/Wan2.1",
+                "category": "t2v",
+                "params": "1.3B Diffusers",
+                "fps": 16,
+                "priority": 2,
+                "license": "Apache 2.0",
+                "strengths": ["Hugging Face native Diffusers", "Zero cold start serverless"],
+                "tier": "standard"
+            },
 
             # --- Tencent HunyuanVideo Series ---
             "hunyuan_video_1.5": {
@@ -141,6 +177,18 @@ class RemoteT2VRouter:
                 "priority": 2,
                 "license": "Apache 2.0",
                 "strengths": ["4-step VSA generation", "Data-free step reduction", "Ultra-fast response"],
+                "tier": "fast_turbo"
+            },
+            "fasth3_4step": {
+                "name": "FastVideo-FastH3-4-step",
+                "hf_id": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree",
+                "github": "https://github.com/FastVideo/FastVideo",
+                "category": "lightning",
+                "params": "13B VSA DataFree",
+                "fps": 24,
+                "priority": 2,
+                "license": "Apache 2.0",
+                "strengths": ["4-step preview VSA", "Data-free accelerated generation"],
                 "tier": "fast_turbo"
             },
 
@@ -282,6 +330,7 @@ class RemoteT2VRouter:
             "stepvideo_t2v": {
                 "name": "StepVideo-T2V",
                 "hf_id": "stepfun-ai/stepvideo-t2v",
+                "github": "https://github.com/stepfun-ai/StepVideo",
                 "category": "t2v",
                 "params": "14B",
                 "fps": 24,
@@ -321,6 +370,7 @@ class RemoteT2VRouter:
             "allegro": {
                 "name": "Allegro",
                 "hf_id": "rhymes-ai/Allegro",
+                "github": "https://github.com/rhymes-ai/Allegro",
                 "category": "t2v",
                 "params": "2.8B",
                 "fps": 15,
@@ -374,6 +424,7 @@ class RemoteT2VRouter:
             "i2vgen_xl": {
                 "name": "I2VGen-XL",
                 "hf_id": "ali-vilab/i2vgen-xl",
+                "github": "https://github.com/ali-vilab/i2vgen-xl",
                 "category": "i2v",
                 "params": "2.1B",
                 "fps": 16,
@@ -382,9 +433,34 @@ class RemoteT2VRouter:
                 "strengths": ["High resolution image animation", "Natural facial motion"],
                 "tier": "standard"
             },
+            "modelscope_damo": {
+                "name": "ModelScope DAMO T2V Synthesis",
+                "hf_id": "ali-vilab/modelscope-damo-text-to-video-synthesis",
+                "github": "https://github.com/modelscope/modelscope",
+                "category": "t2v",
+                "params": "1.7B",
+                "fps": 8,
+                "priority": 6,
+                "license": "Open Research",
+                "strengths": ["Foundation DAMO diffusion", "Wide research support"],
+                "tier": "legacy"
+            },
+            "damo_ms_17b": {
+                "name": "Text-to-Video MS 1.7B (DAMO)",
+                "hf_id": "damo-vilab/text-to-video-ms-1.7b",
+                "github": "https://github.com/modelscope/modelscope",
+                "category": "t2v",
+                "params": "1.7B",
+                "fps": 8,
+                "priority": 6,
+                "license": "Open Research",
+                "strengths": ["Original DAMO diffusion weights"],
+                "tier": "legacy"
+            },
             "modelscope": {
-                "name": "ModelScope T2V 1.7B",
+                "name": "ModelScope T2V 1.7B (Ali-Vilab)",
                 "hf_id": settings.T2V_LEGACY_MODEL,
+                "github": "https://github.com/modelscope/modelscope",
                 "category": "t2v",
                 "params": "1.7B",
                 "fps": 8,
@@ -396,6 +472,7 @@ class RemoteT2VRouter:
             "zeroscope_v2": {
                 "name": "Zeroscope v2 576w",
                 "hf_id": "cerspense/zeroscope_v2_576w",
+                "github": "https://huggingface.co/cerspense/zeroscope_v2_576w",
                 "category": "t2v",
                 "params": "1.8B",
                 "fps": 24,
@@ -413,6 +490,17 @@ class RemoteT2VRouter:
     def get_model_count(self) -> int:
         """Returns the total number of registered models."""
         return len(self.models)
+
+    def get_model_by_hf_id(self, hf_id: str) -> Optional[Dict[str, Any]]:
+        """Finds a model by its Hugging Face repository ID."""
+        for m in self.models.values():
+            if m.get("hf_id", "").lower() == hf_id.lower():
+                return m
+        return None
+
+    def get_model_by_key(self, key: str) -> Optional[Dict[str, Any]]:
+        """Finds a model by its registry key."""
+        return self.models.get(key)
 
     def select_best_model(self, prompt: str, niche: str = "tech", task: str = "t2v") -> Dict[str, Any]:
         """

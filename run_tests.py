@@ -143,26 +143,40 @@ async def test_dynamic_trend_discovery():
 async def test_remote_video_router():
     from python.services.remote_video_router import remote_t2v_router
 
-    # 1. Model Registry Coverage
+    # 1. Model Registry Coverage (34+ open-source models & diffusers variants)
     catalog = remote_t2v_router.get_model_catalog()
-    assert len(catalog) >= 25, f"Expected at least 25 models, found {len(catalog)}"
+    assert len(catalog) >= 30, f"Expected at least 30 models, found {len(catalog)}"
 
     required_models = [
-        "wan2.2_t2v_14b", "wan2.2_ti2v_5b", "wan2.2_lightning", "wan2.1",
-        "hunyuan_video_1.5", "fasthunyuan", "ltx_2.5", "ltx_video",
-        "minimax_h3", "cosmos_7b", "animatediff_lightning", "cogvideox_5b"
+        "wan2.2_t2v_14b", "wan2.2_t2v_14b_diffusers", "wan2.2_ti2v_5b", "wan2.2_ti2v_5b_diffusers",
+        "wan2.2_lightning", "wan2.1", "wan2.1_diffusers", "wan2.1_t2v_14b",
+        "hunyuan_video_1.5", "hunyuan_video", "fasthunyuan", "fasth3_4step",
+        "ltx_2.5", "ltx_video", "minimax_h3", "cosmos_7b", "animatediff_lightning",
+        "animatelcm", "cogvideox_5b", "cogvideox", "open_sora_v2", "mochi_1",
+        "stepvideo_t2v", "pyramid_flow_sd3", "pyramid_flow_miniflux", "allegro",
+        "hotshot_xl", "longcat_video", "krea_realtime", "i2vgen_xl",
+        "modelscope_damo", "damo_ms_17b", "modelscope", "zeroscope_v2"
     ]
     for m in required_models:
         assert m in catalog, f"Missing model in registry: {m}"
         assert "hf_id" in catalog[m], f"Missing hf_id for {m}"
         assert "license" in catalog[m], f"Missing license for {m}"
 
-    # 2. Intelligent Model Selector
+    # 2. Model Lookup Methods
+    found_by_hf = remote_t2v_router.get_model_by_hf_id("Wan-AI/Wan2.2-T2V-A14B")
+    assert found_by_hf is not None
+    assert found_by_hf["name"] == "Wan2.2-T2V-A14B"
+
+    found_by_key = remote_t2v_router.get_model_by_key("hunyuan_video_1.5")
+    assert found_by_key is not None
+    assert "HunyuanVideo 1.5" in found_by_key["name"]
+
+    # 3. Intelligent Model Selector
     aesthetic_model = remote_t2v_router.select_best_model(
         "Sophia the aesthetic clumsy girl spilling iced matcha in sunlit loft",
         niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
     )
-    assert aesthetic_model["name"] in ["Wan2.2-T2V-A14B", "HunyuanVideo 1.5", "LTX-2.5", "MiniMax-H3", "AnimateDiff-Lightning"]
+    assert aesthetic_model["name"] in ["Wan2.2-T2V-A14B", "HunyuanVideo 1.5", "LTX-2.5", "MiniMax-H3", "AnimateDiff-Lightning", "Wan2.1-T2V-14B"]
 
     tech_model = remote_t2v_router.select_best_model(
         "HunyuanVideo 1.5 4-step fast generation benchmark",
