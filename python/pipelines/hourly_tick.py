@@ -54,6 +54,48 @@ class HourlyTickOrchestrator:
                         stale.status = 'FAILED'
                     await session.commit()
 
+                    # Step 0: Auto-Dispatch Pending SCHEDULED Videos
+                    scheduled_res = await session.execute(
+                        select(Production).where(
+                            Production.channel_id == ch.id,
+                            Production.status == 'SCHEDULED'
+                        )
+                    )
+                    scheduled_list = scheduled_res.scalars().all()
+                    for sched in scheduled_list:
+                        if sched.final_video_path and os.path.exists(sched.final_video_path):
+                            logger.info(f"[HOURLY_TICK] Checking upload dispatch for scheduled video {sched.id}: {sched.final_video_path}")
+                            pub_dict = sched.publishing_json or {}
+                            title = pub_dict.get("primary_title") or "Spotted: Maya Seductive Gossip Girl Secret ✨"
+                            desc = pub_dict.get("description") or "Spotted: Maya spilling the juiciest tea..."
+                            tags = pub_dict.get("tags") or ["MayaCutieBaddie", "Shorts", "GossipGirl"]
+                            try:
+                                from python.services.youtube_service import youtube_service
+                                from database.schema import YouTubeVideo
+                                upload_res = await youtube_service.upload_video(
+                                    channel_id=ch.id,
+                                    video_path=sched.final_video_path,
+                                    title=title,
+                                    description=desc,
+                                    tags=tags,
+                                    contains_synthetic_media=True
+                                )
+                                if upload_res.get("upload_status") == "UPLOADED_LIVE":
+                                    sched.status = "PUBLISHED"
+                                    yt_vid = YouTubeVideo(
+                                        production_id=sched.id,
+                                        youtube_video_id=upload_res.get("youtube_video_id"),
+                                        upload_status=upload_res.get("upload_status"),
+                                        privacy_status=upload_res.get("privacy_status"),
+                                        contains_synthetic_media=True,
+                                        response_json=upload_res
+                                    )
+                                    session.add(yt_vid)
+                                    await session.commit()
+                                    logger.info(f"[HOURLY_TICK] Scheduled production {sched.id} successfully pushed LIVE to YouTube! (Video ID: {upload_res.get('youtube_video_id')})")
+                            except Exception as ue:
+                                logger.info(f"[HOURLY_TICK] Scheduled upload retry note for {sched.id}: {ue}")
+
                     # Check Active Backlog
                     pending_prods = await session.execute(
                         select(Production).where(
