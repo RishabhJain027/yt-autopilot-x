@@ -36,7 +36,7 @@ from sqlalchemy.future import select
 async def main():
     print("=" * 70)
     print("YT-AUTOPILOT-X | LIVE AUTONOMOUS VIDEO PRODUCTION & UPLOAD")
-    print("Channel: @RishabhAIStudio-27 (UCOzdVylRBgYrewZ1Q3giwww)")
+    print("Channel: @BaddieAIStudio (UCOzdVylRBgYrewZ1Q3giwww)")
     print("=" * 70)
 
     await init_db()
@@ -50,8 +50,8 @@ async def main():
         if not ch:
             ch = Channel(
                 youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                title="Rishabh AI Studio",
-                niche="AI Breakthroughs & Autonomous Dev",
+                title="Baddie AI Studio",
+                niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE",
                 google_account_email="27rk04@gmail.com"

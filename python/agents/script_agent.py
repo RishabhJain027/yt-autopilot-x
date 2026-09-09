@@ -82,7 +82,7 @@ class ScriptAgent:
             core_value = f"{fact1} In real testing, {fact2} You can integrate this directly into your autonomous pipeline in under sixty seconds."
             proof = f"According to official verified benchmarks: {fact3}"
             payoff = "This gives you full autonomous production power without spending a single dollar on high-end local GPUs."
-            cta = "Subscribe to Rishabh AI Studio for the complete open-source master code and daily automation blueprints!"
+            cta = "Subscribe to Baddie AI Studio for the complete open-source master code and daily automation blueprints!"
 
             segments = [
                 ScriptSegment(
@@ -117,7 +117,7 @@ class ScriptAgent:
                     id="scene_005",
                     voiceover=f"{payoff} {cta}",
                     duration=6.0,
-                    visual_intent="Sleek glowing YouTube subscribe button animation with Rishabh AI Studio branding and pulsing neon bell icon",
+                    visual_intent="Sleek glowing YouTube subscribe button animation with Baddie AI Studio branding and pulsing neon bell icon",
                     claims=[]
                 )
             ]

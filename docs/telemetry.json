@@ -1,15 +1,15 @@
 {
   "system_status": "HEALTHY",
-  "channel_name": "Rishabh AI Studio",
+  "channel_name": "Baddie AI Studio",
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T06:24:52.263096+00:00",
+  "last_updated": "2026-09-09T06:33:30.629968+00:00",
   "channels_count": 1,
   "channels": [
     {
       "id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
-      "name": "Rishabh AI Studio",
-      "niche": "AI Tools, Automation & Tech Breakthroughs",
+      "name": "Baddie AI Studio",
+      "niche": "Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
       "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
       "mode": "AUTONOMOUS",
       "status": "ACTIVE",
@@ -123,8 +123,8 @@
   ],
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
-    "channel_name": "Rishabh AI Studio",
-    "timestamp": "2026-09-09T06:24:52.250374+00:00",
+    "channel_name": "Baddie AI Studio",
+    "timestamp": "2026-09-09T06:33:30.347873+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -193,9 +193,9 @@
     }
   ],
   "quota": {
-    "used": 8000,
+    "used": 0,
     "limit": 10000,
-    "remaining": 2000
+    "remaining": 10000
   },
   "budget": {
     "daily_spent": 0.0,

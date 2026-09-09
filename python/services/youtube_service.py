@@ -41,7 +41,7 @@ class YouTubeService:
             logger.info("[OAUTH] Returning sandbox credentials.")
             return {
                 "channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
-                "channel_title": "Rishabh AI Studio",
+                "channel_title": "Baddie AI Studio",
                 "email": "27rk04@gmail.com",
                 "refresh_token": vault.encrypt_token("mock_refresh_token_27rk04"),
                 "scopes": self.scopes,
@@ -68,7 +68,7 @@ class YouTubeService:
 
             # Fetch channel info from YouTube API
             ch_id = "UCOzdVylRBgYrewZ1Q3giwww"
-            ch_title = "Rishabh AI Studio"
+            ch_title = "Baddie AI Studio"
             if access_token:
                 try:
                     ch_resp = await client.get(

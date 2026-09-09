@@ -44,7 +44,7 @@ async def oauth_connect_page(db: AsyncSession = Depends(get_db)):
         <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-2">
             <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Channel Profile</div>
             <div class="text-sm font-semibold text-sky-400 font-mono">27rk04@gmail.com</div>
-            <div class="text-xs text-slate-400">Handle: <strong class="text-slate-200">@RishabhAIStudio-27</strong></div>
+            <div class="text-xs text-slate-400">Handle: <strong class="text-slate-200">@BaddieAIStudio</strong></div>
             <div class="text-[11px] text-emerald-400 font-mono">Client ID Configured: Yes</div>
         </div>
 
@@ -81,8 +81,8 @@ async def oauth_start():
 async def oauth_callback(code: str = Query(...), db: AsyncSession = Depends(get_db)):
     try:
         tokens = await youtube_service.exchange_code_for_tokens(code)
-        ch_id = tokens.get("channel_id", "@RishabhAIStudio-27")
-        ch_title = tokens.get("channel_title", "Rishabh AI Studio")
+        ch_id = tokens.get("channel_id", "@BaddieAIStudio")
+        ch_title = tokens.get("channel_title", "Baddie AI Studio")
         
         res = await db.execute(select(Channel).where(Channel.youtube_channel_id == ch_id))
         ch = res.scalar_one_or_none()
@@ -93,7 +93,7 @@ async def oauth_callback(code: str = Query(...), db: AsyncSession = Depends(get_
                 google_account_email=tokens.get("email", "27rk04@gmail.com"),
                 encrypted_refresh_token=tokens.get("refresh_token"),
                 oauth_scopes=tokens.get("scopes"),
-                niche="AI Tools, Automation & Tech Breakthroughs",
+                niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE"
             )
@@ -156,16 +156,16 @@ async def oauth_callback(code: str = Query(...), db: AsyncSession = Depends(get_
 @router.get("/mock-connect", response_class=HTMLResponse)
 async def oauth_mock_connect(db: AsyncSession = Depends(get_db)):
     tokens = await youtube_service.exchange_code_for_tokens("mock_auth_code_123")
-    res = await db.execute(select(Channel).where(Channel.youtube_channel_id == "@RishabhAIStudio-27"))
+    res = await db.execute(select(Channel).where(Channel.youtube_channel_id == "@BaddieAIStudio"))
     ch = res.scalar_one_or_none()
     if not ch:
         ch = Channel(
-            youtube_channel_id="@RishabhAIStudio-27",
-            title="Rishabh AI Studio",
+            youtube_channel_id="@BaddieAIStudio",
+            title="Baddie AI Studio",
             google_account_email="27rk04@gmail.com",
             encrypted_refresh_token=tokens["refresh_token"],
             oauth_scopes=tokens["scopes"],
-            niche="AI Tools, Automation & Tech Breakthroughs",
+            niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
             operating_mode="AUTONOMOUS",
             status="ACTIVE"
         )
@@ -176,6 +176,8 @@ async def oauth_mock_connect(db: AsyncSession = Depends(get_db)):
         db.add(mem)
         await db.commit()
     else:
+        ch.title = "Baddie AI Studio"
+        ch.niche = "Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
         ch.operating_mode = "AUTONOMOUS"
         ch.status = "ACTIVE"
         ch.google_account_email = "27rk04@gmail.com"
@@ -196,10 +198,10 @@ async def oauth_mock_connect(db: AsyncSession = Depends(get_db)):
         </div>
         <div>
             <h1 class="text-xl font-bold text-slate-100">YouTube Channel Connected!</h1>
-            <p class="text-xs text-slate-400 mt-1">Channel <strong class="text-sky-400">Rishabh AI Studio</strong> (27rk04@gmail.com) is active in AUTONOMOUS mode.</p>
+            <p class="text-xs text-slate-400 mt-1">Channel <strong class="text-sky-400">Baddie AI Studio</strong> (27rk04@gmail.com) is active in AUTONOMOUS mode.</p>
         </div>
         <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-left space-y-1 font-mono">
-            <div class="text-slate-400">Channel ID: <span class="text-emerald-400">@RishabhAIStudio-27</span></div>
+            <div class="text-slate-400">Channel ID: <span class="text-emerald-400">@BaddieAIStudio</span></div>
             <div class="text-slate-400">Publishing Mode: <span class="text-amber-400">AUTONOMOUS</span></div>
             <div class="text-slate-400">AES-256 Vault: <span class="text-sky-400">ENCRYPTED & LOCKED</span></div>
         </div>

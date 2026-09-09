@@ -29,8 +29,8 @@ async def cmd_bootstrap():
         if not ch:
             ch = Channel(
                 youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                title="Rishabh AI Studio",
-                niche="AI Breakthroughs & Autonomous Dev",
+                title="Baddie AI Studio",
+                niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE",
                 google_account_email="27rk04@gmail.com"
@@ -40,6 +40,8 @@ async def cmd_bootstrap():
             await session.refresh(ch)
             logger.info(f"Channel bootstrapped successfully: {ch.title} ({ch.youtube_channel_id})")
         else:
+            ch.title = "Baddie AI Studio"
+            ch.niche = "Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
             ch.operating_mode = "AUTONOMOUS"
             ch.status = "ACTIVE"
             await session.commit()
@@ -59,8 +61,8 @@ async def cmd_generate_video(topic_override: str = None):
         if not ch:
             ch = Channel(
                 youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                title="Rishabh AI Studio",
-                niche="AI Breakthroughs & Autonomous Dev",
+                title="Baddie AI Studio",
+                niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE",
                 google_account_email="27rk04@gmail.com"

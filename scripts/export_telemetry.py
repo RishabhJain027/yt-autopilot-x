@@ -87,7 +87,7 @@ async def export_telemetry():
 
         payload = {
             'system_status': 'HEALTHY',
-            'channel_name': 'Rishabh AI Studio',
+            'channel_name': 'Baddie AI Studio',
             'youtube_channel_id': 'UCOzdVylRBgYrewZ1Q3giwww',
             'account_email': '27rk04@gmail.com',
             'last_updated': datetime.now(timezone.utc).isoformat(),

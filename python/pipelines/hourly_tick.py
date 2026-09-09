@@ -22,11 +22,11 @@ class HourlyTickOrchestrator:
             res = await session.execute(select(Channel).where(Channel.status == 'ACTIVE'))
             channels = res.scalars().all()
             if not channels:
-                logger.info("[HOURLY_TICK] Initializing default channel @RishabhAIStudio-27...")
+                logger.info("[HOURLY_TICK] Initializing default channel @BaddieAIStudio...")
                 ch = Channel(
                     youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                    title="Rishabh AI Studio",
-                    niche="AI Breakthroughs & Autonomous Dev",
+                    title="Baddie AI Studio",
+                    niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
                     operating_mode="AUTONOMOUS",
                     status="ACTIVE",
                     google_account_email="27rk04@gmail.com"

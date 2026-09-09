@@ -32,7 +32,7 @@ class GoalAgent:
             res = await session.execute(ch_query)
             ch = res.scalars().first()
             ch_id = ch.id if ch else "default"
-            ch_title = ch.title if ch else "Rishabh AI Studio"
+            ch_title = ch.title if ch else "Baddie AI Studio"
 
             # Count total completed/published productions
             prods_res = await session.execute(
