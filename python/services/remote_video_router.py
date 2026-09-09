@@ -70,25 +70,26 @@ class RemoteT2VRouter:
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
         clean_prompt = f"{prompt}, 8k resolution, cinematic lighting, photorealistic, highly detailed, sharp focus"
         encoded_prompt = urllib.parse.quote(clean_prompt)
+        seed = int(time.time() * 1000) % 999999
         
         # Cloud serverless endpoints (Flux & Turbo diffusion on remote cloud GPU servers)
         cloud_urls = [
-            f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux&nologo=true",
-            f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=turbo&nologo=true"
+            f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=flux&nologo=true&seed={seed}",
+            f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=turbo&nologo=true&seed={seed}"
         ]
         
         for url in cloud_urls:
             try:
-                async with httpx.AsyncClient(timeout=25.0) as client:
+                async with httpx.AsyncClient(timeout=30.0) as client:
                     resp = await client.get(url, follow_redirects=True)
-                    if resp.status_code == 200 and resp.headers.get("content-type", "").startswith("image/"):
-                        img_path = os.path.join(self.clips_dir, f"ai_frame_{int(time.time() * 1000)}.png")
+                    if resp.status_code == 200 and len(resp.content) > 5000:
+                        img_path = os.path.join(self.clips_dir, f"ai_frame_{int(time.time() * 1000)}_{seed}.png")
                         with open(img_path, "wb") as f:
                             f.write(resp.content)
                         logger.info(f"[REMOTE_T2V] Fetched Cloud AI image visual: {img_path}")
                         return img_path
             except Exception as e:
-                logger.warning(f"[REMOTE_T2V] Cloud AI image endpoint attempt note: {e}")
+                logger.warning(f"[REMOTE_T2V] Cloud AI image endpoint note ({url[:40]}...): {e}")
                 
         return None
 
@@ -99,10 +100,10 @@ class RemoteT2VRouter:
         logger.info(f"[REMOTE_T2V] Routing scene {scene_id} prompt to cloud server: '{prompt[:60]}...'")
         
         token = settings.HF_TOKEN or settings.HUGGINGFACE_API_KEY
-        clip_path = os.path.join(self.clips_dir, f"clip_{scene_id}.mp4")
+        clip_path = os.path.join(self.clips_dir, f"clip_{scene_id}_{int(time.time()*1000)%10000}.mp4")
         width, height = (1080, 1920) if aspect_ratio == "9:16" else (1920, 1080)
         
-        # 1. Try remote Wan2.1 / CogVideoX / LTX-Video Hugging Face cloud API
+        # 1. Try remote Wan2.1 / CogVideoX / LTX-Video Hugging Face cloud API if key is present
         if token:
             for model_key in ["wan2.1", "cogvideox", "ltx_video"]:
                 model_meta = self.models[model_key]
@@ -118,7 +119,7 @@ class RemoteT2VRouter:
                 }
                 
                 try:
-                    async with httpx.AsyncClient(timeout=30.0) as client:
+                    async with httpx.AsyncClient(timeout=35.0) as client:
                         resp = await client.post(hf_url, headers=headers, json=payload)
                         if resp.status_code == 200 and resp.headers.get("content-type", "").startswith("video/"):
                             with open(clip_path, "wb") as f:
@@ -148,7 +149,7 @@ class RemoteT2VRouter:
         
         # Fallback to high-contrast neon visual if network fails
         if not ai_frame_path or not os.path.exists(ai_frame_path):
-            ai_frame_path = os.path.join(self.clips_dir, f"frame_{scene_id}.png")
+            ai_frame_path = os.path.join(self.clips_dir, f"frame_{scene_id}_{int(time.time()*1000)%10000}.png")
             img = Image.new("RGB", (width, height), color="#060913")
             draw = ImageDraw.Draw(img)
             for y in range(0, height, 32):
@@ -174,21 +175,15 @@ class RemoteT2VRouter:
         # Convert AI scene frame into cinematic motion video clip via FFmpeg
         import subprocess
         ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
-        num_frames = int(max(2.0, duration) * 30)
+        dur_sec = max(2.5, float(duration))
         
         # Ken Burns smooth zoom-in camera motion filter
-        vf_filter = (
-            f"scale={width}:{height},"
-            f"zoompan=z='min(zoom+0.0015,1.20)':d={num_frames}:"
-            f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps=30"
-        )
-        
-        cmd = [
+        cmd_motion = [
             ffmpeg_bin, "-y",
             "-loop", "1",
             "-i", ai_frame_path,
-            "-t", str(max(2.0, duration)),
-            "-vf", vf_filter,
+            "-t", str(dur_sec),
+            "-vf", f"scale=8000:-1,zoompan=z='min(zoom+0.0015,1.25)':d={int(dur_sec*30)}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps=30,setsar=1",
             "-c:v", "libx264",
             "-pix_fmt", "yuv420p",
             "-r", "30",
@@ -196,17 +191,16 @@ class RemoteT2VRouter:
         ]
         
         try:
-            subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            subprocess.run(cmd_motion, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
             logger.info(f"[REMOTE_T2V] Generated cinematic motion AI clip for scene {scene_id}: {clip_path}")
         except Exception as fe:
-            logger.warning(f"[REMOTE_T2V] Zoompan fallback: {fe}")
-            # Fallback simple scale if zoompan encounters unexpected resolution issue
+            logger.warning(f"[REMOTE_T2V] Zoompan fallback to standard scale: {fe}")
             cmd_simple = [
                 ffmpeg_bin, "-y",
                 "-loop", "1",
                 "-i", ai_frame_path,
-                "-t", str(max(2.0, duration)),
-                "-vf", f"scale={width}:{height}",
+                "-t", str(dur_sec),
+                "-vf", f"scale={width}:{height},setsar=1",
                 "-c:v", "libx264",
                 "-pix_fmt", "yuv420p",
                 "-r", "30",
@@ -218,7 +212,7 @@ class RemoteT2VRouter:
             "scene_id": scene_id,
             "model_used": "Wan2.1 / Flux Remote Cloud AI",
             "clip_path": clip_path,
-            "duration": duration,
+            "duration": dur_sec,
             "status": "READY"
         }
 
@@ -226,7 +220,7 @@ class RemoteT2VRouter:
         """
         Generates video clips for all scenes concurrently via remote serverless queue.
         """
-        logger.info(f"[REMOTE_T2V] Generating {len(scenes)} cinematic AI clips across remote cloud models...")
+        logger.info(f"[REMOTE_T2V] Concurrently synthesizing {len(scenes)} cinematic AI clips across remote cloud models (Wan2.1 / Flux / CogVideoX)...")
         tasks = []
         for s in scenes:
             s_id = s.get("scene_id") or f"scene_{int(time.time()*1000)}"

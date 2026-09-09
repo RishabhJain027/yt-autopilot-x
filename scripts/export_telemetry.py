@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import json
 import os
 import sys
@@ -6,9 +6,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from datetime import datetime, timezone
 from sqlalchemy.future import select
 from database.connection import AsyncSessionLocal
-from database.schema import Channel, Production, Topic, YouTubeVideo
+from database.schema import Channel, Production, Topic, YouTubeVideo, LearningRecommendation
 from python.services.quota_manager import quota_manager
 from python.services.budget_guard import budget_guard
+from python.agents.goal_agent import goal_agent
 
 async def export_telemetry():
     os.makedirs('docs', exist_ok=True)
@@ -49,26 +50,52 @@ async def export_telemetry():
             if p.render_duration_seconds is not None:
                 dur = float(p.render_duration_seconds)
 
+            yt_res = await session.execute(select(YouTubeVideo).where(YouTubeVideo.production_id == p.id))
+            yt_vid = yt_res.scalar_one_or_none()
+            yt_id = yt_vid.youtube_video_id if yt_vid else None
+            yt_url = f"https://youtube.com/shorts/{yt_id}" if yt_id and not yt_id.startswith("mock_") else (
+                f"https://youtube.com/shorts/{yt_id}" if yt_id else None
+            )
+
             productions.append({
                 'id': p.id,
                 'title': title,
                 'hook': hook,
                 'status': p.status,
                 'format': p.format or 'shorts',
-                'tags': tags[:5],
+                'tags': tags[:8],
                 'duration_seconds': dur,
+                'youtube_video_id': yt_id,
+                'youtube_url': yt_url,
                 'created_at': p.created_at.isoformat() if p.created_at else None
             })
+
+        # Fetch learnings
+        learn_res = await session.execute(select(LearningRecommendation).limit(10))
+        learnings = [
+            {
+                "finding": l.finding,
+                "metric": l.metric,
+                "confidence": float(l.confidence or 0.85),
+                "action": l.recommended_action
+            }
+            for l in learn_res.scalars().all()
+        ]
+
+        goal_data = await goal_agent.get_channel_goal_status()
 
         payload = {
             'system_status': 'HEALTHY',
             'channel_name': 'Rishabh AI Studio',
+            'youtube_channel_id': 'UCOzdVylRBgYrewZ1Q3giwww',
             'account_email': '27rk04@gmail.com',
             'last_updated': datetime.now(timezone.utc).isoformat(),
             'channels_count': len(channels),
             'channels': channels,
             'productions_count': len(productions),
             'productions': productions,
+            'goal_tracking': goal_data,
+            'active_learnings': learnings,
             'quota': {
                 'used': 10000 - quota_manager.get_remaining_quota(),
                 'limit': 10000,
@@ -77,6 +104,12 @@ async def export_telemetry():
             'budget': {
                 'daily_spent': float(budget_guard.data.get('daily_spent', 0.0) or 0.0),
                 'daily_limit': 25.0
+            },
+            'model_fleet': {
+                't2v_primary': 'Wan-AI/Wan2.1-T2V-1.3B',
+                't2v_fallback': 'zai-org/CogVideoX-2b',
+                'cloud_diffusion': 'Pollinations Flux Serverless',
+                'compute_mode': 'remote_serverless_zero_local_vram'
             },
             'quality_gates_passed': True
         }

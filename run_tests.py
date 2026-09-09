@@ -2,7 +2,6 @@ import asyncio
 import sys, os
 sys.path.insert(0, '.')
 
-
 def test_scoring():
     from python.agents.niche_discovery import NicheDiscoveryAgent
     from python.agents.trend_agent import TrendAgent
@@ -100,6 +99,47 @@ def test_quality_gates():
     assert report.render_gate.passed == True
     print("[-] Test 6 Machine Quality Gates (A-F): PASSED")
 
+async def test_goal_agent():
+    from python.agents.goal_agent import goal_agent
+    status = await goal_agent.get_channel_goal_status()
+    assert "targets" in status
+    assert status["targets"]["target_subscribers"] == 10000
+    assert "current_progress" in status
+    print("[-] Test /goal Objectives & Milestone Engine: PASSED")
+
+async def test_browser_researcher():
+    from python.agents.browser_researcher import browser_researcher
+    results = await browser_researcher.browse_trending_research("Wan 2.1")
+    assert len(results) >= 1
+    assert any("Wan 2.1" in r["topic"] for r in results)
+    print("[-] Test /browser Web Trend & Claim Discovery: PASSED")
+
+async def test_learning_engine():
+    from python.agents.learning_engine import learning_engine
+    directives = await learning_engine.get_active_strategy_directives("test_channel")
+    assert "recommended_hook_style" in directives
+    assert directives["retention_target"] == 0.75
+    print("[-] Test /learn Continuous Adaptation Engine: PASSED")
+
+async def test_boost_agent():
+    from python.agents.boost_agent import boost_agent
+    pkg = boost_agent.generate_boost_package("DeepSeek-V3 MoE", "Stop paying for closed models!")
+    assert pkg["algorithm_boost_score"] > 90.0
+    assert len(pkg["hashtags"]) >= 5
+    assert pkg["hook_evaluation"]["verdict"] in ["VIRAL_READY", "ACCEPTABLE"]
+    print("[-] Test /boost Viral Retention & SEO Multiplier: PASSED")
+
+async def test_dynamic_trend_discovery():
+    from python.agents.trend_agent import trend_agent
+    past = ["5 New AI Coding Assistants You Never Heard Of", "How To Automate Your Entire Daily Workflow in 10 Minutes"]
+    trends = await trend_agent.discover_trends(niche="AI Breakthroughs", exclude_topics=past)
+    assert len(trends) >= 3
+    # Check that past topics are strictly excluded
+    for t in trends:
+        assert t.topic not in past
+    assert trends[0].score > 0.80
+    print("[-] Test Dynamic Trend Discovery & Anti-Repetition: PASSED")
+
 async def main():
     print("=" * 60)
     print("YT-AUTOPILOT-X | AUTONOMOUS TEST SUITE RUNNER")
@@ -109,6 +149,11 @@ async def main():
     test_security_vault()
     test_quota_and_budget()
     test_quality_gates()
+    await test_goal_agent()
+    await test_browser_researcher()
+    await test_learning_engine()
+    await test_boost_agent()
+    await test_dynamic_trend_discovery()
     print("=" * 60)
     print("ALL TESTS SUCCESSFULLY PASSED (100%)")
     print("=" * 60)

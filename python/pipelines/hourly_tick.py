@@ -22,8 +22,19 @@ class HourlyTickOrchestrator:
             res = await session.execute(select(Channel).where(Channel.status == 'ACTIVE'))
             channels = res.scalars().all()
             if not channels:
-                logger.info("[HOURLY_TICK] No active channels configured.")
-                return
+                logger.info("[HOURLY_TICK] Initializing default channel @RishabhAIStudio-27...")
+                ch = Channel(
+                    youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
+                    title="Rishabh AI Studio",
+                    niche="AI Breakthroughs & Autonomous Dev",
+                    operating_mode="AUTONOMOUS",
+                    status="ACTIVE",
+                    google_account_email="27rk04@gmail.com"
+                )
+                session.add(ch)
+                await session.commit()
+                await session.refresh(ch)
+                channels = [ch]
 
             for ch in channels:
                 try:
@@ -56,6 +67,12 @@ class HourlyTickOrchestrator:
                         logger.info(f"[HOURLY_TICK] Active rendering queue full ({len(active_jobs)} active jobs). Waiting for current batch to complete.")
                         continue
 
+                    # Retrieve all past topics for anti-repetition filter
+                    all_past_topics_res = await session.execute(
+                        select(Topic.topic).where(Topic.channel_id == ch.id)
+                    )
+                    past_topics = [t[0] for t in all_past_topics_res.all()]
+
                     # Discover new trends & topics if backlog is low
                     topics_res = await session.execute(
                         select(Topic).where(Topic.channel_id == ch.id, Topic.status == 'DISCOVERED')
@@ -63,8 +80,12 @@ class HourlyTickOrchestrator:
                     available_topics = topics_res.scalars().all()
 
                     if not available_topics:
-                        logger.info(f"[HOURLY_TICK] Discovering new viral trends for {ch.niche or 'Tech'}...")
-                        candidates = await trend_agent.discover_trends(ch.niche or "Tech Automation", ["AI Tools", "Productivity", "Open Source AI"])
+                        logger.info(f"[HOURLY_TICK] Discovering fresh breakthrough viral trends for {ch.niche or 'AI Tech'} (excluding {len(past_topics)} past topics)...")
+                        candidates = await trend_agent.discover_trends(
+                            niche=ch.niche or "AI Breakthroughs",
+                            pillars=["AI Foundation Models", "Open Source AI", "Autonomous Agents", "Developer Productivity"],
+                            exclude_topics=past_topics
+                        )
                         for cand in candidates:
                             new_topic = Topic(
                                 channel_id=ch.id,
@@ -98,13 +119,15 @@ class HourlyTickOrchestrator:
                         )
                         session.add(prod)
                         await session.commit()
+                        await session.refresh(prod)
 
-                        logger.info(f"[HOURLY_TICK] Launched production {prod.id} for topic: {top_topic.topic}")
+                        logger.info(f"[HOURLY_TICK] Launched production {prod.id} for topic: '{top_topic.topic}'")
                         # Run production pipeline
                         try:
                             await pipeline_orchestrator.run_production_pipeline(prod.id)
                             top_topic.status = 'COMPLETED'
                             await session.commit()
+                            logger.info(f"[HOURLY_TICK] Successfully completed production pipeline for {prod.id}")
                         except Exception as pe:
                             logger.error(f"[HOURLY_TICK] Pipeline failed for production {prod.id}: {pe}")
                             prod.status = 'FAILED'
@@ -120,6 +143,6 @@ class HourlyTickOrchestrator:
         except Exception as te:
             logger.warning(f"[HOURLY_TICK] Telemetry export note: {te}")
 
-        logger.info("[HOURLY_TICK] === Hourly cycle complete ===")
+        logger.info("[HOURLY_TICK] === Autonomous cycle complete ===")
 
 hourly_tick = HourlyTickOrchestrator()

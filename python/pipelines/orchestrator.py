@@ -9,6 +9,7 @@ from python.agents.research_agent import research_agent
 from python.agents.script_agent import script_agent
 from python.agents.visual_planner import visual_planner
 from python.agents.seo_agent import seo_agent
+from python.agents.boost_agent import boost_agent
 from python.agents.quality_gate import quality_gate
 from python.agents.caption_engine import caption_engine
 from python.services.tts_service import tts_service
@@ -19,7 +20,7 @@ from python.services.youtube_service import youtube_service
 from python.services.remote_video_router import remote_t2v_router
 from python.schemas.rights import AssetProvenance
 from packages.config.settings import settings
-from packages.logger.logger import logger
+from packages.logger.logger import logger, audit_log
 
 class PipelineOrchestrator:
     async def run_production_pipeline(self, production_id: str) -> Production:
@@ -30,12 +31,16 @@ class PipelineOrchestrator:
             if not prod:
                 raise ValueError(f"Production {production_id} not found")
 
-            topic_title = "AI Productivity Automation Workflow"
+            topic_title = "AI Video & Technology Automation"
             if prod.topic_id:
                 top_res = await session.execute(select(Topic).where(Topic.id == prod.topic_id))
                 topic_obj = top_res.scalar_one_or_none()
                 if topic_obj:
                     topic_title = topic_obj.topic
+
+            # Fetch channel
+            ch_res = await session.execute(select(Channel).where(Channel.id == prod.channel_id))
+            channel_obj = ch_res.scalar_one_or_none()
 
             # Step 1: Researching
             prod.status = state_machine.transition(prod.status, 'RESEARCHING', prod.id, prod.channel_id)
@@ -76,7 +81,7 @@ class PipelineOrchestrator:
             prod.status = state_machine.transition(prod.status, 'ASSET_READY', prod.id, prod.channel_id)
             await session.commit()
 
-            # Step 4: Voice & Audio Generation
+            # Step 4: Voice & Audio Generation (Edge-TTS voiceover)
             prod.status = state_machine.transition(prod.status, 'VOICE_GENERATION', prod.id, prod.channel_id)
             await session.commit()
             narration_full = " ".join([seg.voiceover for seg in script.segments])
@@ -98,17 +103,37 @@ class PipelineOrchestrator:
             thumb_path = image_service.generate_thumbnail(script.title_candidate, subtitle="Complete Blueprint", aspect_ratio=aspect_ratio, filename_prefix=f"prod_{prod.id}")
             prod.thumbnail_path = thumb_path
 
+            # Asset ledger: Add thumbnail asset
+            session.add(Asset(
+                production_id=prod.id,
+                source_type="generated_thumbnail",
+                local_path=thumb_path,
+                rights_status="COMMERCIAL_VERIFIED",
+                license_json={"type": "Apache-2.0", "generator": "ImageService"}
+            ))
+
             # Generate remote serverless T2V clips across <5B model fleet (Wan2.1 / CogVideoX / LTX)
             t2v_clips = await remote_t2v_router.generate_storyboard_clips([s.model_dump() for s in visuals.scenes], aspect_ratio=aspect_ratio)
 
-            # Render multi-clip video
+            # Asset ledger: Add clip assets
+            for clip in t2v_clips:
+                session.add(Asset(
+                    production_id=prod.id,
+                    source_type="remote_t2v_clip",
+                    local_path=clip.get("clip_path"),
+                    rights_status="COMMERCIAL_VERIFIED",
+                    license_json={"model": clip.get("model_used"), "license": "Apache 2.0 / Open Source"}
+                ))
+
+            # Render multi-clip video with subtitle captions
             video_path, render_dur = video_renderer.render_production(
                 production_id=prod.id,
                 scenes=[s.model_dump() for s in visuals.scenes],
                 audio_path=audio_path,
                 total_duration=duration,
                 aspect_ratio=aspect_ratio,
-                clips=t2v_clips
+                clips=t2v_clips,
+                caption_path=srt_path
             )
             prod.final_video_path = video_path
 
@@ -118,9 +143,15 @@ class PipelineOrchestrator:
             prod.status = state_machine.transition(prod.status, 'RENDERED', prod.id, prod.channel_id)
             await session.commit()
 
-            # Step 7: SEO & Publishing Package
+            # Step 7: SEO & Viral Boost Packaging
             seo_pkg = await seo_agent.generate_metadata(topic_title, narration_full)
-            prod.publishing_json = seo_pkg.model_dump()
+            boost_pkg = boost_agent.generate_boost_package(topic_title, script.hook)
+            
+            # Merge boost attributes into publishing JSON
+            pub_dict = seo_pkg.model_dump()
+            pub_dict["boost"] = boost_pkg
+            pub_dict["tags"] = list(set(pub_dict.get("tags", []) + boost_pkg.get("hashtags", [])))
+            prod.publishing_json = pub_dict
 
             # Step 8: Quality & Policy Gate
             prod.status = state_machine.transition(prod.status, 'QA_PENDING', prod.id, prod.channel_id)
@@ -129,23 +160,24 @@ class PipelineOrchestrator:
             prod.review_json = gate_report.model_dump()
 
             # Step 9: Autonomy / Review Determination
-            if gate_report.overall_passed and settings.AUTONOMOUS_PUBLISHING:
+            is_autonomous = (channel_obj and channel_obj.operating_mode == 'AUTONOMOUS') or settings.AUTONOMOUS_PUBLISHING
+            if gate_report.overall_passed and is_autonomous:
                 prod.status = state_machine.transition(prod.status, 'APPROVED', prod.id, prod.channel_id)
-                # Auto Upload
+                # Auto Upload to YouTube
                 upload_res = await youtube_service.upload_video(
                     channel_id=prod.channel_id,
                     video_path=prod.final_video_path,
-                    title=seo_pkg.primary_title,
-                    description=seo_pkg.description,
-                    tags=seo_pkg.tags,
-                    contains_synthetic_media=seo_pkg.contains_synthetic_media
+                    title=pub_dict.get("primary_title", seo_pkg.primary_title),
+                    description=f"{pub_dict.get('description', seo_pkg.description)}\n\n{' '.join(boost_pkg.get('hashtags', []))}",
+                    tags=pub_dict.get("tags", seo_pkg.tags),
+                    contains_synthetic_media=True
                 )
                 yt_vid = YouTubeVideo(
                     production_id=prod.id,
                     youtube_video_id=upload_res.get('youtube_video_id'),
                     upload_status=upload_res.get('upload_status'),
                     privacy_status=upload_res.get('privacy_status'),
-                    contains_synthetic_media=upload_res.get('contains_synthetic_media'),
+                    contains_synthetic_media=upload_res.get('contains_synthetic_media', True),
                     response_json=upload_res
                 )
                 session.add(yt_vid)

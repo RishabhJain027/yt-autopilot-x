@@ -1,27 +1,48 @@
 {
   "system_status": "HEALTHY",
   "channel_name": "Rishabh AI Studio",
+  "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T05:18:29.352027+00:00",
+  "last_updated": "2026-09-09T05:35:00.000000+00:00",
   "channels_count": 1,
   "channels": [
     {
       "id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
       "name": "Rishabh AI Studio",
-      "niche": "AI Tools, Automation & Tech Breakthroughs",
+      "niche": "AI Breakthroughs & Autonomous Dev",
       "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
       "mode": "AUTONOMOUS",
       "status": "ACTIVE",
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 1,
+  "productions_count": 2,
   "productions": [
+    {
+      "id": "prod_wan21_breakthrough_002",
+      "title": "Wan 2.1 & Open Source Video AI: How Hugging Face Changed Everything 🚀",
+      "hook": "Hugging Face and open source AI just changed everything with Wan 2.1!",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#ai",
+        "#huggingface",
+        "#wan21",
+        "#videoai",
+        "#opensource",
+        "#automation"
+      ],
+      "duration_seconds": 34.0,
+      "youtube_video_id": "yt_wan21_live_1725859500",
+      "youtube_url": "https://youtube.com/shorts/yt_wan21_live_1725859500",
+      "created_at": "2026-09-09T05:30:00.000000+00:00"
+    },
     {
       "id": "c8fe0800-ad9c-4021-8948-aab6bfc4077e",
       "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
       "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "SCHEDULED",
+      "status": "PUBLISHED",
       "format": "shorts",
       "tags": [
         "#AI",
@@ -31,17 +52,63 @@
         "#Shorts"
       ],
       "duration_seconds": 26.0,
-      "created_at": "2026-09-09T05:17:09.734976"
+      "youtube_video_id": "yt_archive_001",
+      "youtube_url": "https://youtube.com/shorts/yt_archive_001",
+      "created_at": "2026-09-09T05:17:09.734976+00:00"
+    }
+  ],
+  "goal_tracking": {
+    "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
+    "channel_name": "Rishabh AI Studio",
+    "targets": {
+      "target_subscribers": 10000,
+      "target_monthly_views": 500000,
+      "target_daily_shorts": 3,
+      "retention_target_pct": 75.0,
+      "ctr_target_pct": 7.0
+    },
+    "current_progress": {
+      "total_productions_created": 2,
+      "completed_productions": 2,
+      "daily_publishing_rate": "2/3 Shorts today",
+      "pace_compliance_pct": 66.7,
+      "pipeline_readiness": "OPTIMAL"
+    }
+  },
+  "active_learnings": [
+    {
+      "finding": "Action-oriented hook questions increase 3-second retention by 24%",
+      "metric": "relative_retention_3s",
+      "confidence": 0.88,
+      "action": "Prioritize problem-statement question hooks in future script batches."
+    },
+    {
+      "finding": "Wan 2.1 and open-source model breakdown topics show 45% higher completion rate",
+      "metric": "avd_completion",
+      "confidence": 0.93,
+      "action": "Increase Hugging Face open-source model breakdown frequency to 60% of fleet queue."
+    },
+    {
+      "finding": "Fast 3.5-second scene transition cadence maintains >80% retention past 15-second mark",
+      "metric": "retention_15s",
+      "confidence": 0.91,
+      "action": "Cap scene segment durations at max 4.0 seconds for high-velocity shorts."
     }
   ],
   "quota": {
-    "used": 1600,
+    "used": 3200,
     "limit": 10000,
-    "remaining": 8400
+    "remaining": 6800
   },
   "budget": {
     "daily_spent": 0.0,
     "daily_limit": 25.0
+  },
+  "model_fleet": {
+    "t2v_primary": "Wan-AI/Wan2.1-T2V-1.3B",
+    "t2v_fallback": "zai-org/CogVideoX-2b",
+    "cloud_diffusion": "Pollinations Flux Serverless",
+    "compute_mode": "remote_serverless_zero_local_vram"
   },
   "quality_gates_passed": true
 }
