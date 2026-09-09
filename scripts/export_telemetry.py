@@ -3,6 +3,10 @@ import json
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 from datetime import datetime, timezone
 from sqlalchemy.future import select
 from database.connection import AsyncSessionLocal
@@ -87,8 +91,9 @@ async def export_telemetry():
 
         payload = {
             'system_status': 'HEALTHY',
-            'channel_name': 'Baddie AI Studio',
+            'channel_name': 'Maya ✨ Cutie Baddie',
             'youtube_channel_id': 'UCOzdVylRBgYrewZ1Q3giwww',
+            'persona': 'Maya (21yo Cute Aesthetic Baddie)',
             'account_email': '27rk04@gmail.com',
             'last_updated': datetime.now(timezone.utc).isoformat(),
             'channels_count': len(channels),

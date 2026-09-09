@@ -42,16 +42,9 @@ class VideoRenderer:
                     f.write(f"file '{clean_p}'\n")
 
             # Build video filter chain: scaling + cropping to exact 9:16 (1080x1920)
+            # Strictly 100% clean cinematic visual frames with NO on-screen transcript or text overlays
             vf_chain = f"scale={width}:{height}:force_original_aspect_ratio=increase,crop={width}:{height},setsar=1"
-            
-            # If SRT subtitle caption file is available and valid, burn styled captions
-            if caption_path and os.path.exists(caption_path):
-                clean_sub_path = os.path.abspath(caption_path).replace("\\", "/").replace(":", "\\:")
-                # Test if subtitles filter can be included
-                vf_with_subs = f"{vf_chain},subtitles='{clean_sub_path}':force_style='FontSize=20,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=3,Outline=2,Shadow=1,Alignment=2,MarginV=120'"
-                vf_to_use = vf_with_subs
-            else:
-                vf_to_use = vf_chain
+            vf_to_use = vf_chain
 
             cmd = [
                 ffmpeg_bin, "-y",

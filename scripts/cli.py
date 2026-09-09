@@ -2,6 +2,10 @@ import sys
 import os
 import json
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 import asyncio
 import argparse
 import uvicorn
@@ -29,8 +33,8 @@ async def cmd_bootstrap():
         if not ch:
             ch = Channel(
                 youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                title="Baddie AI Studio",
-                niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
+                title="Maya ✨ Cutie Baddie",
+                niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE",
                 google_account_email="27rk04@gmail.com"
@@ -40,8 +44,8 @@ async def cmd_bootstrap():
             await session.refresh(ch)
             logger.info(f"Channel bootstrapped successfully: {ch.title} ({ch.youtube_channel_id})")
         else:
-            ch.title = "Baddie AI Studio"
-            ch.niche = "Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle"
+            ch.title = "Maya ✨ Cutie Baddie"
+            ch.niche = "Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
             ch.operating_mode = "AUTONOMOUS"
             ch.status = "ACTIVE"
             await session.commit()
@@ -53,7 +57,7 @@ async def cmd_tick():
 
 async def cmd_generate_video(topic_override: str = None):
     await init_db()
-    logger.info("[VIDEO_GEN] Generating fresh breakthrough research video...")
+    logger.info("[VIDEO_GEN] Generating fresh Maya ✨ aesthetic research video from Wikipedia...")
     async with AsyncSessionLocal() as session:
         # 1. Fetch channel
         res = await session.execute(select(Channel).where(Channel.youtube_channel_id == "UCOzdVylRBgYrewZ1Q3giwww"))
@@ -61,8 +65,8 @@ async def cmd_generate_video(topic_override: str = None):
         if not ch:
             ch = Channel(
                 youtube_channel_id="UCOzdVylRBgYrewZ1Q3giwww",
-                title="Baddie AI Studio",
-                niche="Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle",
+                title="Maya ✨ Cutie Baddie",
+                niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
                 operating_mode="AUTONOMOUS",
                 status="ACTIVE",
                 google_account_email="27rk04@gmail.com"
@@ -70,6 +74,10 @@ async def cmd_generate_video(topic_override: str = None):
             session.add(ch)
             await session.commit()
             await session.refresh(ch)
+        else:
+            ch.title = "Maya ✨ Cutie Baddie"
+            ch.niche = "Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨"
+            await session.commit()
 
         # 2. Get past topics to avoid repetition
         past_res = await session.execute(select(Topic.topic).where(Topic.channel_id == ch.id))
@@ -77,19 +85,19 @@ async def cmd_generate_video(topic_override: str = None):
 
         if topic_override:
             chosen_topic = topic_override
-            score = 0.95
+            score = 0.98
         else:
             candidates = await trend_agent.discover_trends(
-                niche="AI Breakthroughs",
-                pillars=["AI Foundation Models", "Open Source AI", "Autonomous Agents"],
+                niche="Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨",
+                pillars=["Wikipedia Psychology", "Aesthetic Magnetism", "History Lore"],
                 exclude_topics=past_topics
             )
             if candidates:
                 chosen_topic = candidates[0].topic
                 score = candidates[0].score
             else:
-                chosen_topic = "Wan 2.1 & Open Source Video AI: How Hugging Face Changed Everything"
-                score = 0.95
+                chosen_topic = "The Pratfall Effect: Why Clumsy Girls Are Scientifically 10x More Magnetic"
+                score = 0.98
 
         logger.info(f"[VIDEO_GEN] Selected fresh researched topic: '{chosen_topic}' (Score: {score})")
         
@@ -198,7 +206,10 @@ def main():
 
     subparsers.add_parser("bootstrap", help="Initialize channel and brand identity")
     subparsers.add_parser("run-tick", help="Trigger one hourly autonomous cycle")
-    subparsers.add_parser("generate-video", help="Generate a fresh breakthrough video on the spot and upload")
+    
+    gen_p = subparsers.add_parser("generate-video", help="Generate a fresh breakthrough video on the spot and upload")
+    gen_p.add_argument("--topic", type=str, default=None, help="Specific topic override")
+    
     subparsers.add_parser("dry-run", help="Run an end-to-end dry run production")
     subparsers.add_parser("goal", help="View channel KPI targets and goal progress (/goal)")
     
@@ -221,9 +232,9 @@ def main():
     elif args.command == "run-tick":
         asyncio.run(cmd_tick())
     elif args.command == "generate-video":
-        asyncio.run(cmd_generate_video())
+        asyncio.run(cmd_generate_video(args.topic))
     elif args.command == "dry-run":
-        asyncio.run(cmd_generate_video())
+        asyncio.run(cmd_generate_video(args.topic if hasattr(args, 'topic') else None))
     elif args.command == "goal":
         asyncio.run(cmd_goal())
     elif args.command == "browser":

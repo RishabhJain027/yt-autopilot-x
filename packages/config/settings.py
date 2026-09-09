@@ -80,11 +80,11 @@ class Settings(BaseSettings):
     T2V_EXECUTION_MODE: str = 'remote_serverless'  # Strictly 0 local compute / 0 GPU VRAM
 
     # Niche & Persona Configuration
-    DEFAULT_NICHE: str = 'AI Tools, Automation & Tech Breakthroughs'
-    SECONDARY_NICHE: str = 'Pinterest Aesthetic / Clumsy GenZ Hot Baddie & AI Character Lifestyle'
-    DEFAULT_VOICE_GENDER: str = 'female'  # 'female' for GenZ/Aesthetic, 'male' for Tech
+    DEFAULT_NICHE: str = 'Pinterest Aesthetic & Girly Clumsy Baddie / Maya ✨'
+    SECONDARY_NICHE: str = 'Wikipedia Rabbit Holes & Psychological Secrets'
+    DEFAULT_VOICE_GENDER: str = 'female'  # Female seductive alluring voice
     DEFAULT_FEMALE_VOICE: str = 'en-US-AvaNeural'
-    DEFAULT_MALE_VOICE: str = 'en-US-GuyNeural'
+    DEFAULT_MALE_VOICE: str = 'en-US-AvaNeural'
 
     # Budgets & Limits
     DAILY_BUDGET_USD: float = 25.0

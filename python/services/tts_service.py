@@ -13,34 +13,28 @@ class TTSService:
         os.makedirs(self.output_dir, exist_ok=True)
 
         self.voice_profiles: Dict[str, Dict[str, str]] = {
-            "genz_aesthetic": {
+            "seductive_baddie": {
                 "primary": "en-US-AvaNeural",
-                "alt1": "en-US-EmmaNeural",
-                "alt2": "en-US-JennyNeural",
-                "alt3": "en-US-AnaNeural",
-                "tone": "energetic_relatable_youthful"
+                "alt1": "en-US-JennyNeural",
+                "alt2": "en-US-EmmaNeural",
+                "alt3": "en-GB-SoniaNeural",
+                "tone": "seductive_alluring_velvety_playful"
             },
             "tech_authority": {
-                "primary": "en-US-GuyNeural",
-                "alt1": "en-US-ChristopherNeural",
-                "alt2": "en-US-BrianNeural",
-                "alt3": "en-US-EricNeural",
-                "tone": "clear_authoritative_crisp"
+                "primary": "en-US-AvaNeural",
+                "alt1": "en-US-JennyNeural",
+                "alt2": "en-US-GuyNeural",
+                "alt3": "en-US-BrianNeural",
+                "tone": "clear_expressive_alluring"
             }
         }
 
-    def select_voice_for_niche(self, niche: str = "tech", gender: Optional[str] = None) -> str:
+    def select_voice_for_niche(self, niche: str = "aesthetic", gender: Optional[str] = None) -> str:
         """
-        Intelligently selects the optimal voice ID for the channel persona and niche.
-        - Pinterest Aesthetic / GenZ Baddie / Lifestyle -> 'en-US-AvaNeural'
-        - Tech Breakthroughs / Code -> 'en-US-GuyNeural'
+        Selects the alluring, velvety, seductive female voice for Maya's videos.
+        Primary: 'en-US-AvaNeural' (expressive, seductive, warm, authentic).
         """
-        niche_lower = niche.lower()
-        is_genz_aesthetic = any(k in niche_lower for k in ["pinterest", "aesthetic", "genz", "baddie", "girl", "lifestyle", "character", "clumsy"])
-
-        if is_genz_aesthetic or gender == "female":
-            return self.voice_profiles["genz_aesthetic"]["primary"]
-        return self.voice_profiles["tech_authority"]["primary"]
+        return self.voice_profiles["seductive_baddie"]["primary"]
 
     async def synthesize(self, text: str, voice_id: Optional[str] = None, niche: str = "tech", filename_prefix: str = 'voice') -> Tuple[str, float]:
         selected_voice = voice_id or self.select_voice_for_niche(niche)
