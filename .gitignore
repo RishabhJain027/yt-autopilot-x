@@ -12,24 +12,10 @@ token_*.json
 *.p12
 
 # Local Storage & Database
-storage/*.db
-storage/*.sqlite
-storage/*.sqlite3
-storage/*.json
-storage/credentials/
-storage/audio/*
-storage/thumbnails/*
-storage/renders/*
-storage/captions/*
-storage/scenes/*
-storage/clips/*
+storage/*
 !storage/.gitkeep
-!storage/audio/.gitkeep
-!storage/thumbnails/.gitkeep
-!storage/renders/.gitkeep
-!storage/captions/.gitkeep
-!storage/scenes/.gitkeep
-!storage/clips/.gitkeep
+!storage/*/.gitkeep
+
 
 # Python & Environment
 __pycache__/

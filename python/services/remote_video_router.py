@@ -80,7 +80,7 @@ class RemoteT2VRouter:
         
         for url in cloud_urls:
             try:
-                async with httpx.AsyncClient(timeout=30.0) as client:
+                async with httpx.AsyncClient(timeout=15.0) as client:
                     resp = await client.get(url, follow_redirects=True)
                     if resp.status_code == 200 and len(resp.content) > 5000:
                         img_path = os.path.join(self.clips_dir, f"ai_frame_{int(time.time() * 1000)}_{seed}.png")
@@ -92,6 +92,48 @@ class RemoteT2VRouter:
                 logger.warning(f"[REMOTE_T2V] Cloud AI image endpoint note ({url[:40]}...): {e}")
                 
         return None
+
+    def _convert_image_to_motion_clip(self, ai_frame_path: str, clip_path: str, dur_sec: float, width: int, height: int):
+        import subprocess
+        ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
+        
+        # Smooth Ken Burns zoompan filter scaled efficiently (1620x2880 input canvas to avoid memory bloat)
+        zoom_w = 1620 if width == 1080 else 2880
+        zoom_h = 2880 if height == 1920 else 1620
+        total_frames = max(30, int(dur_sec * 30))
+        
+        cmd_motion = [
+            ffmpeg_bin, "-y",
+            "-loop", "1",
+            "-i", ai_frame_path,
+            "-t", str(dur_sec),
+            "-vf", f"scale={zoom_w}:{zoom_h},zoompan=z='min(zoom+0.0015,1.20)':d={total_frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps=30,setsar=1",
+            "-c:v", "libx264",
+            "-preset", "fast",
+            "-crf", "22",
+            "-pix_fmt", "yuv420p",
+            "-r", "30",
+            clip_path
+        ]
+        
+        try:
+            subprocess.run(cmd_motion, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        except Exception as fe:
+            logger.warning(f"[REMOTE_T2V] Zoompan fallback to standard scale: {fe}")
+            cmd_simple = [
+                ffmpeg_bin, "-y",
+                "-loop", "1",
+                "-i", ai_frame_path,
+                "-t", str(dur_sec),
+                "-vf", f"scale={width}:{height},setsar=1",
+                "-c:v", "libx264",
+                "-preset", "fast",
+                "-crf", "22",
+                "-pix_fmt", "yuv420p",
+                "-r", "30",
+                clip_path
+            ]
+            subprocess.run(cmd_simple, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
 
     async def generate_scene_clip(self, scene_id: str, prompt: str, duration: float = 4.0, aspect_ratio: str = "9:16") -> Dict[str, Any]:
         """
@@ -172,41 +214,9 @@ class RemoteT2VRouter:
                 draw.text((100, (height // 3) + 40 + (l_idx * 40)), line, fill="#FFFFFF")
             img.save(ai_frame_path, format="PNG")
 
-        # Convert AI scene frame into cinematic motion video clip via FFmpeg
-        import subprocess
-        ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
         dur_sec = max(2.5, float(duration))
-        
-        # Ken Burns smooth zoom-in camera motion filter
-        cmd_motion = [
-            ffmpeg_bin, "-y",
-            "-loop", "1",
-            "-i", ai_frame_path,
-            "-t", str(dur_sec),
-            "-vf", f"scale=8000:-1,zoompan=z='min(zoom+0.0015,1.25)':d={int(dur_sec*30)}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps=30,setsar=1",
-            "-c:v", "libx264",
-            "-pix_fmt", "yuv420p",
-            "-r", "30",
-            clip_path
-        ]
-        
-        try:
-            subprocess.run(cmd_motion, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-            logger.info(f"[REMOTE_T2V] Generated cinematic motion AI clip for scene {scene_id}: {clip_path}")
-        except Exception as fe:
-            logger.warning(f"[REMOTE_T2V] Zoompan fallback to standard scale: {fe}")
-            cmd_simple = [
-                ffmpeg_bin, "-y",
-                "-loop", "1",
-                "-i", ai_frame_path,
-                "-t", str(dur_sec),
-                "-vf", f"scale={width}:{height},setsar=1",
-                "-c:v", "libx264",
-                "-pix_fmt", "yuv420p",
-                "-r", "30",
-                clip_path
-            ]
-            subprocess.run(cmd_simple, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        await asyncio.to_thread(self._convert_image_to_motion_clip, ai_frame_path, clip_path, dur_sec, width, height)
+        logger.info(f"[REMOTE_T2V] Generated cinematic motion AI clip for scene {scene_id}: {clip_path}")
 
         return {
             "scene_id": scene_id,

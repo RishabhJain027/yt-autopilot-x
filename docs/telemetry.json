@@ -3,46 +3,56 @@
   "channel_name": "Rishabh AI Studio",
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T05:35:00.000000+00:00",
+  "last_updated": "2026-09-09T05:37:08.809505+00:00",
   "channels_count": 1,
   "channels": [
     {
       "id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
       "name": "Rishabh AI Studio",
-      "niche": "AI Breakthroughs & Autonomous Dev",
+      "niche": "AI Tools, Automation & Tech Breakthroughs",
       "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
       "mode": "AUTONOMOUS",
       "status": "ACTIVE",
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 2,
+  "productions_count": 4,
   "productions": [
     {
-      "id": "prod_wan21_breakthrough_002",
-      "title": "Wan 2.1 & Open Source Video AI: How Hugging Face Changed Everything 🚀",
-      "hook": "Hugging Face and open source AI just changed everything with Wan 2.1!",
+      "id": "a5d5b9d3-1a6c-403d-be18-91e51349b1f6",
+      "title": "DeepSeek-V3 Architecture: Why 671B Mixture-of-Experts Crushed Closed Models (Step-by-Step)",
+      "hook": "Hugging Face and open source AI just changed everything with DeepSeek!",
       "status": "SCHEDULED",
       "format": "shorts",
       "tags": [
-        "#shorts",
-        "#ai",
-        "#huggingface",
-        "#wan21",
-        "#videoai",
-        "#opensource",
-        "#automation"
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
       ],
-      "duration_seconds": 34.0,
-      "youtube_video_id": "yt_wan21_live_1725859500",
-      "youtube_url": "https://youtube.com/shorts/yt_wan21_live_1725859500",
-      "created_at": "2026-09-09T05:30:00.000000+00:00"
+      "duration_seconds": 50.8,
+      "youtube_video_id": "xzkmLshYmL0",
+      "youtube_url": "https://youtube.com/shorts/xzkmLshYmL0",
+      "created_at": "2026-09-09T05:34:15.906328"
     },
     {
-      "id": "c8fe0800-ad9c-4021-8948-aab6bfc4077e",
-      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
+      "id": "303795d6-2559-4c4c-9ea4-19768020f6f0",
+      "title": "Wan 2.1 & Open Source Video AI: How Hugging Face Changed Everything",
+      "hook": "Hugging Face and open source AI just changed everything with Wan 2.1 & Open Source Video AI!",
+      "status": "RENDERING",
+      "format": "shorts",
+      "tags": [],
+      "duration_seconds": 52.4,
+      "youtube_video_id": null,
+      "youtube_url": null,
+      "created_at": "2026-09-09T05:33:04.547917"
+    },
+    {
+      "id": "fd86a083-d060-4aca-8b61-21ba9db38118",
+      "title": "How To Automate Your Entire Daily Workflow in 10 Minutes (Step-by-Step)",
       "hook": "Stop wasting 3 hours every day on repetitive tasks.",
-      "status": "PUBLISHED",
+      "status": "SCHEDULED",
       "format": "shorts",
       "tags": [
         "#AI",
@@ -52,28 +62,49 @@
         "#Shorts"
       ],
       "duration_seconds": 26.0,
-      "youtube_video_id": "yt_archive_001",
-      "youtube_url": "https://youtube.com/shorts/yt_archive_001",
-      "created_at": "2026-09-09T05:17:09.734976+00:00"
+      "youtube_video_id": "UoL2ssZGRIc",
+      "youtube_url": "https://youtube.com/shorts/UoL2ssZGRIc",
+      "created_at": "2026-09-09T05:30:00.124075"
+    },
+    {
+      "id": "c8fe0800-ad9c-4021-8948-aab6bfc4077e",
+      "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
+      "hook": "Stop wasting 3 hours every day on repetitive tasks.",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
+      ],
+      "duration_seconds": 26.0,
+      "youtube_video_id": "epotsmcB_Co",
+      "youtube_url": "https://youtube.com/shorts/epotsmcB_Co",
+      "created_at": "2026-09-09T05:17:09.734976"
     }
   ],
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Rishabh AI Studio",
+    "timestamp": "2026-09-09T05:37:08.808100+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
       "target_daily_shorts": 3,
       "retention_target_pct": 75.0,
-      "ctr_target_pct": 7.0
+      "ctr_target_pct": 7.0,
+      "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 2,
-      "completed_productions": 2,
-      "daily_publishing_rate": "2/3 Shorts today",
-      "pace_compliance_pct": 66.7,
+      "total_productions_created": 4,
+      "completed_productions": 3,
+      "daily_publishing_rate": "3/3 Shorts today",
+      "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
-    }
+    },
+    "strategy_recommendation": "Maintain current cadence: 3 High-Retention Shorts per day with Wan 2.1/Flux cloud AI visuals."
   },
   "active_learnings": [
     {
@@ -81,6 +112,36 @@
       "metric": "relative_retention_3s",
       "confidence": 0.88,
       "action": "Prioritize problem-statement question hooks in future script batches."
+    },
+    {
+      "finding": "High-contrast neon outline thumbnails achieve 32% higher CTR than plain text",
+      "metric": "ctr",
+      "confidence": 0.81,
+      "action": "Apply neon border preset across all upcoming production assets."
+    },
+    {
+      "finding": "Wan 2.1 and open-source model breakdown topics show 45% higher completion rate",
+      "metric": "avd_completion",
+      "confidence": 0.93,
+      "action": "Increase Hugging Face open-source model breakdown frequency to 60% of fleet queue."
+    },
+    {
+      "finding": "Fast 3.5-second scene transition cadence maintains >80% retention past 15-second mark",
+      "metric": "retention_15s",
+      "confidence": 0.91,
+      "action": "Cap scene segment durations at max 4.0 seconds for high-velocity shorts."
+    },
+    {
+      "finding": "Action-oriented hook questions increase 3-second retention by 24%",
+      "metric": "relative_retention_3s",
+      "confidence": 0.88,
+      "action": "Prioritize problem-statement question hooks in future script batches."
+    },
+    {
+      "finding": "High-contrast neon outline thumbnails achieve 32% higher CTR than plain text",
+      "metric": "ctr",
+      "confidence": 0.81,
+      "action": "Apply neon border preset across all upcoming production assets."
     },
     {
       "finding": "Wan 2.1 and open-source model breakdown topics show 45% higher completion rate",
@@ -96,9 +157,9 @@
     }
   ],
   "quota": {
-    "used": 3200,
+    "used": 8000,
     "limit": 10000,
-    "remaining": 6800
+    "remaining": 2000
   },
   "budget": {
     "daily_spent": 0.0,
