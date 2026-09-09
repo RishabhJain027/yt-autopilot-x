@@ -41,35 +41,35 @@ class ScriptAgent:
                 id="scene_001",
                 voiceover=hook,
                 duration=4.0,
-                visual_intent="Maya 21yo stunning Gossip Girl aesthetic baddie, captivating hazel eyes, glossy lips, voluminous blowout, luxury champagne silk dress, Manhattan penthouse terrace at golden hour, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles",
+                visual_intent="Maya 21yo stunning wild free-spirited Gossip Girl aesthetic baddie, captivating wide crazy wild electric hazel eyes with intense hypnotic siren gaze, bold magnetic direct eye contact into camera, gorgeous radiant smirk, voluminous wind-blown blowout, luxury champagne silk dress, Manhattan penthouse terrace at golden hour, Kodak Portra 400 35mm film still, depth of field, photorealistic 8k, ultra-detailed skin texture, clean frame, NO text, NO subtitles",
                 claims=[claims_ids[0]] if claims_ids else []
             ),
             ScriptSegment(
                 id="scene_002",
                 voiceover=context,
                 duration=5.5,
-                visual_intent="Maya sitting at chic Upper East Side cafe terrace outdoor table, vintage designer sunglasses, sipping iced matcha latte, glancing seductively into camera with playful knowing smirk, warm golden lighting, 35mm film grain, 8k cinematic portrait, clean frame, NO text boxes",
+                visual_intent="Maya 21yo wild aesthetic baddie with mesmerizing intense open hazel eyes sparkling with untamed energy, sitting at chic Upper East Side cafe terrace outdoor table, pushing vintage designer sunglasses onto hair, gazing seductively and playfully straight into camera lens, wind blowing hair strands, warm ambient golden lighting, 35mm film grain, 8k cinematic portrait, clean frame, NO text boxes",
                 claims=[]
             ),
             ScriptSegment(
                 id="scene_003",
                 voiceover=core_value,
                 duration=12.0,
-                visual_intent="Maya sitting gracefully on the Metropolitan Museum steps in Manhattan in high-fashion outfit with luxury designer handbag, looking intimately into camera with alluring warm gaze, paparazzi flash aesthetic, 8k photorealistic, clean frame, NO text",
+                visual_intent="Maya 21yo free-spirited gorgeous baddie with wildly captivating electric siren eyes and carefree alluring smile, sitting gracefully on the Metropolitan Museum steps in Manhattan in high-fashion outfit with luxury designer handbag, looking intimately and intensely into camera with unstoppable confidence, paparazzi flash aesthetic, 8k photorealistic, clean frame, NO text",
                 claims=[claims_ids[1]] if len(claims_ids) > 1 else []
             ),
             ScriptSegment(
                 id="scene_004",
                 voiceover=proof,
                 duration=7.5,
-                visual_intent="Maya walking gracefully down 5th Avenue during glowing sunset in stylish chic black dress and gold jewelry, warm golden hour bokeh, candid high-fashion lifestyle, cinematic camera glide, clean frame, NO text",
+                visual_intent="Maya 21yo radiant wild baddie walking effortlessly down 5th Avenue during glowing sunset in stylish chic black dress and gold jewelry, turning head with crazy magnetic eye contact and playful teasing smile, hair blowing freely in the evening breeze, warm golden hour bokeh, candid high-fashion lifestyle, cinematic camera glide, clean frame, NO text",
                 claims=[claims_ids[2]] if len(claims_ids) > 2 else []
             ),
             ScriptSegment(
                 id="scene_005",
                 voiceover=f"{payoff} {cta}",
                 duration=7.0,
-                visual_intent="Maya spritzing luxury perfume at vanity mirror in luxury Manhattan penthouse boudoir, playful wink at camera, soft ambient vanity lights, cinematic 35mm film still, depth of field, 8k resolution, clean frame, NO text",
+                visual_intent="Maya 21yo stunning baddie at vanity mirror in luxury Manhattan penthouse boudoir, locking wide wild seductive siren eyes with camera in reflection, playful expressive wink and mesmerizing gaze, soft ambient vanity lights, cinematic 35mm film still, depth of field, 8k resolution, clean frame, NO text",
                 claims=[]
             )
         ]

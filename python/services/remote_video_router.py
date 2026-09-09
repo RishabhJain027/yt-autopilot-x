@@ -797,7 +797,7 @@ class RemoteT2VRouter:
         return self.models.get("minimax_h3", list(self.models.values())[0])
 
     def _build_character_prompt(self, prompt: str, niche: str) -> str:
-        """Builds hyper-detailed, photorealistic Gossip Girl / Maya prompts."""
+        """Builds hyper-detailed, photorealistic Gossip Girl / Maya prompts with wild magnetic eyes."""
         niche_lower = niche.lower()
         is_maya_gossip = any(k in niche_lower or k in prompt.lower() for k in [
             "gossip", "maya", "baddie", "aesthetic", "pinterest", "girl", "dating", "psychology", "upper east side", "manhattan", "luxury"
@@ -805,8 +805,8 @@ class RemoteT2VRouter:
 
         if is_maya_gossip:
             return (
-                f"{prompt}, 21yo stunning gorgeous Upper East Side Gossip Girl baddie Maya, captivating hazel eyes, "
-                f"glossy lips, voluminous blonde brunette blowout hairstyle, luxury cream silk slip dress and designer outfit, delicate gold jewelry, "
+                f"{prompt}, 21yo stunning wild free-spirited Upper East Side Gossip Girl baddie Maya, wide mesmerizing crazy wild electric hazel eyes with intense hypnotic siren gaze, bold seductive direct eye contact into camera lens, "
+                f"glossy lips with playful radiant smirk, voluminous wind-blown blonde brunette messy blowout hairstyle, luxury cream silk slip dress and delicate gold jewelry, "
                 f"Manhattan penthouse balcony terrace overlooking skyline at golden hour, chic Upper East Side cafe terrace, "
                 f"Kodak Portra 400 35mm film still, soft golden hour lighting, shallow depth of field, photorealistic 8k, "
                 f"ultra-detailed skin texture, beautiful high fashion aesthetic, clean frame, strictly no text boxes, no subtitles, no watermark, no captions"
