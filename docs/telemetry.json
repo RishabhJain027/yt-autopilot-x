@@ -2,7 +2,7 @@
   "system_status": "HEALTHY",
   "channel_name": "Rishabh AI Studio",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T05:12:06.145027+00:00",
+  "last_updated": "2026-09-09T05:18:29.352027+00:00",
   "channels_count": 1,
   "channels": [
     {
@@ -18,7 +18,7 @@
   "productions_count": 1,
   "productions": [
     {
-      "id": "0595246e-f272-44b3-8b9f-aa3d90533930",
+      "id": "c8fe0800-ad9c-4021-8948-aab6bfc4077e",
       "title": "5 New AI Coding Assistants You Never Heard Of (Step-by-Step)",
       "hook": "Stop wasting 3 hours every day on repetitive tasks.",
       "status": "SCHEDULED",
@@ -31,7 +31,7 @@
         "#Shorts"
       ],
       "duration_seconds": 26.0,
-      "created_at": "2026-09-09T05:11:21.087433"
+      "created_at": "2026-09-09T05:17:09.734976"
     }
   ],
   "quota": {
