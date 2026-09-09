@@ -101,25 +101,21 @@ class VideoRenderer:
             except Exception as e:
                 logger.warning(f"[RENDER] Concat error: {e}")
 
-        # 2. Procedural Fallback Title Visual Animation
+        # 2. Procedural Fallback Ambient Visual Animation (NO TEXT OVERLAYS)
         scene_img_path = os.path.join(settings.STORAGE_ROOT, "scenes", f"{production_id}_slide.png")
         os.makedirs(os.path.dirname(scene_img_path), exist_ok=True)
         
-        img = Image.new("RGB", (width, height), color="#090D16")
+        img = Image.new("RGB", (width, height), color="#070A12")
         draw = ImageDraw.Draw(img)
         
-        for y in range(0, height, 40):
-            draw.line([(0, y), (width, y)], fill="#131B2E", width=1)
-        for x in range(0, width, 40):
-            draw.line([(x, 0), (x, height)], fill="#131B2E", width=1)
+        # Sleek dark ambient cybernetic background
+        center_y = height // 2
+        for radius in range(600, 0, -12):
+            alpha = int((1.0 - (radius / 600.0)) * 35)
+            draw.ellipse([width // 2 - radius, center_y - radius, width // 2 + radius, center_y + radius], fill=(alpha // 4, alpha, alpha + 25))
+        for y in range(0, height, 48):
+            draw.line([(0, y), (width, y)], fill=(8, 14, 28), width=1)
             
-        draw.rectangle([60, 120, width - 60, height - 120], outline="#38BDF8", width=4)
-        draw.rectangle([80, height // 3, width - 80, (height // 3) + 200], fill="#0284C7")
-        draw.text((120, 160), "WAN 2.1 / FLUX CLOUD AI", fill="#F43F5E")
-        
-        prompt_text = scenes[0].get("prompt", "AI Technology Brief")[:80] if scenes else "AI Technology Automation"
-        draw.text((120, (height // 3) + 80), prompt_text.upper(), fill="#FFFFFF")
-        
         img.save(scene_img_path, format="PNG")
 
         cmd = self.builder.build_scene_command(

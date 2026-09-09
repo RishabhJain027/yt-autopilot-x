@@ -189,29 +189,20 @@ class RemoteT2VRouter:
         # 2. Cloud Serverless Photorealistic AI Scene + Cinematic Camera Pan/Zoom Engine
         ai_frame_path = await self._fetch_cloud_ai_image(prompt, aspect_ratio=aspect_ratio)
         
-        # Fallback to high-contrast neon visual if network fails
+        # Fallback to sleek cinematic abstract ambient gradient if network fails (NO TEXT OVERLAYS)
         if not ai_frame_path or not os.path.exists(ai_frame_path):
             ai_frame_path = os.path.join(self.clips_dir, f"frame_{scene_id}_{int(time.time()*1000)%10000}.png")
-            img = Image.new("RGB", (width, height), color="#060913")
+            img = Image.new("RGB", (width, height), color="#080C14")
             draw = ImageDraw.Draw(img)
-            for y in range(0, height, 32):
-                val = int(12 + (y / height) * 45)
-                draw.line([(0, y), (width, y)], fill=(val // 2, val, val + 30), width=1)
-            draw.rectangle([50, 80, width - 50, height - 80], outline="#38BDF8", width=5)
-            draw.rectangle([70, height // 3, width - 70, (height // 3) + 240], fill="#0369A1")
-            draw.text((100, 120), "WAN2.1 / FLUX CLOUD AI", fill="#FB7185")
-            words = prompt.upper().split()
-            lines = []
-            cur = []
-            for w in words:
-                cur.append(w)
-                if len(" ".join(cur)) > 28:
-                    lines.append(" ".join(cur))
-                    cur = []
-            if cur:
-                lines.append(" ".join(cur))
-            for l_idx, line in enumerate(lines[:4]):
-                draw.text((100, (height // 3) + 40 + (l_idx * 40)), line, fill="#FFFFFF")
+            # Subtle futuristic atmospheric glow
+            center_y = height // 2
+            for radius in range(500, 0, -10):
+                alpha_intensity = int((1.0 - (radius / 500.0)) * 40)
+                color = (alpha_intensity // 3, alpha_intensity, alpha_intensity + 20)
+                draw.ellipse([width // 2 - radius, center_y - radius, width // 2 + radius, center_y + radius], fill=color)
+            for y in range(0, height, 48):
+                val = int(8 + (y / height) * 25)
+                draw.line([(0, y), (width, y)], fill=(val // 2, val, val + 15), width=1)
             img.save(ai_frame_path, format="PNG")
 
         dur_sec = max(2.5, float(duration))

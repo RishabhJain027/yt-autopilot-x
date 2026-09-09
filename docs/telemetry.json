@@ -3,7 +3,7 @@
   "channel_name": "Rishabh AI Studio",
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T05:43:19.277782+00:00",
+  "last_updated": "2026-09-09T06:00:13.515968+00:00",
   "channels_count": 1,
   "channels": [
     {
@@ -16,8 +16,26 @@
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 4,
+  "productions_count": 5,
   "productions": [
+    {
+      "id": "6107f8e6-90a7-4138-aca8-6f158bc464bb",
+      "title": "The Open Source AI Revolution Nobody is Talking About (Step-by-Step)",
+      "hook": "Hugging Face and open source AI just changed everything with The Open Source AI Revolution Nobody is Talking About!",
+      "status": "SCHEDULED",
+      "format": "shorts",
+      "tags": [
+        "#AI",
+        "#Automation",
+        "#Tech",
+        "#Productivity",
+        "#Shorts"
+      ],
+      "duration_seconds": 53.2,
+      "youtube_video_id": "NBJywq1TumI",
+      "youtube_url": "https://youtube.com/shorts/NBJywq1TumI",
+      "created_at": "2026-09-09T05:57:07.951351"
+    },
     {
       "id": "a5d5b9d3-1a6c-403d-be18-91e51349b1f6",
       "title": "DeepSeek-V3 Architecture: Why 671B Mixture-of-Experts Crushed Closed Models (Step-by-Step)",
@@ -88,7 +106,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Rishabh AI Studio",
-    "timestamp": "2026-09-09T05:43:19.276201+00:00",
+    "timestamp": "2026-09-09T06:00:13.514859+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -98,9 +116,9 @@
       "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 4,
-      "completed_productions": 3,
-      "daily_publishing_rate": "3/3 Shorts today",
+      "total_productions_created": 5,
+      "completed_productions": 4,
+      "daily_publishing_rate": "4/3 Shorts today",
       "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
     },
@@ -157,9 +175,9 @@
     }
   ],
   "quota": {
-    "used": 9600,
+    "used": 1600,
     "limit": 10000,
-    "remaining": 400
+    "remaining": 8400
   },
   "budget": {
     "daily_spent": 0.0,
