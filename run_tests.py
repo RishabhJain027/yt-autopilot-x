@@ -58,13 +58,16 @@ def test_quota_and_budget():
     from python.services.quota_manager import QuotaManager
     from python.services.budget_guard import BudgetGuard
 
-    qm = QuotaManager()
-    assert qm.can_afford('videos.insert') == True
-    rem_before = qm.get_remaining_quota()
-    qm.consume('videos.insert')
-    rem_after = qm.get_remaining_quota()
-    assert rem_before - rem_after == 1600
-    print("[-] Test 10,000 Unit YouTube Quota Manager: PASSED")
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmpdir:
+        test_quota_path = os.path.join(tmpdir, 'test_quota.json')
+        qm = QuotaManager(storage_path=test_quota_path)
+        assert qm.can_afford('videos.insert') == True
+        rem_before = qm.get_remaining_quota()
+        qm.consume('videos.insert')
+        rem_after = qm.get_remaining_quota()
+        assert rem_before - rem_after == 1600
+        print("[-] Test 10,000 Unit YouTube Quota Manager: PASSED")
 
     bg = BudgetGuard()
     cost = bg.estimate_cost('llm_tokens_1k', 10)
