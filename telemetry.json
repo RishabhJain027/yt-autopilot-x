@@ -4,9 +4,9 @@
   "youtube_channel_id": "UCOzdVylRBgYrewZ1Q3giwww",
   "persona": "Maya (Gossip Girl / Upper East Side Luxury Baddie)",
   "account_email": "27rk04@gmail.com",
-  "last_updated": "2026-09-09T09:31:31.950528+00:00",
+  "last_updated": "2026-09-12T04:10:23.991801+00:00",
   "publishing_cadence": "1 Video / Hour (Every 60 Minutes)",
-  "next_publish_seconds": 1709,
+  "next_publish_seconds": 2977,
   "channels_count": 1,
   "channels": [
     {
@@ -19,8 +19,86 @@
       "account_email": "27rk04@gmail.com"
     }
   ],
-  "productions_count": 16,
+  "productions_count": 17,
   "productions": [
+    {
+      "id": "cd882085-1aa2-4dd8-8a02-d1c2343e607d",
+      "title": "Spotted: POV \u2728 (Gossip Girl Secret)",
+      "hook": "Spotted: Maya spilling the juiciest tea on POV... come close, babes! \u2728",
+      "full_script": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "scenes": [
+        {
+          "scene_id": "scene_001",
+          "prompt": "",
+          "model": "MiniMax H3",
+          "duration": 6.0,
+          "camera": "3D Pan / Drift"
+        },
+        {
+          "scene_id": "scene_002",
+          "prompt": "",
+          "model": "MiniMax H3",
+          "duration": 6.0,
+          "camera": "3D Pan / Drift"
+        },
+        {
+          "scene_id": "scene_003",
+          "prompt": "",
+          "model": "MiniMax H3",
+          "duration": 6.0,
+          "camera": "3D Pan / Drift"
+        },
+        {
+          "scene_id": "scene_004",
+          "prompt": "",
+          "model": "MiniMax H3",
+          "duration": 6.0,
+          "camera": "3D Pan / Drift"
+        },
+        {
+          "scene_id": "scene_005",
+          "prompt": "",
+          "model": "MiniMax H3",
+          "duration": 6.0,
+          "camera": "3D Pan / Drift"
+        }
+      ],
+      "status": "PUBLISHED",
+      "format": "shorts",
+      "tags": [
+        "#shorts",
+        "#gossipgirl",
+        "#mayabaddie",
+        "#uppereastside",
+        "#datingsecrets",
+        "#psychologyhacks",
+        "#darkfeminine",
+        "#magnetic",
+        "#aesthetic",
+        "#glowup"
+      ],
+      "duration_seconds": 61.3,
+      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
+      "youtube_video_id": "91WdEjNx7Tg",
+      "youtube_url": "https://youtube.com/shorts/91WdEjNx7Tg",
+      "upload_status": "UPLOADED_LIVE",
+      "final_video_path": "./storage\\renders\\prod_cd882085-1aa2-4dd8-8a02-d1c2343e607d_final.mp4",
+      "voice_profile": "en-US-AvaNeural (Seductive Velvety Voiceover)",
+      "boost_score": 98.8,
+      "predicted_ctr": 14.8,
+      "predicted_retention": 91.5,
+      "views": 69650,
+      "likes": 7800,
+      "shares": 3343,
+      "comments": 1671,
+      "created_at": "2026-09-12T04:07:18.010080"
+    },
     {
       "id": "40f9e64e-2e4b-4809-ab13-d46e67cc04b6",
       "title": "Spotted: The Dark Velvet Voice Effect \u2728 (Gossip Girl Secret)",
@@ -69,7 +147,7 @@
           "camera": "3D Pan / Drift"
         }
       ],
-      "status": "SCHEDULED",
+      "status": "PUBLISHED",
       "format": "shorts",
       "tags": [
         "#shorts",
@@ -84,10 +162,10 @@
         "#glowup"
       ],
       "duration_seconds": 66.3,
-      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
-      "youtube_video_id": "yt_1788946291",
-      "youtube_url": "https://youtube.com/shorts/yt_1788946291",
-      "upload_status": "UPLOADED",
+      "thumbnail_url": "assets/maya/maya_scene_2.jpg",
+      "youtube_video_id": "9_ZGqJcJAdc",
+      "youtube_url": "https://youtube.com/shorts/9_ZGqJcJAdc",
+      "upload_status": "UPLOADED_LIVE",
       "final_video_path": "./storage\\renders\\prod_40f9e64e-2e4b-4809-ab13-d46e67cc04b6_final.mp4",
       "voice_profile": "en-US-AvaNeural (Seductive Velvety Voiceover)",
       "boost_score": 98.8,
@@ -147,7 +225,7 @@
           "camera": "3D Pan / Drift"
         }
       ],
-      "status": "SCHEDULED",
+      "status": "PUBLISHED",
       "format": "shorts",
       "tags": [
         "#shorts",
@@ -162,10 +240,10 @@
         "#glowup"
       ],
       "duration_seconds": 62.3,
-      "thumbnail_url": "assets/maya/maya_scene_2.jpg",
-      "youtube_video_id": "yt_1788945662",
-      "youtube_url": "https://youtube.com/shorts/yt_1788945662",
-      "upload_status": "UPLOADED",
+      "thumbnail_url": "assets/maya/maya_scene_3.jpg",
+      "youtube_video_id": "3IG-8vW2zIY",
+      "youtube_url": "https://youtube.com/shorts/3IG-8vW2zIY",
+      "upload_status": "UPLOADED_LIVE",
       "final_video_path": "./storage\\renders\\prod_da3d1018-4bef-46ff-801d-78874096fc67_final.mp4",
       "voice_profile": "en-US-AvaNeural (Seductive Velvety Voiceover)",
       "boost_score": 98.8,
@@ -225,7 +303,7 @@
           "camera": "3D Pan / Drift"
         }
       ],
-      "status": "SCHEDULED",
+      "status": "PUBLISHED",
       "format": "shorts",
       "tags": [
         "#shorts",
@@ -240,10 +318,10 @@
         "#glowup"
       ],
       "duration_seconds": 75.3,
-      "thumbnail_url": "assets/maya/maya_scene_3.jpg",
-      "youtube_video_id": "yt_1788944926",
-      "youtube_url": "https://youtube.com/shorts/yt_1788944926",
-      "upload_status": "UPLOADED",
+      "thumbnail_url": "assets/maya/maya_scene_4.jpg",
+      "youtube_video_id": "BlvuLpj6yIw",
+      "youtube_url": "https://youtube.com/shorts/BlvuLpj6yIw",
+      "upload_status": "UPLOADED_LIVE",
       "final_video_path": "./storage\\renders\\prod_ca3e5734-4af1-4c8c-bedd-4ed3659f483f_final.mp4",
       "voice_profile": "en-US-AvaNeural (Seductive Velvety Voiceover)",
       "boost_score": 98.8,
@@ -303,7 +381,7 @@
           "camera": "3D Pan / Drift"
         }
       ],
-      "status": "SCHEDULED",
+      "status": "PUBLISHED",
       "format": "shorts",
       "tags": [
         "#shorts",
@@ -318,10 +396,10 @@
         "#glowup"
       ],
       "duration_seconds": 66.1,
-      "thumbnail_url": "assets/maya/maya_scene_4.jpg",
-      "youtube_video_id": "yt_1788943403",
-      "youtube_url": "https://youtube.com/shorts/yt_1788943403",
-      "upload_status": "UPLOADED",
+      "thumbnail_url": "assets/maya/maya_scene_5.jpg",
+      "youtube_video_id": "IDpEPdR_98w",
+      "youtube_url": "https://youtube.com/shorts/IDpEPdR_98w",
+      "upload_status": "UPLOADED_LIVE",
       "final_video_path": "./storage\\renders\\prod_f5d9e06a-10b6-4777-9110-9232ab593c57_final.mp4",
       "voice_profile": "en-US-AvaNeural (Seductive Velvety Voiceover)",
       "boost_score": 98.8,
@@ -381,7 +459,7 @@
           "camera": "3D Pan / Drift"
         }
       ],
-      "status": "QA_PENDING",
+      "status": "FAILED",
       "format": "shorts",
       "tags": [
         "#shorts",
@@ -396,10 +474,10 @@
         "#glowup"
       ],
       "duration_seconds": 56.6,
-      "thumbnail_url": "assets/maya/maya_scene_5.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
       "youtube_video_id": "yt_1788923329",
       "youtube_url": "https://youtube.com/shorts/yt_1788923329",
-      "upload_status": "QA_PENDING",
+      "upload_status": "FAILED",
       "final_video_path": "./storage\\renders\\prod_99f68587-2971-46d9-a733-fa139318a59b_final.mp4",
       "voice_profile": "en-US-AvaNeural (Seductive Velvety Voiceover)",
       "boost_score": 98.8,
@@ -474,7 +552,7 @@
         "#glowup"
       ],
       "duration_seconds": 63.1,
-      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_2.jpg",
       "youtube_video_id": "HwEqajXy-Ws",
       "youtube_url": "https://youtube.com/shorts/HwEqajXy-Ws",
       "upload_status": "UPLOADED_LIVE",
@@ -552,7 +630,7 @@
         "#glowup"
       ],
       "duration_seconds": 62.7,
-      "thumbnail_url": "assets/maya/maya_scene_2.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_3.jpg",
       "youtube_video_id": "z593RI9Sl3E",
       "youtube_url": "https://youtube.com/shorts/z593RI9Sl3E",
       "upload_status": "UPLOADED_LIVE",
@@ -630,7 +708,7 @@
         "#glowup"
       ],
       "duration_seconds": 64.0,
-      "thumbnail_url": "assets/maya/maya_scene_3.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_4.jpg",
       "youtube_video_id": "Myrt57Jtzpo",
       "youtube_url": "https://youtube.com/shorts/Myrt57Jtzpo",
       "upload_status": "UPLOADED_LIVE",
@@ -708,7 +786,7 @@
         "#glowup"
       ],
       "duration_seconds": 70.4,
-      "thumbnail_url": "assets/maya/maya_scene_4.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_5.jpg",
       "youtube_video_id": "j79QZ17iNw8",
       "youtube_url": "https://youtube.com/shorts/j79QZ17iNw8",
       "upload_status": "UPLOADED_LIVE",
@@ -784,7 +862,7 @@
         "#relatable"
       ],
       "duration_seconds": 44.4,
-      "thumbnail_url": "assets/maya/maya_scene_5.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
       "youtube_video_id": "KWftaCebdnk",
       "youtube_url": "https://youtube.com/shorts/KWftaCebdnk",
       "upload_status": "UPLOADED_LIVE",
@@ -857,7 +935,7 @@
         "#Shorts"
       ],
       "duration_seconds": 56.8,
-      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_2.jpg",
       "youtube_video_id": "3-atoHk61Tw",
       "youtube_url": "https://youtube.com/shorts/3-atoHk61Tw",
       "upload_status": "UPLOADED_LIVE",
@@ -930,7 +1008,7 @@
         "#Shorts"
       ],
       "duration_seconds": 53.2,
-      "thumbnail_url": "assets/maya/maya_scene_2.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_3.jpg",
       "youtube_video_id": "NBJywq1TumI",
       "youtube_url": "https://youtube.com/shorts/NBJywq1TumI",
       "upload_status": "UPLOADED_LIVE",
@@ -1003,7 +1081,7 @@
         "#Shorts"
       ],
       "duration_seconds": 50.8,
-      "thumbnail_url": "assets/maya/maya_scene_3.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_4.jpg",
       "youtube_video_id": "xzkmLshYmL0",
       "youtube_url": "https://youtube.com/shorts/xzkmLshYmL0",
       "upload_status": "UPLOADED_LIVE",
@@ -1066,7 +1144,7 @@
           "camera": "3D Pan / Drift"
         }
       ],
-      "status": "RENDERING",
+      "status": "FAILED",
       "format": "shorts",
       "tags": [
         "#GossipGirl",
@@ -1077,10 +1155,10 @@
         "#Viral"
       ],
       "duration_seconds": 52.4,
-      "thumbnail_url": "assets/maya/maya_scene_4.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_5.jpg",
       "youtube_video_id": "yt_1788912184",
       "youtube_url": "https://youtube.com/shorts/yt_1788912184",
-      "upload_status": "RENDERING",
+      "upload_status": "FAILED",
       "final_video_path": "storage/renders/prod_303795d6-2559-4c4c-9ea4-19768020f6f0_final.mp4",
       "voice_profile": "en-US-AvaNeural (Seductive Velvety Voiceover)",
       "boost_score": 98.8,
@@ -1150,7 +1228,7 @@
         "#Shorts"
       ],
       "duration_seconds": 26.0,
-      "thumbnail_url": "assets/maya/maya_scene_5.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
       "youtube_video_id": "UoL2ssZGRIc",
       "youtube_url": "https://youtube.com/shorts/UoL2ssZGRIc",
       "upload_status": "UPLOADED_LIVE",
@@ -1223,7 +1301,7 @@
         "#Shorts"
       ],
       "duration_seconds": 26.0,
-      "thumbnail_url": "assets/maya/maya_scene_1.jpg",
+      "thumbnail_url": "assets/maya/maya_scene_2.jpg",
       "youtube_video_id": "epotsmcB_Co",
       "youtube_url": "https://youtube.com/shorts/epotsmcB_Co",
       "upload_status": "UPLOADED_LIVE",
@@ -1242,9 +1320,9 @@
   "hourly_schedule": [
     {
       "slot_index": 1,
-      "scheduled_time": "2026-09-09T10:00:00+00:00",
-      "formatted_time": "10:00 AM UTC",
-      "seconds_remaining": 1708,
+      "scheduled_time": "2026-09-12T05:00:00+00:00",
+      "formatted_time": "05:00 AM UTC",
+      "seconds_remaining": 2976,
       "topic": "Why Being Unbothered & Clumsy Makes You 10x More Magnetic",
       "status": "READY_NEXT",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1252,9 +1330,9 @@
     },
     {
       "slot_index": 2,
-      "scheduled_time": "2026-09-09T10:00:00+00:00",
-      "formatted_time": "10:00 AM UTC",
-      "seconds_remaining": 1708,
+      "scheduled_time": "2026-09-12T05:00:00+00:00",
+      "formatted_time": "05:00 AM UTC",
+      "seconds_remaining": 2976,
       "topic": "The Cleopatra Scent & Voice Secret That Charms Everyone",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1262,9 +1340,9 @@
     },
     {
       "slot_index": 3,
-      "scheduled_time": "2026-09-09T11:00:00+00:00",
-      "formatted_time": "11:00 AM UTC",
-      "seconds_remaining": 5308,
+      "scheduled_time": "2026-09-12T06:00:00+00:00",
+      "formatted_time": "06:00 AM UTC",
+      "seconds_remaining": 6576,
       "topic": "The Psychology of the Dark Feminine Gaze: How to Speak With Your Eyes",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1272,9 +1350,9 @@
     },
     {
       "slot_index": 4,
-      "scheduled_time": "2026-09-09T12:00:00+00:00",
-      "formatted_time": "12:00 PM UTC",
-      "seconds_remaining": 8908,
+      "scheduled_time": "2026-09-12T07:00:00+00:00",
+      "formatted_time": "07:00 AM UTC",
+      "seconds_remaining": 10176,
       "topic": "Spotted: Why Gossip Girl Characters Always Win Social Influence",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1282,9 +1360,9 @@
     },
     {
       "slot_index": 5,
-      "scheduled_time": "2026-09-09T13:00:00+00:00",
-      "formatted_time": "01:00 PM UTC",
-      "seconds_remaining": 12508,
+      "scheduled_time": "2026-09-12T08:00:00+00:00",
+      "formatted_time": "08:00 AM UTC",
+      "seconds_remaining": 13776,
       "topic": "The 5-Second Silence Rule That Compels People to Tell You Everything",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1292,9 +1370,9 @@
     },
     {
       "slot_index": 6,
-      "scheduled_time": "2026-09-09T14:00:00+00:00",
-      "formatted_time": "02:00 PM UTC",
-      "seconds_remaining": 16108,
+      "scheduled_time": "2026-09-12T09:00:00+00:00",
+      "formatted_time": "09:00 AM UTC",
+      "seconds_remaining": 17376,
       "topic": "How to Radiate Effortless Luxury Aesthetic Without Spending Money",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1302,9 +1380,9 @@
     },
     {
       "slot_index": 7,
-      "scheduled_time": "2026-09-09T15:00:00+00:00",
-      "formatted_time": "03:00 PM UTC",
-      "seconds_remaining": 19708,
+      "scheduled_time": "2026-09-12T10:00:00+00:00",
+      "formatted_time": "10:00 AM UTC",
+      "seconds_remaining": 20976,
       "topic": "The Mirroring Magnetism Trick: Make Anyone Instantly Connect With You",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1312,9 +1390,9 @@
     },
     {
       "slot_index": 8,
-      "scheduled_time": "2026-09-09T16:00:00+00:00",
-      "formatted_time": "04:00 PM UTC",
-      "seconds_remaining": 23308,
+      "scheduled_time": "2026-09-12T11:00:00+00:00",
+      "formatted_time": "11:00 AM UTC",
+      "seconds_remaining": 24576,
       "topic": "Why Mysterious Girls Go Viral: The Hidden Art of Scarcity",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1322,9 +1400,9 @@
     },
     {
       "slot_index": 9,
-      "scheduled_time": "2026-09-09T17:00:00+00:00",
-      "formatted_time": "05:00 PM UTC",
-      "seconds_remaining": 26908,
+      "scheduled_time": "2026-09-12T12:00:00+00:00",
+      "formatted_time": "12:00 PM UTC",
+      "seconds_remaining": 28176,
       "topic": "Why Being Unbothered & Clumsy Makes You 10x More Magnetic",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1332,9 +1410,9 @@
     },
     {
       "slot_index": 10,
-      "scheduled_time": "2026-09-09T18:00:00+00:00",
-      "formatted_time": "06:00 PM UTC",
-      "seconds_remaining": 30508,
+      "scheduled_time": "2026-09-12T13:00:00+00:00",
+      "formatted_time": "01:00 PM UTC",
+      "seconds_remaining": 31776,
       "topic": "The Cleopatra Scent & Voice Secret That Charms Everyone",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1342,9 +1420,9 @@
     },
     {
       "slot_index": 11,
-      "scheduled_time": "2026-09-09T19:00:00+00:00",
-      "formatted_time": "07:00 PM UTC",
-      "seconds_remaining": 34108,
+      "scheduled_time": "2026-09-12T14:00:00+00:00",
+      "formatted_time": "02:00 PM UTC",
+      "seconds_remaining": 35376,
       "topic": "The Psychology of the Dark Feminine Gaze: How to Speak With Your Eyes",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1352,9 +1430,9 @@
     },
     {
       "slot_index": 12,
-      "scheduled_time": "2026-09-09T20:00:00+00:00",
-      "formatted_time": "08:00 PM UTC",
-      "seconds_remaining": 37708,
+      "scheduled_time": "2026-09-12T15:00:00+00:00",
+      "formatted_time": "03:00 PM UTC",
+      "seconds_remaining": 38976,
       "topic": "Spotted: Why Gossip Girl Characters Always Win Social Influence",
       "status": "SCHEDULED_QUEUE",
       "allocated_model": "MiniMax H3 / Kandinsky 5.0 19B",
@@ -1364,6 +1442,11 @@
   "analytics_graphs": {
     "hourly_publishing": {
       "labels": [
+        "17:00",
+        "18:00",
+        "19:00",
+        "20:00",
+        "21:00",
         "22:00",
         "23:00",
         "00:00",
@@ -1382,12 +1465,7 @@
         "13:00",
         "14:00",
         "15:00",
-        "16:00",
-        "17:00",
-        "18:00",
-        "19:00",
-        "20:00",
-        "21:00"
+        "16:00"
       ],
       "past_views": [
         1200,
@@ -1527,7 +1605,7 @@
   "goal_tracking": {
     "channel_id": "7219e850-2393-4c82-8e07-1ab211a5d1b3",
     "channel_name": "Maya \u2728 Cutie Baddie",
-    "timestamp": "2026-09-09T09:31:31.949087+00:00",
+    "timestamp": "2026-09-12T04:10:23.622167+00:00",
     "targets": {
       "target_subscribers": 10000,
       "target_monthly_views": 500000,
@@ -1537,9 +1615,9 @@
       "monetization_watch_hours_target": 4000
     },
     "current_progress": {
-      "total_productions_created": 16,
-      "completed_productions": 14,
-      "daily_publishing_rate": "14/3 Shorts today",
+      "total_productions_created": 17,
+      "completed_productions": 15,
+      "daily_publishing_rate": "15/3 Shorts today",
       "pace_compliance_pct": 100.0,
       "pipeline_readiness": "OPTIMAL"
     },

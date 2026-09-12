@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timezone, timedelta
 from sqlalchemy.future import select
 from database.connection import AsyncSessionLocal
@@ -82,15 +83,23 @@ class HourlyTickOrchestrator:
                                 )
                                 if upload_res.get("upload_status") == "UPLOADED_LIVE":
                                     sched.status = "PUBLISHED"
-                                    yt_vid = YouTubeVideo(
-                                        production_id=sched.id,
-                                        youtube_video_id=upload_res.get("youtube_video_id"),
-                                        upload_status=upload_res.get("upload_status"),
-                                        privacy_status=upload_res.get("privacy_status"),
-                                        contains_synthetic_media=True,
-                                        response_json=upload_res
-                                    )
-                                    session.add(yt_vid)
+                                    yt_res = await session.execute(select(YouTubeVideo).where(YouTubeVideo.production_id == sched.id))
+                                    yt_vid = yt_res.scalars().first()
+                                    if yt_vid:
+                                        yt_vid.youtube_video_id = upload_res.get("youtube_video_id")
+                                        yt_vid.upload_status = upload_res.get("upload_status")
+                                        yt_vid.privacy_status = upload_res.get("privacy_status")
+                                        yt_vid.response_json = upload_res
+                                    else:
+                                        yt_vid = YouTubeVideo(
+                                            production_id=sched.id,
+                                            youtube_video_id=upload_res.get("youtube_video_id"),
+                                            upload_status=upload_res.get("upload_status"),
+                                            privacy_status=upload_res.get("privacy_status"),
+                                            contains_synthetic_media=True,
+                                            response_json=upload_res
+                                        )
+                                        session.add(yt_vid)
                                     await session.commit()
                                     logger.info(f"[HOURLY_TICK] Scheduled production {sched.id} successfully pushed LIVE to YouTube! (Video ID: {upload_res.get('youtube_video_id')})")
                             except Exception as ue:

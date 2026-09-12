@@ -173,17 +173,32 @@ class PipelineOrchestrator:
                     tags=pub_dict.get("tags", seo_pkg.tags),
                     contains_synthetic_media=True
                 )
-                yt_vid = YouTubeVideo(
-                    production_id=prod.id,
-                    youtube_video_id=upload_res.get('youtube_video_id'),
-                    upload_status=upload_res.get('upload_status'),
-                    privacy_status=upload_res.get('privacy_status'),
-                    contains_synthetic_media=upload_res.get('contains_synthetic_media', True),
-                    response_json=upload_res
-                )
-                session.add(yt_vid)
+                
+                # Upsert YouTubeVideo
+                yt_res = await session.execute(select(YouTubeVideo).where(YouTubeVideo.production_id == prod.id))
+                yt_vid = yt_res.scalars().first()
+                if yt_vid:
+                    yt_vid.youtube_video_id = upload_res.get('youtube_video_id')
+                    yt_vid.upload_status = upload_res.get('upload_status')
+                    yt_vid.privacy_status = upload_res.get('privacy_status')
+                    yt_vid.contains_synthetic_media = upload_res.get('contains_synthetic_media', True)
+                    yt_vid.response_json = upload_res
+                else:
+                    yt_vid = YouTubeVideo(
+                        production_id=prod.id,
+                        youtube_video_id=upload_res.get('youtube_video_id'),
+                        upload_status=upload_res.get('upload_status'),
+                        privacy_status=upload_res.get('privacy_status'),
+                        contains_synthetic_media=upload_res.get('contains_synthetic_media', True),
+                        response_json=upload_res
+                    )
+                    session.add(yt_vid)
+                
                 prod.status = state_machine.transition(prod.status, 'UPLOADING', prod.id, prod.channel_id)
-                prod.status = state_machine.transition(prod.status, 'SCHEDULED', prod.id, prod.channel_id)
+                if upload_res.get('upload_status') == 'UPLOADED_LIVE':
+                    prod.status = state_machine.transition(prod.status, 'PUBLISHED', prod.id, prod.channel_id)
+                else:
+                    prod.status = state_machine.transition(prod.status, 'SCHEDULED', prod.id, prod.channel_id)
             else:
                 # Approval-first mode: send to Review Studio
                 prod.status = state_machine.transition(prod.status, 'REVIEW_PENDING', prod.id, prod.channel_id)
